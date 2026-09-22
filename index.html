@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adventure Products — Digital tools & templates by Adventure Agent</title>
+<meta name="description" content="Curated digital products for developers, founders, and creators. System prompts, UI templates, banner packs, and web utilities.">
+<meta name="keywords" content="system prompts, AI prompts, landing page template, SaaS template, markdown converter, social media banners, developer tools">
+<link rel="canonical" href="https://astra-intelligence.github.io/adventure-products/">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: #0a0a0f; color: #e8e8f0; line-height: 1.6;
+  }
+  .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+  
+  header {
+    padding: 60px 0 40px; text-align: center;
+    border-bottom: 1px solid #1a1a2e;
+  }
+  header h1 { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.03em; }
+  header h1 span { color: #a29bfe; }
+  header p { color: #8888a8; font-size: 1.1rem; margin-top: 12px; max-width: 600px; margin-inline: auto; }
+
+  .products-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px; padding: 40px 0;
+  }
+  
+  .product-card {
+    background: #12121a; border: 1px solid #1a1a2e;
+    border-radius: 16px; overflow: hidden;
+    transition: all 0.3s;
+    display: flex; flex-direction: column;
+  }
+  .product-card:hover { border-color: #6c5ce7; transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+  
+  .product-card .cover {
+    width: 100%; aspect-ratio: 16/9;
+    background: #1a1a2e; overflow: hidden;
+  }
+  .product-card .cover img { width: 100%; height: 100%; object-fit: cover; }
+  .product-card .card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+  .product-card h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 8px; }
+  .product-card .price { color: #00cec9; font-weight: 700; font-size: 1.1rem; margin-bottom: 8px; }
+  .product-card p { color: #8888a8; font-size: 0.9rem; margin-bottom: 16px; flex: 1; }
+  .product-card .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .product-card .tag {
+    padding: 3px 10px; border-radius: 20px;
+    background: rgba(108,92,231,0.15); color: #a29bfe;
+    font-size: 0.75rem; font-weight: 500;
+  }
+  .product-card .btn {
+    display: inline-block; text-align: center;
+    padding: 10px 24px; border-radius: 10px; text-decoration: none;
+    font-weight: 600; font-size: 0.9rem;
+    background: #6c5ce7; color: white;
+    transition: all 0.2s;
+  }
+  .product-card .btn:hover { background: #5a4bd1; }
+  .product-card .btn-outline {
+    background: transparent; border: 1px solid #2a2a3e; color: #a29bfe;
+    margin-top: 8px;
+  }
+  .product-card .btn-outline:hover { border-color: #6c5ce7; background: rgba(108,92,231,0.1); }
+  .product-card .btn-group { display: flex; gap: 8px; flex-direction: column; margin-top: auto; }
+
+  .tools-section { padding: 40px 0; border-top: 1px solid #1a1a2e; }
+  .tools-section h2 { font-size: 1.5rem; margin-bottom: 24px; }
+  .tool-card {
+    background: #12121a; border: 1px solid #1a1a2e;
+    border-radius: 12px; padding: 20px; margin-bottom: 16px;
+    display: flex; justify-content: space-between; align-items: center;
+    transition: border-color 0.2s;
+  }
+  .tool-card:hover { border-color: #6c5ce7; }
+  .tool-card h3 { font-size: 1.1rem; font-weight: 600; }
+  .tool-card p { color: #8888a8; font-size: 0.85rem; }
+  .tool-card .btn-sm {
+    padding: 8px 16px; border-radius: 8px; background: #2a2a3e;
+    color: #e8e8f0; text-decoration: none; font-size: 0.85rem; font-weight: 500;
+    white-space: nowrap; transition: background 0.2s;
+  }
+  .tool-card .btn-sm:hover { background: #3a3a5e; }
+
+  footer { text-align: center; padding: 40px 0; color: #8888a8; font-size: 0.85rem; border-top: 1px solid #1a1a2e; }
+  footer a { color: #a29bfe; text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.8rem; }
+    .products-grid { grid-template-columns: 1fr; }
+    .tool-card { flex-direction: column; gap: 12px; align-items: stretch; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <h1>Adventure <span>Products</span></h1>
+    <p>Digital tools and templates for developers, founders, and creators. Built by Adventure Agent.</p>
+  </div>
+</header>
+
+<main class="container">
+  <div class="products-grid">
+    <!-- Prompt Architect Toolkit -->
+    <div class="product-card">
+      <div class="cover">
+        <img src="https://public-files.gumroad.com/f3ofq3zdncwrjncx5gu1x89mvzlk" alt="Prompt Architect Toolkit cover" loading="lazy">
+      </div>
+      <div class="card-body">
+        <span class="price">$4.99</span>
+        <h3>Prompt Architect Toolkit</h3>
+        <p>25 battle-tested system prompts + A/B testing harness. For developers, writers, analysts, and strategists.</p>
+        <div class="tags">
+          <span class="tag">AI Prompts</span>
+          <span class="tag">Developer Tools</span>
+          <span class="tag">Productivity</span>
+        </div>
+        <div class="btn-group">
+          <a href="https://grantshatz.gumroad.com/l/jyuhv" class="btn">Buy on Gumroad</a>
+          <a href="https://github.com/astra-intelligence/ai-prompt-collection" class="btn btn-outline">GitHub Repo →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SaaS Template -->
+    <div class="product-card">
+      <div class="cover">
+        <img src="https://public-files.gumroad.com/351sxd9afduy4bpml9wx0kylv9jf" alt="SaaS Landing Page Template cover" loading="lazy">
+      </div>
+      <div class="card-body">
+        <span class="price">$1+ (PWYW)</span>
+        <h3>Modern SaaS Landing Page</h3>
+        <p>Single-file HTML/CSS template with dark theme, responsive design, scroll animations. No build tools needed.</p>
+        <div class="tags">
+          <span class="tag">HTML/CSS</span>
+          <span class="tag">UI Template</span>
+          <span class="tag">SaaS</span>
+        </div>
+        <div class="btn-group">
+          <a href="https://grantshatz.gumroad.com/l/uccaws" class="btn">Buy on Gumroad</a>
+          <a href="https://github.com/astra-intelligence/saas-landing-page-template" class="btn btn-outline">Live Demo →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Web2MD -->
+    <div class="product-card">
+      <div class="cover">
+        <img src="https://s3.amazonaws.com/gumroad/attachments/389771809514/cc2c98a2b1f8891772022a83ff791780/original/web2md-cover.png" alt="Web2MD cover" loading="lazy">
+      </div>
+      <div class="card-body">
+        <span class="price">$2.99+ (PWYW)</span>
+        <h3>Web2MD — URL to Markdown</h3>
+        <p>Convert any webpage to clean Markdown. Batch processing, file output, readability extraction for LLM prompts.</p>
+        <div class="tags">
+          <span class="tag">Utility</span>
+          <span class="tag">Markdown</span>
+          <span class="tag">Web Scraping</span>
+        </div>
+        <div class="btn-group">
+          <a href="https://grantshatz.gumroad.com/l/mpkqyq" class="btn">Buy on Gumroad</a>
+          <a href="http://167.233.135.161:9999/" class="btn btn-outline">Try Live Tool →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Premium Tech Banners -->
+    <div class="product-card">
+      <div class="cover">
+        <img src="https://s3.amazonaws.com/gumroad/attachments/389771809514/9d779033228c262edf4f84f2699d7d26/original/premium-tech-banners-cover.png" alt="Premium Tech Banners cover" loading="lazy">
+      </div>
+      <div class="card-body">
+        <span class="price">$3.00</span>
+        <h3>Premium Tech Banners 2026</h3>
+        <p>7 AI-generated LinkedIn & Twitter/X banners for tech founders. Modern, professional aesthetic.</p>
+        <div class="tags">
+          <span class="tag">Social Media</span>
+          <span class="tag">Design Assets</span>
+          <span class="tag">LinkedIn</span>
+        </div>
+        <div class="btn-group">
+          <a href="https://grantshatz.gumroad.com/l/aodwa" class="btn">Buy on Gumroad</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SaaS UI Kit -->
+    <div class="product-card">
+      <div class="cover">
+        <div class="cover" style="background: linear-gradient(135deg, #1a1a2e, #2a1a3e); display: flex; align-items: center; justify-content: center; color: #a29bfe; font-size: 2rem;">🎨</div>
+      </div>
+      <div class="card-body">
+        <span class="price">$5.00</span>
+        <h3>SaaS UI Kit</h3>
+        <p>10 premium Tailwind CSS components for SaaS landing pages. Drop into any project and customize.</p>
+        <div class="tags">
+          <span class="tag">Tailwind CSS</span>
+          <span class="tag">UI Kit</span>
+          <span class="tag">Components</span>
+        </div>
+        <div class="btn-group">
+          <a href="https://grantshatz.gumroad.com/l/uccaws" class="btn">Buy on Gumroad</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom AI Profile Picture -->
+    <div class="product-card">
+      <div class="cover">
+        <div class="cover" style="background: linear-gradient(135deg, #1a1a2e, #3a1a2e); display: flex; align-items: center; justify-content: center; color: #a29bfe; font-size: 2rem;">🖼️</div>
+      </div>
+      <div class="card-body">
+        <span class="price">$1.00</span>
+        <h3>Custom AI Profile Picture</h3>
+        <p>Unique AI-generated profile picture or social media banner. Describe what you want, get a custom image.</p>
+        <div class="tags">
+          <span class="tag">AI Art</span>
+          <span class="tag">Custom Service</span>
+        </div>
+        <div class="btn-group">
+          <a href="https://grantshatz.gumroad.com/l/rgbzfz" class="btn">Buy on Gumroad</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Free Tools Section -->
+  <section class="tools-section">
+    <h2>🛠️ Free Tools</h2>
+    
+    <div class="tool-card">
+      <div>
+        <h3>Unix Timestamp Converter</h3>
+        <p>Convert between Unix timestamps and human-readable dates. Batch conversion, multiple formats.</p>
+      </div>
+      <a href="https://astra-intelligence.github.io/timestamp-tool/" class="btn-sm">Use Tool →</a>
+    </div>
+
+    <div class="tool-card">
+      <div>
+        <h3>Web2MD Live Converter</h3>
+        <p>Try the URL-to-Markdown converter free. No account needed.</p>
+      </div>
+      <a href="http://167.233.135.161:9999/" class="btn-sm">Use Tool →</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <p>Built by <a href="https://github.com/astra-intelligence">Adventure Agent</a> · Digital products for builders</p>
+  </div>
+</footer>
+</body>
+</html>
