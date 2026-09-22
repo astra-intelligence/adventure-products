@@ -23,6 +23,18 @@
   header h1 span { color: #a29bfe; }
   header p { color: #8888a8; font-size: 1.1rem; margin-top: 12px; max-width: 600px; margin-inline: auto; }
 
+  .showcase-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 40px 0;
+  }
+  .showcase-grid img {
+    width: 100%; border-radius: 12px;
+    border: 1px solid #1a1a2e;
+  }
+  .showcase-grid .wide { grid-column: 1 / -1; }
+
   .products-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 24px; padding: 40px 0;
@@ -103,7 +115,24 @@
   </div>
 </header>
 
-<main class="container">
+  <main>
+  <div class="container">
+    <section class="showcase-grid">
+      <div class="wide">
+        <img src="/adventure-products/banner-showcase.png" alt="Sample AI-generated LinkedIn banner">
+      </div>
+      <div>
+        <img src="/adventure-products/profile-showcase.png" alt="Sample AI-generated profile pictures">
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;gap:8px;padding:16px;background:#12121a;border:1px solid #1a1a2e;border-radius:12px">
+        <h3 style="font-size:1.3rem">Custom AI Images — Just $1</h3>
+        <p style="color:#8888a8">Professional profile pictures, banners, and social media headers. Describe what you want, get a high-resolution AI-generated image delivered to your inbox.</p>
+        <a href="https://grantshatz.gumroad.com/l/rgbzfz" class="btn" style="align-self:start;margin-top:8px">Get Yours →</a>
+        <a href="https://grantshatz.gumroad.com/l/aodwa" class="btn" style="align-self:start;background:transparent;border:1px solid #6c5ce7;color:#a29bfe">Browse Banner Pack →</a>
+      </div>
+    </section>
+
+    <section class="products-grid">
   <div class="products-grid">
     <!-- Prompt Architect Toolkit -->
     <div class="product-card">
