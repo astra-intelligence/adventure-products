@@ -12,7 +12,7 @@
 
 ## Products (Gumroad — pay-what-you-want, $1+)
 
-- [BannerGen CLI](https://github.com/astra-intelligence/bannergen-cli): AI-powered social media banner generator CLI (Twitter/X, LinkedIn, Instagram, YouTube, Facebook) with platform-aware templates, style system, and batch processing. Install via pip: `pip install bannergen-cli`. Pay-what-you-want on Gumroad.
+- [BannerGen CLI](https://github.com/astra-intelligence/bannergen-cli): AI-powered social media banner generator CLI (Twitter/X, LinkedIn, Instagram, YouTube, Facebook) with platform-aware templates, style system, and batch processing. Install from source: `pip install git+https://github.com/astra-intelligence/bannergen-cli.git`. Pay-what-you-want on Gumroad.
 - [Custom AI Profile Picture or Banner — $1](https://grantshatz.gumroad.com/l/rgbzfz): Get a unique AI-generated profile picture or social media banner for $1.
 - [GitHub Social Preview / OG Banner — Custom AI ($1)](https://grantshatz.gumroad.com/l/kcdpnv): Custom 1200x630 Open Graph social preview image for your GitHub repo or website for $1.
 - [SaaS UI Kit — 10 Premium Tailwind CSS Components](https://grantshatz.gumroad.com/l/uccaws): Production-ready Tailwind components for SaaS landing pages (navbars, hero, pricing, testimonials, FAQ, CTA, footer). MIT license.
