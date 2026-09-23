@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" font-family="'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0d1117"/>
+      <stop offset="1" stop-color="#161b22"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f0883e"/>
+      <stop offset="1" stop-color="#f6c177"/>
+    </linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#3fb950"/>
+      <stop offset="1" stop-color="#56d364"/>
+    </linearGradient>
+    <linearGradient id="red" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f85149"/>
+      <stop offset="1" stop-color="#ff7b72"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+
+  <!-- Header -->
+  <rect x="60" y="50" width="1480" height="120" rx="16" fill="#1c2128" stroke="#30363d"/>
+  <text x="90" y="102" font-size="44" font-weight="700" fill="#f0f6fc">Proof of Antiquity in 60 Seconds</text>
+  <text x="90" y="148" font-size="22" fill="#8b949e">How RustChain rewards real, old hardware — and rejects virtual machines</text>
+
+  <!-- Panel 1: 1 CPU = 1 vote -->
+  <rect x="60" y="200" width="715" height="260" rx="16" fill="#1c2128" stroke="#30363d"/>
+  <text x="90" y="248" font-size="26" font-weight="700" fill="#f0883e">①  1 CPU = 1 VOTE</text>
+  <text x="90" y="288" font-size="19" fill="#c9d1d9">No ASIC farms, no hash-rate arms race.</text>
+  <text x="90" y="318" font-size="19" fill="#c9d1d9">Every physical CPU gets one vote — and</text>
+  <text x="90" y="348" font-size="19" fill="#c9d1d9">the vote is <tspan fill="#f6c177" font-weight="700">weighted by how old the hardware is</tspan>.</text>
+
+  <!-- Antiquity meter -->
+  <rect x="90" y="375" width="560" height="46" rx="23" fill="#0d1117"/>
+  <rect x="93" y="378" width="120" height="40" rx="20" fill="url(#green)"/>
+  <text x="153" y="403" font-size="19" font-weight="700" fill="#0d1117" text-anchor="middle">2001 PowerPC G4</text>
+  <text x="430" y="403" font-size="19" fill="#8b949e">2.5× multiplier</text>
+
+  <!-- Panel 2: fingerprint -->
+  <rect x="825" y="200" width="715" height="260" rx="16" fill="#1c2128" stroke="#30363d"/>
+  <text x="855" y="248" font-size="26" font-weight="700" fill="#3fb950">②  6-CHECK HARDWARE FINGERPRINT</text>
+  <text x="855" y="288" font-size="19" fill="#c9d1d9">Each machine is fingerprinted across six</text>
+  <text x="855" y="318" font-size="19" fill="#c9d1d9">physical signals — CPU identity, cache timing,</text>
+  <text x="855" y="348" font-size="19" fill="#c9d1d9">clock drift, thermal behavior and more.</text>
+
+  <rect x="855" y="375" width="320" height="46" rx="23" fill="#12281a" stroke="#238636"/>
+  <text x="1015" y="404" font-size="18" font-weight="700" fill="#56d364" text-anchor="middle">Real hardware → passes</text>
+  <rect x="1205" y="375" width="300" height="46" rx="23" fill="#2d1516" stroke="#da3633"/>
+  <text x="1355" y="404" font-size="18" font-weight="700" fill="#ff7b72" text-anchor="middle">VM / emulator → rejected</text>
+
+  <!-- Panel 3: why / emission -->
+  <rect x="60" y="490" width="715" height="230" rx="16" fill="#1c2128" stroke="#30363d"/>
+  <text x="90" y="538" font-size="26" font-weight="700" fill="#f0883e">③  OLD HARDWARE EARNED IT</text>
+  <text x="90" y="578" font-size="19" fill="#c9d1d9">Preservation is the point: a machine that has</text>
+  <text x="90" y="608" font-size="19" fill="#c9d1d9">survived 20+ years kept computing for a reason.</text>
+  <text x="90" y="638" font-size="19" fill="#c9d1d9">Rewarding it keeps e-waste alive and makes</text>
+  <text x="90" y="668" font-size="19" fill="#c9d1d9">attacking the network genuinely expensive.</text>
+
+  <rect x="90" y="686" width="560" height="20" rx="10" fill="none"/>
+  <text x="90" y="702" font-size="16" fill="#8b949e">Capped supply · 8.39M RTC · 1.5 RTC epoch reward / 10 min · anchored to Ergo</text>
+
+  <!-- Panel 4: get started -->
+  <rect x="825" y="490" width="715" height="230" rx="16" fill="#1c2128" stroke="#30363d"/>
+  <text x="855" y="538" font-size="26" font-weight="700" fill="#3fb950">④  START MINING IN 2 COMMANDS</text>
+  <rect x="855" y="560" width="640" height="52" rx="10" fill="#0d1117"/>
+  <text x="885" y="593" font-size="22" font-family="'Cascadia Code', Consolas, monospace" fill="#f6c177">pip install clawrtc</text>
+  <rect x="855" y="625" width="640" height="52" rx="10" fill="#0d1117"/>
+  <text x="885" y="658" font-size="22" font-family="'Cascadia Code', Consolas, monospace" fill="#f6c177">clawrtc miner start</text>
+  <text x="855" y="700" font-size="17" fill="#8b949e">Docs: github.com/Scottcjn/Rustchain · rustchain.org</text>
+
+  <!-- Footer -->
+  <rect x="60" y="750" width="1480" height="190" rx="16" fill="#1c2128" stroke="#30363d"/>
+  <text x="90" y="800" font-size="24" font-weight="700" fill="#f0f6fc">The core idea</text>
+  <text x="90" y="838" font-size="21" fill="#c9d1d9">Proof of Work burns energy. Proof of Stake concentrates wealth.</text>
+  <text x="90" y="872" font-size="21" fill="#c9d1d9">Proof of Antiquity rewards <tspan fill="#f6c177" font-weight="700">time + physical existence</tspan> — the one resource</text>
+  <text x="90" y="906" font-size="21" fill="#c9d1d9">a cloud VM can never claim: <tspan fill="#3fb950" font-weight="700">real hardware that kept running for years.</tspan></text>
+</svg>
