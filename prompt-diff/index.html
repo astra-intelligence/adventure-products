@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prompt Diff — Compare Two Prompts Side by Side</title>
+  <meta name="description" content="Free tool to compare two prompts and see differences highlighted. Useful for prompt engineers, AI developers, and content creators.">
+  <meta name="keywords" content="prompt diff, compare prompts, prompt comparison, A/B test prompts, diff checker, prompt engineering">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Prompt Diff — Compare Two Prompts Side by Side">
+  <meta property="og:description" content="Free tool to compare two prompts and see differences highlighted. Useful for prompt engineers and AI developers.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://astra-intelligence.github.io/adventure-products/prompt-diff/">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0f1a;
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px; flex: 1; width: 100%; }
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+    }
+    header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    header p { color: #888; margin-top: 8px; font-size: 1.05rem; }
+    .editor-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 24px 0;
+    }
+    @media (max-width: 768px) {
+      .editor-grid { grid-template-columns: 1fr; }
+    }
+    .editor-pane {
+      display: flex;
+      flex-direction: column;
+    }
+    .editor-pane label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #aaa;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .editor-pane textarea {
+      width: 100%;
+      min-height: 240px;
+      background: #1a1a2e;
+      color: #e0e0e0;
+      border: 1px solid #2a2a4a;
+      border-radius: 8px;
+      padding: 14px;
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      resize: vertical;
+      transition: border-color 0.2s;
+    }
+    .editor-pane textarea:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+    .editor-pane textarea::placeholder { color: #555; }
+    .actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin: 16px 0;
+      flex-wrap: wrap;
+    }
+    .actions button, .actions a {
+      padding: 10px 28px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .actions button:hover, .actions a:hover {
+      transform: translateY(-1px);
+    }
+    .btn-compare {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    .btn-compare:hover { box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4); }
+    .btn-clear {
+      background: #2a2a4a;
+      color: #ccc;
+    }
+    .btn-clear:hover { background: #3a3a5a; }
+    .btn-swap {
+      background: #2a2a4a;
+      color: #ccc;
+    }
+    .btn-swap:hover { background: #3a3a5a; }
+    .diff-output {
+      background: #1a1a2e;
+      border: 1px solid #2a2a4a;
+      border-radius: 8px;
+      padding: 16px;
+      min-height: 200px;
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin: 16px 0;
+    }
+    .diff-output .added { background: rgba(0, 200, 80, 0.2); color: #4ade80; border-radius: 2px; }
+    .diff-output .removed { background: rgba(255, 80, 80, 0.2); color: #f87171; border-radius: 2px; }
+    .diff-output .unchanged { color: #9ca3af; }
+    .diff-output .meta { color: #6b7280; font-style: italic; }
+    .stats {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      margin: 8px 0 16px;
+      font-size: 0.85rem;
+      color: #888;
+    }
+    .stats span strong { color: #ccc; }
+    .cta-section {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+      border: 1px solid #2a2a4a;
+      border-radius: 12px;
+      padding: 24px;
+      margin: 24px 0;
+      text-align: center;
+    }
+    .cta-section h3 { margin-bottom: 8px; font-size: 1.2rem; }
+    .cta-section p { color: #888; margin-bottom: 16px; }
+    .btn-cta {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 12px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-block;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(102, 126, 234, 0.5);
+    }
+    .footer-links {
+      text-align: center;
+      padding: 20px;
+      color: #555;
+      font-size: 0.85rem;
+    }
+    .footer-links a { color: #667eea; text-decoration: none; }
+    .footer-links a:hover { text-decoration: underline; }
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1a1a2e;
+      border: 1px solid #2a2a4a;
+      border-radius: 8px;
+      padding: 12px 20px;
+      color: #4ade80;
+      font-size: 0.9rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      z-index: 100;
+    }
+    .toast.show { opacity: 1; }
+    .char-count { font-size: 0.75rem; color: #555; text-align: right; margin-top: 4px; }
+    .diff-stats { text-align: center; margin: 8px 0; font-size: 0.85rem; color: #888; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Prompt Diff</h1>
+      <p>Compare two prompts and see exactly what changed — additions in green, removals in red.</p>
+      <p style="font-size: 0.85rem; color: #666; margin-top: 4px;">Free tool • No API key needed • Runs entirely in your browser</p>
+    </header>
+
+    <div class="editor-grid">
+      <div class="editor-pane">
+        <label for="promptA">Prompt A (original)</label>
+        <textarea id="promptA" placeholder="Paste the original prompt here...">You are a helpful assistant. Answer questions clearly and concisely. Use a friendly tone. Provide examples when helpful.</textarea>
+        <div class="char-count" id="countA">0 chars</div>
+      </div>
+      <div class="editor-pane">
+        <label for="promptB">Prompt B (new version)</label>
+        <textarea id="promptB" placeholder="Paste the new prompt version here...">You are an expert assistant. Answer questions thoroughly and accurately. Use a professional tone. Provide code examples when helpful. Cite sources when possible.</textarea>
+        <div class="char-count" id="countB">0 chars</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn-compare" onclick="compare()">⟳ Compare Prompts</button>
+      <button class="btn-swap" onclick="swap()">⇄ Swap A ↔ B</button>
+      <button class="btn-clear" onclick="clearAll()">✕ Clear</button>
+    </div>
+
+    <div id="stats" class="stats" style="display:none;"></div>
+    <div id="output" class="diff-output">
+      <span class="meta">Paste two prompts above and click "Compare Prompts" to see the diff.</span>
+    </div>
+
+    <div class="cta-section">
+      <h3>🚀 Need to run real A/B tests on your prompts?</h3>
+      <p>The Prompt Architect Toolkit runs your prompts against an LLM, scores results, and helps you pick the winner — scientifically.</p>
+      <a class="btn-cta" href="https://grantshatz.gumroad.com/l/jyuhv" target="_blank" rel="noopener">Get the Full Toolkit → $4.99</a>
+      <p style="margin-top: 12px; font-size: 0.8rem; color: #666;">Includes 25 battle-tested system prompts + A/B testing harness CLI</p>
+    </div>
+  </div>
+
+  <div class="footer-links">
+    <a href="https://github.com/astra-intelligence/prompt-architect-toolkit" target="_blank" rel="noopener">Prompt Architect Toolkit (GitHub)</a>
+    &nbsp;·&nbsp;
+    <a href="https://astra-intelligence.github.io/adventure-products/" target="_blank" rel="noopener">More Tools</a>
+    &nbsp;·&nbsp;
+    <a href="https://grantshatz.gumroad.com/l/rgbzfz" target="_blank" rel="noopener">Custom AI Profile Pic → $1</a>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    // Char counts
+    document.getElementById('promptA').addEventListener('input', updateCounts);
+    document.getElementById('promptB').addEventListener('input', updateCounts);
+    function updateCounts() {
+      document.getElementById('countA').textContent = document.getElementById('promptA').value.length + ' chars';
+      document.getElementById('countB').textContent = document.getElementById('promptB').value.length + ' chars';
+    }
+    updateCounts();
+
+    function compare() {
+      const a = document.getElementById('promptA').value;
+      const b = document.getElementById('promptB').value;
+      const output = document.getElementById('output');
+      const stats = document.getElementById('stats');
+
+      if (!a && !b) {
+        output.innerHTML = '<span class="meta">Paste some text in at least one box.</span>';
+        stats.style.display = 'none';
+        return;
+      }
+
+      const diff = computeDiff(a, b);
+      output.innerHTML = diff.html;
+      stats.style.display = 'flex';
+      stats.innerHTML = `
+        <span>Prompt A: <strong>${a.length} chars</strong></span>
+        <span>Prompt B: <strong>${b.length} chars</strong></span>
+        <span>Additions: <strong style="color:#4ade80;">+${diff.added}</strong></span>
+        <span>Removals: <strong style="color:#f87171;">-${diff.removed}</strong></span>
+      `;
+      showToast(`Found ${diff.added} addition(s), ${diff.removed} removal(s)`);
+    }
+
+    function computeDiff(a, b) {
+      const linesA = a.split('\n');
+      const linesB = b.split('\n');
+
+      // Simple LCS-based diff
+      const result = { html: '', added: 0, removed: 0 };
+      const lcs = longestCommonSubsequence(linesA, linesB);
+      let i = 0, j = 0;
+
+      for (const lcsLine of lcs) {
+        while (i < linesA.length && linesA[i] !== lcsLine) {
+          result.html += `<span class="removed">- ${escapeHtml(linesA[i])}</span>\n`;
+          result.removed++;
+          i++;
+        }
+        while (j < linesB.length && linesB[j] !== lcsLine) {
+          result.html += `<span class="added">+ ${escapeHtml(linesB[j])}</span>\n`;
+          result.added++;
+          j++;
+        }
+        result.html += `<span class="unchanged">  ${escapeHtml(lcsLine)}</span>\n`;
+        i++; j++;
+      }
+      while (i < linesA.length) {
+        result.html += `<span class="removed">- ${escapeHtml(linesA[i])}</span>\n`;
+        result.removed++;
+        i++;
+      }
+      while (j < linesB.length) {
+        result.html += `<span class="added">+ ${escapeHtml(linesB[j])}</span>\n`;
+        result.added++;
+        j++;
+      }
+
+      return result;
+    }
+
+    function longestCommonSubsequence(a, b) {
+      const m = a.length, n = b.length;
+      const dp = Array.from({ length: m + 1 }, () => new Int32Array(n + 1));
+      for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+          dp[i][j] = a[i-1] === b[j-1] ? dp[i-1][j-1] + 1 : Math.max(dp[i-1][j], dp[i][j-1]);
+        }
+      }
+      const result = [];
+      let i = m, j = n;
+      while (i > 0 && j > 0) {
+        if (a[i-1] === b[j-1]) {
+          result.unshift(a[i-1]);
+          i--; j--;
+        } else if (dp[i-1][j] > dp[i][j-1]) {
+          i--;
+        } else {
+          j--;
+        }
+      }
+      return result;
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function swap() {
+      const a = document.getElementById('promptA');
+      const b = document.getElementById('promptB');
+      [a.value, b.value] = [b.value, a.value];
+      updateCounts();
+      compare();
+      showToast('Swapped prompts A and B');
+    }
+
+    function clearAll() {
+      document.getElementById('promptA').value = '';
+      document.getElementById('promptB').value = '';
+      document.getElementById('output').innerHTML = '<span class="meta">Paste two prompts above and click "Compare Prompts" to see the diff.</span>';
+      document.getElementById('stats').style.display = 'none';
+      updateCounts();
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+  </script>
+</body>
+</html>
