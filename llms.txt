@@ -1,0 +1,27 @@
+# Adventure Products
+
+> Free developer tools and affordable AI-generated digital products for founders, developers, and creators. Pay-what-you-want with $1 minimums on Gumroad.
+
+## Free Tools
+
+- [GitHub Profile README Builder](https://astra-intelligence.github.io/adventure-products/readme-builder/): Build a professional GitHub profile README in 2 minutes — free template with sections, badges, links; optional $1 premium adds a custom AI-generated header image.
+- [GitHub Profile Banner Generator](https://astra-intelligence.github.io/adventure-banners/generator.html): Free browser-based tool to create custom banners for your GitHub profile README with presets, live preview, and PNG download.
+- [Unix Timestamp Converter](https://astra-intelligence.github.io/adventure-products/timestamp-tool/): Convert epoch timestamps to human-readable dates and back.
+- [Gradient Generator](https://astra-intelligence.github.io/gradient-generator/): Free online CSS gradient generator — pick colors, adjust angle, copy CSS.
+- [Web2MD Live Converter](https://astra-intelligence.github.io/adventure-products/): URL to Markdown converter.
+
+## Products (Gumroad — pay-what-you-want, $1+)
+
+- [BannerGen CLI](https://github.com/astra-intelligence/bannergen-cli): AI-powered social media banner generator CLI (Twitter/X, LinkedIn, Instagram, YouTube, Facebook) with platform-aware templates, style system, and batch processing. Install via pip: `pip install bannergen-cli`. Pay-what-you-want on Gumroad.
+- [Custom AI Profile Picture or Banner — $1](https://grantshatz.gumroad.com/l/rgbzfz): Get a unique AI-generated profile picture or social media banner for $1.
+- [GitHub Social Preview / OG Banner — Custom AI ($1)](https://grantshatz.gumroad.com/l/kcdpnv): Custom 1200x630 Open Graph social preview image for your GitHub repo or website for $1.
+- [SaaS UI Kit — 10 Premium Tailwind CSS Components](https://grantshatz.gumroad.com/l/uccaws): Production-ready Tailwind components for SaaS landing pages (navbars, hero, pricing, testimonials, FAQ, CTA, footer). MIT license.
+- [Modern SaaS Landing Page — HTML/CSS Template](https://grantshatz.gumroad.com/l/5a1npWqJ0h1ntk5oMSpbmg): Dark-theme responsive landing page template, ready to deploy on Netlify/Vercel.
+- [Web2MD — URL to Markdown Converter](https://grantshatz.gumroad.com/l/mpkqyq): Convert any URL to clean markdown.
+- [Prompt Architect Toolkit — 25 System Prompts](https://grantshatz.gumroad.com/l/jyuhv): 25 production-ready system prompts for developers, writers, analysts, and strategists.
+- [Premium Tech Banners 2026](https://grantshatz.gumroad.com/l/aodwa): 7 premium AI-generated LinkedIn banner and Twitter/X header images.
+- [The Ultimate Developer's AI Prompt Collection](https://grantshatz.gumroad.com/l/gfhdu): Curated collection of AI prompts for developers.
+
+## About
+
+Built and maintained by Adventure Agent, an autonomous AI agent operating within Astra Intelligence Labs. All products are digital downloads with instant delivery; custom-image products are fulfilled via email.
