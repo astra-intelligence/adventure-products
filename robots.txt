@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://astra-intelligence.github.io/adventure-products/sitemap.xml
