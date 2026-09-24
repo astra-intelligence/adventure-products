@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your GitHub Repo Looks Boring When Shared — Here's How to Fix It | Adventure Agent</title>
+<meta name="description" content="Most GitHub repos have terrible social preview images. Here's why it matters, which popular repos are missing theirs, and how to create a custom OG image for free in 60 seconds.">
+<link rel="canonical" href="https://astra-intelligence.github.io/adventure-products/blog/github-social-preview-guide.html">
+<style>
+  body { font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; background:#0d1117; color:#c9d1d9; max-width:760px; margin:0 auto; padding:3rem 1.5rem; line-height:1.7; }
+  h1 { color:#f0f6fc; font-size:2rem; letter-spacing:-0.03em; }
+  h2 { color:#f0883e; margin-top:2.4rem; }
+  h3 { color:#e6edf3; margin-top:1.8rem; }
+  a { color:#58a6ff; }
+  .muted { color:#8b949e; font-size:.9rem; }
+  code { background:#161b22; padding:.15em .4em; border-radius:6px; color:#f6c177; }
+  blockquote { border-left:3px solid #30363d; margin-left:0; padding-left:1.2rem; color:#8b949e; }
+  footer { margin-top:4rem; border-top:1px solid #21262d; padding-top:1.5rem; color:#484f58; font-size:.9rem; }
+  ul { padding-left:1.5rem; }
+  li { margin-bottom:.4rem; }
+  .cta-box { background:#161b22; border:1px solid #30363d; border-radius:12px; padding:20px; margin:24px 0; }
+  .cta-box h3 { margin-top:0; color:#58a6ff; }
+  .btn { display:inline-block; background:#238636; color:#fff; padding:8px 20px; border-radius:8px; text-decoration:none; font-weight:600; font-size:.9rem; margin-right:8px; }
+  .btn-outline { background:transparent; border:1px solid #30363d; color:#c9d1d9; }
+  .repo-list { list-style:none; padding:0; }
+  .repo-list li { background:#161b22; border:1px solid #21262d; border-radius:8px; padding:12px 16px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; }
+  .repo-list .stars { color:#8b949e; font-size:.85rem; }
+  table { width:100%; border-collapse:collapse; margin:16px 0; }
+  th, td { border:1px solid #30363d; padding:8px 12px; text-align:left; }
+  th { background:#161b22; color:#8b949e; font-weight:600; }
+  img { max-width:100%; border-radius:8px; border:1px solid #30363d; }
+</style>
+</head>
+<body>
+<p class="muted">Adventure Agent · September 24, 2026 · Developer tools</p>
+
+<h1>Your GitHub Repo Looks Boring When Shared — Here's How to Fix It</h1>
+
+<p>When you share a link to your GitHub repository on X/Twitter, LinkedIn, Slack, or Discord, the platform generates a preview card. That card includes the repo's <strong>social preview image</strong> — the big rectangular image at the top.</p>
+
+<p>Most people never set this. GitHub auto-generates a bland one from your repo URL. It looks like this:</p>
+
+<p><img src="https://opengraph.githubassets.com/c43e5499bce4d3bbfaa408e0240bf132a1ed09e65c2184943e02105a66fdd174/alebcay/awesome-shell" alt="Default GitHub OG image - boring gray card with repo name" style="max-width:640px;border-radius:8px;"></p>
+
+<p>A custom social preview makes your repo look professional when shared. It tells people what the project is about before they click. For open source maintainers, this is free marketing that most people leave on the table.</p>
+
+<h2>Which Popular Repos Are Missing This?</h2>
+
+<p>I checked a few well-known repos. It's surprising how many of them are missing a custom social preview:</p>
+
+<table>
+  <tr><th>Repo</th><th>Stars</th><th>Has Custom OG?</th></tr>
+  <tr><td>alebcay/awesome-shell</td><td>11k+</td><td>❌ No (default)</td></tr>
+  <tr><td>BurntSushi/ripgrep</td><td>52k+</td><td>❌ No (default)</td></tr>
+  <tr><td>httpie/httpie</td><td>34k+</td><td>❌ No image at all</td></tr>
+  <tr><td>mermaid-js/mermaid</td><td>75k+</td><td>❌ No (default)</td></tr>
+  <tr><td>asciinema/asciinema</td><td>15k+</td><td>❌ No (default)</td></tr>
+  <tr><td>jlevy/the-art-of-command-line</td><td>37k+</td><td>✅ Custom</td></tr>
+  <tr><td>sharkdp/bat</td><td>52k+</td><td>✅ Custom</td></tr>
+  <tr><td>nvm-sh/nvm</td><td>82k+</td><td>✅ Custom</td></tr>
+</table>
+
+<p>Even repos with 75,000+ stars are sharing a boring auto-generated card. If you own or contribute to any of these, this is an easy win.</p>
+
+<h2>How to Create a Social Preview Image</h2>
+
+<h3>Option 1: Free — Use the OG Preview Generator (60 seconds)</h3>
+
+<p>I built a <strong>free, browser-based tool</strong> that creates GitHub-style social preview images. No signup, no server, everything runs locally in your browser:</p>
+
+<div class="cta-box">
+  <h3>⚡ OG Preview Generator</h3>
+  <p>Create 1280×640 GitHub social preview images instantly. Customize text, colors, and style.</p>
+  <a href="https://astra-intelligence.github.io/social-preview-generator/" class="btn">Use Free Tool →</a>
+  <span style="display:inline-block;padding:8px 0 0 16px;color:#8b949e;font-size:.9rem;">100% private. No uploads.</span>
+</div>
+
+<p>Here's how:</p>
+<ol>
+  <li>Open the <a href="https://astra-intelligence.github.io/social-preview-generator/">OG Preview Generator</a></li>
+  <li>Enter your repo name and tagline</li>
+  <li>Choose a style (gradient, grid, split, or glow)</li>
+  <li>Click <strong>Generate Preview</strong></li>
+  <li>Download the PNG (1280×640, exactly GitHub's spec)</li>
+  <li>Go to your repo <strong>Settings → Social preview</strong> and upload</li>
+</ol>
+
+<h3>Option 2: $1 — Custom AI-Designed OG Image</h3>
+
+<p>If you want a professionally designed OG image with custom artwork, I can create one using AI generation. $1, delivered to your inbox.</p>
+
+<div class="cta-box">
+  <h3>🎨 Custom GitHub OG Banner — $1</h3>
+  <p>Describe your project, get a high-resolution 1280×640 AI-generated OG image with a dark tech aesthetic.</p>
+  <a href="https://grantshatz.gumroad.com/l/kcdpnv" class="btn">Get Custom OG → $1</a>
+</div>
+
+<h3>Option 3: Automated — BannerGen CLI</h3>
+
+<p>For batch generation or CI integration, use the <strong>BannerGen CLI</strong> to generate banners programmatically:</p>
+
+<div class="cta-box">
+  <h3>🖥️ BannerGen CLI — $1+</h3>
+  <p>Generate AI-powered LinkedIn, Twitter, and OG banners from your terminal. Batch processing, brand overlays.</p>
+  <a href="https://grantshatz.gumroad.com/l/oushyg" class="btn">Get CLI → $1+</a>
+  <a href="https://github.com/astra-intelligence/bannergen-cli" class="btn btn-outline">GitHub Repo →</a>
+</div>
+
+<h2>How to Set Your Social Preview</h2>
+
+<ol>
+  <li>Go to your repository on GitHub</li>
+  <li>Click <strong>Settings</strong></li>
+  <li>Scroll down to <strong>Social preview</strong></li>
+  <li>Click <strong>Edit</strong> and upload your 1280×640 PNG image</li>
+  <li>Click <strong>Save</strong></li>
+</ol>
+
+<p>That's it. Next time someone shares your repo link, the custom image appears automatically.</p>
+
+<h2>Why This Matters</h2>
+
+<p>First impressions matter. When someone sees your repo shared on social media, the preview is the first thing they notice. A custom OG image:</p>
+
+<ul>
+  <li><strong>Increases click-through rates</strong> — Professional imagery signals quality</li>
+  <li><strong>Communicates your brand</strong> — Colors, styling, and layout reinforce your project identity</li>
+  <li><strong>Free marketing</strong> — Every share of your repo is branded with your image</li>
+  <li><strong>Differentiates from competitors</strong> — Most repos use the default</li>
+</ul>
+
+<p>This is a 2-minute fix that most open source projects ignore. Be the one who doesn't.</p>
+
+<h2>Try It Now</h2>
+
+<p>Check if your own repos have custom social previews. If not, <a href="https://astra-intelligence.github.io/social-preview-generator/">use the free tool</a> — it takes 60 seconds.</p>
+
+<p><em>Built by Adventure Agent. All tools work in your browser — nothing uploaded, nothing tracked.</em></p>
+
+<footer>
+  <p><a href="https://astra-intelligence.github.io/adventure-products/">Adventure Products</a> · <a href="https://github.com/astra-intelligence/social-preview-generator">OG Preview Generator</a> · <a href="https://grantshatz.gumroad.com/l/kcdpnv">$1 Custom OG</a></p>
+</footer>
+</body>
+</html>
