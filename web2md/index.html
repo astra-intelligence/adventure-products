@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web2MD — Free URL to Markdown Converter API</title>
+<meta name="description" content="Free URL to Markdown converter. Convert any webpage to clean Markdown instantly. Free API, no signup required. CLI for batch processing available.">
+<meta name="keywords" content="url to markdown, webpage to markdown, html to markdown converter, free markdown converter, markdown api, web2md, url to md, webpage to md">
+<meta property="og:title" content="Web2MD — Free URL to Markdown Converter">
+<meta property="og:description" content="Convert any URL to clean Markdown instantly. Free API, no signup, no rate limits.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://astra-intelligence.github.io/adventure-products/web2md/">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: #0a0a0f; color: #e8e8f0; line-height: 1.6; }
+.container { max-width: 860px; margin: 0 auto; padding: 0 24px; width: 100%; }
+header {
+  background: linear-gradient(135deg, #0f0f1a, #1a1a2e);
+  padding: 4rem 0 3rem; text-align: center;
+  border-bottom: 1px solid #1a1a2e;
+}
+header h1 { font-size: 2.8rem; font-weight: 700; letter-spacing: -0.03em; background: linear-gradient(90deg, #a29bfe, #6c5ce7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.5rem; }
+header p { color: #8888a8; font-size: 1.15rem; max-width: 560px; margin: 0 auto; }
+.cta-btn { display: inline-block; margin-top: 1.5rem; padding: 0.85rem 2.5rem; background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.2s; }
+.cta-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(108,92,231,0.4); }
+.cta-btn-sm { display: inline-block; padding: 0.6rem 1.5rem; background: #2a2a3e; color: #c8c8e0; text-decoration: none; border-radius: 6px; font-weight: 500; font-size: 0.9rem; border: 1px solid #3a3a4e; transition: all 0.2s; margin: 0 0.25rem; }
+.cta-btn-sm:hover { border-color: #6c5ce7; background: #3a3a4e; }
+section { padding: 3rem 0; }
+section h2 { font-size: 1.5rem; margin-bottom: 1.5rem; color: #fff; }
+
+.feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.feature-card { background: #12121a; border: 1px solid #1a1a2e; border-radius: 10px; padding: 1.5rem; }
+.feature-card h3 { color: #a29bfe; font-size: 1rem; margin-bottom: 0.5rem; }
+.feature-card p { color: #8888a8; font-size: 0.85rem; }
+
+.code-block { background: #0a0a0f; border: 1px solid #1a1a2e; border-radius: 8px; padding: 1rem; overflow-x: auto; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.85rem; color: #a29bfe; margin-bottom: 1rem; }
+.code-block .comment { color: #555; }
+.code-block .success { color: #00b894; }
+.code-block .key { color: #fd79a8; }
+
+.cta-section { background: linear-gradient(135deg, rgba(108,92,231,0.08), transparent); border: 1px solid #1a1a2e; border-radius: 12px; padding: 2rem; text-align: center; }
+.cta-section h2 { margin-bottom: 0.75rem; }
+.cta-section p { color: #8888a8; margin-bottom: 1.25rem; }
+.cta-section .features { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 1.25rem; }
+.cta-section .features span { color: #8888a8; font-size: 0.85rem; }
+.cta-section .features span::before { content: "✓ "; color: #00b894; }
+
+.faq { margin: 2rem 0; }
+.faq details { background: #12121a; border: 1px solid #1a1a2e; border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 0.75rem; }
+.faq summary { cursor: pointer; font-weight: 600; color: #c8c8e0; }
+.faq p { color: #8888a8; font-size: 0.9rem; margin-top: 0.5rem; }
+
+footer { text-align: center; padding: 2.5rem; color: #484f58; border-top: 1px solid #21262d; font-size: 0.85rem; }
+footer a { color: #a29bfe; text-decoration: none; }
+@media (max-width: 600px) { header h1 { font-size: 2rem; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Web2MD</h1>
+  <p>Convert any URL to clean Markdown. Free API, no signup, no rate limits.</p>
+  <a class="cta-btn" href="http://167.233.135.161:9999/">Try the Live Tool →</a>
+  <div style="margin-top: 1rem;">
+    <a class="cta-btn-sm" href="https://grantshatz.gumroad.com/l/mpkqyq">Get CLI — $2.99</a>
+    <a class="cta-btn-sm" href="#api">API Docs</a>
+  </div>
+</header>
+
+<div class="container">
+  <section>
+    <h2>Convert any webpage to Markdown in one call</h2>
+    <div class="feature-grid">
+      <div class="feature-card"><h3>Zero Setup</h3><p>No API key, no signup, no account. Just a URL and one HTTP request.</p></div>
+      <div class="feature-card"><h3>CORS Enabled</h3><p>Use from any browser or client-side app. No proxy needed.</p></div>
+      <div class="feature-card"><h3>No Rate Limits</h3><p>Free to use for personal projects, research, and small-scale automation.</p></div>
+      <div class="feature-card"><h3>Clean Output</h3><p>Uses readability extraction for article content. Falls back to html2text for other pages.</p></div>
+    </div>
+  </section>
+
+  <section id="api">
+    <h2>API — One endpoint, no auth</h2>
+    <div class="code-block">
+      <span class="comment"># Convert any URL to Markdown</span><br>
+      curl "<span class="key">http://167.233.135.161:9999/api/convert?url=https://example.com/</span>"<br><br>
+      <span class="comment"># Response:</span><br>
+      {<br>
+      &nbsp; "<span class="key">success</span>": true,<br>
+      &nbsp; "<span class="key">title</span>": "Example Domain",<br>
+      &nbsp; "<span class="key">markdown</span>": "This domain is for use in...",<br>
+      &nbsp; "<span class="key">char_count</span>": 113,<br>
+      &nbsp; "<span class="key">url</span>": "https://example.com/"<br>
+      }
+    </div>
+    <div class="code-block">
+      <span class="comment"># Python (no SDK needed)</span><br>
+      import requests<br>
+      resp = requests.get("<span class="key">http://167.233.135.161:9999/api/convert</span>", params={"url": "https://example.com/"})<br>
+      data = resp.json()<br>
+      print(data["markdown"])
+    </div>
+  </section>
+
+  <section>
+    <h2>Use Cases</h2>
+    <div class="feature-grid">
+      <div class="feature-card"><h3>LLM Ingestion</h3><p>Feed web content into your AI pipeline. Clean Markdown parses better than raw HTML.</p></div>
+      <div class="feature-card"><h3>Research</h3><p>Save articles as Markdown for offline reading, note-taking, or citation management.</p></div>
+      <div class="feature-card"><h3>Content Archival</h3><p>Convert and store web pages in a lossless, future-proof text format.</p></div>
+      <div class="feature-card"><h3>Web Scraping</h3><p>Extract content without dealing with DOM parsing, JavaScript, or CSS selectors.</p></div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <h2>Need batch processing?</h2>
+    <div class="features">
+      <span>Convert 50+ URLs at once</span>
+      <span>Pipe output to files</span>
+      <span>License-gated downloads</span>
+      <span>Custom output formatting</span>
+    </div>
+    <p>Get the Web2MD CLI with unlimited batch processing for $2.99.</p>
+    <a class="cta-btn" href="https://grantshatz.gumroad.com/l/mpkqyq">Buy Web2MD CLI — $2.99</a>
+  </section>
+
+  <section class="faq">
+    <h2>FAQ</h2>
+    <details>
+      <summary>Is there a rate limit?</summary>
+      <p>No hard rate limit for reasonable personal use. Please don't hammer the service with 1000s of requests per minute — it's hosted on a single VPS.</p>
+    </details>
+    <details>
+      <summary>Can I use this in my open source project?</summary>
+      <p>Yes. The API is free for open source and personal projects. For commercial batch usage, consider purchasing the CLI.</p>
+    </details>
+    <details>
+      <summary>Does it handle JavaScript-rendered pages?</summary>
+      <p>Web2MD uses server-side HTTP fetching (trafilatura + html2text), so it works best with static and server-rendered pages. Single-page apps may not render fully.</p>
+    </details>
+    <details>
+      <summary>What about the CLI?</summary>
+      <p>The CLI adds batch processing, file output, custom formatting, and license-gated file downloads. Available on Gumroad for $2.99.</p>
+    </details>
+  </section>
+</div>
+
+<footer>
+  <div class="container">
+    <a href="http://167.233.135.161:9999/">Live Tool</a> · <a href="https://grantshatz.gumroad.com/l/mpkqyq">CLI</a> · <a href="https://astra-intelligence.github.io/adventure-products/">More Tools</a>
+  </div>
+</footer>
+</body>
+</html>
