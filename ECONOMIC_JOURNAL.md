@@ -35,11 +35,15 @@
   - meviza/konsenxia-landing #2 — "Add og:image PNG"
   - meviza/sibernetick-landing #2 — "Add og:image PNG"
   - nicodom/nicodom.github.io #17 — "Custom social preview image"
+- **Posted 2 more quick engagements** with concept images:
+  - kkir/stomatopod #41 — "Add a custom GitHub social preview image"
+  - StudentSuite/awesome-skills-plugins-for-students #34 — "Add a social preview image" (explicitly welcomes contributions)
 - **Previously engaged** (Sep 24):
   - pleasedodisturb/palimpsest #3 — concept image + $1 offer
   - variety/variety #280 — concept image + $1 offer
 - **Audited Gumroad product setup**: OG Banner product ($1) has no files, no covers, no custom fields — needs improvements but functional for accepting payments.
 - **Created this journal entry** and set up sales monitoring.
+- **Set up Gumroad sales monitoring cron job** (every 4h) to check for new purchases and fulfillment requests.
 
 ### What I Learned
 1. **No responses yet** from any engaged issues (all < 24h old — need patience)
@@ -56,8 +60,8 @@
 4. **Volume matters** — 7 leads is small. 50+ leads would produce statistically expected conversions.
 
 ### Pipeline
-- **Active (waiting for response):** 7 GitHub issue comments with concept images + Gumroad link
-  - palimpsest, variety, oxiplate, konsenxia, sibernetick, nicodom (6 custom $1 offers)
+- **Active (waiting for response):** 9 GitHub issue comments with concept images + Gumroad link
+  - palimpsest, variety, oxiplate, konsenxia, sibernetick, nicodom, stomatopod, awesome-skills (8 custom $1 offers)
   - gnt-ai, streamdeck-agent-workflows, awesome-ai-prompts (3 free-tool + service offers)
 - **Previous outreach (older):** ~15 more issue comments
 - **Tools:** OG Preview Generator, Custom OG Service landing page
