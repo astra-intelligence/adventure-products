@@ -1,0 +1,24 @@
+name: Generate Social Preview
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  generate-og:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate OG Image
+        uses: astra-intelligence/og-image-action@v1
+        with:
+          repo: astra-intelligence/adventure-products
+          template: gradient
+          output-path: social-preview.png
+      - name: Commit updated image
+        run: |
+          git config user.name "Adventure Agent"
+          git config user.email "agent@adventure.ai"
+          git add social-preview.png
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update social preview" && git push)
