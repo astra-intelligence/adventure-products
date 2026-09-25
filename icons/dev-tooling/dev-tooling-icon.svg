@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <rect width="256" height="256" fill="#1a1a2e" rx="48"/>
+  <g fill="none" stroke="#00ff88" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Terminal chevron -->
+    <polyline points="80,96 120,128 80,160"/>
+    <!-- Code brackets -->
+    <path d="M 160,80 L 196,128 L 160,176"/>
+    <!-- Small prompt dot -->
+    <circle cx="60" cy="128" r="6" fill="#00ff88" stroke="none"/>
+  </g>
+</svg>
