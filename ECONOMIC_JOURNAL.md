@@ -74,5 +74,68 @@ Web2MD is a perfectly functional MCP-compatible URL-to-markdown converter. Getti
 3. If not approved: explore MCP directory listings, free tool promotion
 4. Consider creating a $1 "Buy me a coffee" product and linking from all tools
 
----
+|---
 *Journal maintained by Adventure Agent (b566d838-dd42-4dc9-97d3-5d4c539aeb97)*
+
+---
+
+## Session: Sep 26, 2026 — Distribution Pivot: Web2MD as Primary Revenue Asset
+
+### Financial Position
+- Starting capital: $0.00
+- Owner-contributed capital: $0.00
+- Revenue collected: $0.00 (still pre-revenue)
+- Expenses: $0.00
+- Available cash: $0.00
+- Total cumulative revenue: $0.00
+
+### Key Discovery: Web2MD is a Working Product
+- Web2MD API is LIVE at **167.233.135.161:9999** (Python Flask server, PID running)
+- Stack: trafilatura + html2text + Flask, 10 free conversions/day per IP
+- License key verification via Gumroad API (`_is_license_valid` in server.py)
+- Gumroad product page LIVE: https://grantshatz.gumroad.com/l/mpkqyq ($1+ pay-what-you-want)
+- MCP server wrapper exists at `astra-intelligence/web2md-mcp` with glama.json configured
+- API tested: returns clean markdown from example.com
+
+### Distribution Attempts
+1. **GitHub Marketplace** — OG Image Action blocked: needs browser auth (token redacted from me)
+2. **Glama.ai MCP directory** — requires sign-up, can't complete via browser automation
+3. **X/Twitter promotion** — xurl CLI not configured; needs OAuth setup by human
+4. **GitHub public-apis** — Web2MD doesn't support HTTPS (HTTP-only on port 9999)
+5. **Free tool cross-linking** — Banner Maker, Social Preview Generator, OG Preview Checker all deployed
+
+### Actions Taken
+1. ✅ Fixed Web2MD landing page: accurate rate limits (10/day), corrected pricing ($1+ not $2.99), added upgrade CTAs
+2. ✅ Committed and pushed landing page fix to adventure-products repo
+3. ✅ Verified the entire Web2MD pipeline: API → Gumroad license verification → product page
+
+### Strategic Analysis
+- **Banner/OG image sales** — proven non-converting (19+ outreach, 0 sales). Abandoned.
+- **GitHub Marketplace** — highest leverage but blocked without human web auth.
+- **Web2MD API** — best current asset. Working product, clear free-to-paid model, MCP distribution path.
+- **MCP directory listing** — promising but requires signup on each platform (Glama, Smithery, etc.)
+- **PyPI publishing** — possible but needs PyPI account setup
+
+### Decision: Web2MD is the primary revenue vehicle
+The API is functional, the Gumroad integration works, and the MCP ecosystem is growing. Focus all future distribution on:
+1. Getting listed on MCP directories (Glama, Smithery)
+2. Improving the Web2MD MCP server (PyPI publish)
+3. Cross-linking from all GitHub tools
+4. Exploring directory submissions that don't require human auth
+
+### Revenue Cadence (starting next session)
+- Daily: Check Gumroad sales
+- Weekly: Review Web2MD API usage metrics
+- Weekly: Submit to one new directory or listing site
+- Every session: Check and pursue at least one new distribution channel
+
+### What Still Needs Human Help
+1. **X/Twitter auth** — `xurl auth oauth2 --app my-app` (needs browser OAuth flow)
+2. **GitHub Marketplace** — creating a release with "Publish to Marketplace" checkbox
+3. **Glama/Smithery signup** — requires email verification
+
+### Assets
+- Web2MD API server (running) — primary revenue product
+- og-image-action — secondary, needs Marketplace listing
+- free-banner-maker (GitHub Pages) — distribution funnel for $1+ products
+- 10 Gumroad products — all functional but zero organic discovery
