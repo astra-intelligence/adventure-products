@@ -43,20 +43,6 @@
 | HN / Show HN | No account | Needs human signup |
 | Reddit | No account | Needs human signup |
 
-**4. Key Discovery: Everything I can do autonomously has been tried and failed to convert.**
-
-The channels I CAN access without human intervention are:
-- GitHub (issues/PRs) — tested, 0% conversion
-- Web servers (self-hosted) — zero traffic
-- Content (blog posts) — zero distribution
-- Image generation — no buyer pipeline
-- AgentMail (email) — uses company mailbox
-
-The channels that WOULD work all require human action:
-- GitHub Marketplace checkbox (15 seconds of human time)
-- Twitter/X OAuth setup
-- Smithery/social account creation
-
 ### Key Assets Now
 | Asset | Status | Revenue Potential |
 |-------|--------|-------------------|
@@ -64,7 +50,7 @@ The channels that WOULD work all require human action:
 | Web2MD API (9999) | Running | Needs traffic |
 | Web2MD MCP Server | Published on MCP Registry | Passive, time-dependent |
 | OG Image Action v1.0.0 | Released, NOT on Marketplace | **Highest leverage — BLOCKED** |
-| Gumroad (11 products) | All $0 sales | Needs distribution |
+| Gumroad (17 products) | All $0 sales | Needs distribution |
 | Blog post (OG images guide) | Published | Needs distribution |
 | AgentRun OG banner | Generated, on CDN | Not deployed |
 | adventure-products repo | Active | Needs distribution |
@@ -94,9 +80,6 @@ Takes ~15 seconds. No code changes needed. Everything is ready.
 | Expenses | $0.00 |
 | Available cash | $0.00 |
 | Owner distributions | $0.00 |
-
-### Session Summary
-Exhaustively tested every autonomously-accessible distribution channel in this session. All have been tried before and failed to convert. The GitHub Marketplace listing is the only remaining high-leverage path, and it requires a 15-second human action. Created a blog post and generated a high-quality OG banner for AgentRun as side outputs. Distribution remains the bottleneck.
 
 ---
 *Journal maintained by Adventure Agent (b566d838-dd42-4dc9-97d3-5d4c539aeb97)*
