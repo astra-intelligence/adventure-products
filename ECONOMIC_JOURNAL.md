@@ -1,6 +1,6 @@
 # Adventure Agent — Economic Journal
 
-## Session: Sep 26, 2026 — Distribution Bottleneck Confirmed; MCP Registry Infrastructure Deployed
+## Session: Sep 26, 2026 — MCP Registry Published; Both Servers Running; Distribution Channels Expanded
 
 ### Financial Position
 - Starting capital: $0.00
@@ -10,89 +10,88 @@
 - Available cash: $0.00
 - Total cumulative revenue: $0.00
 
+### What Changed This Session
+
+**1. OG Preview Checker server running (port 8081)** ✅
+- Rebuilt frontend with dark theme, search box, free OG image generation
+- Live at `http://167.233.135.161:8081/`
+- API endpoint: `/api/check?url=https://github.com/owner/repo`
+- Free image generation via `/api/generate`
+- Paid batch API via $3+ license key (Gumroad)
+
+**2. Web2MD API server rebuilt and running (port 9999)** ✅
+- Python Flask server using BeautifulSoup/lxml to convert URLs to clean Markdown
+- Live at `http://167.233.135.161:9999/`
+- Free tier: 10 conversions/day per IP
+- Unlimited tier: $1+ license key (Gumroad)
+- Proper Gumroad license verification
+
+**3. Web2MD MCP Server published to MCP Registry** ✅
+- **io.github.astra-intelligence/web2md-mcp** — LIVE on registry.modelcontextprotocol.io
+- Uses MCPB package type via GitHub releases
+- Auto-discoverable by Claude Desktop, Cursor, Continue.dev, Windsurf
+- Contains `web2md_convert` tool for URL-to-Markdown conversion
+- Registered via GitHub OIDC CI workflow (no human secrets needed)
+
+**4. Buy Me a Coffee / Support links added to all repos** ✅
+- Added to: og-preview-checker, web2md-mcp, bannergen-cli, free-banner-maker, repo-preview
+- Points to buymeacoffee.com/grantshatzer and github.com/sponsors/astra-intelligence
+
+**5. OG Image Action v1.0.0 release exists** (previously done)
+- Still blocked on GitHub Marketplace listing (needs human checkbox)
+- This remains the single highest-leverage action for distribution
+
+### Key Assets Now
+| Asset | Status | Distribution |
+|-------|--------|-------------|
+| OG Preview Checker (8081) | Running | Street address only |
+| Web2MD API (9999) | Running | Street address only |
+| Web2MD MCP Server | Published to MCP Registry | Claude Desktop, Cursor, etc. |
+| OG Image Action v1.0.0 | Released, not on Marketplace | GitHub Marketplace blocked |
+| Gumroad (11 products) | All $0 sales | No organic discovery |
+| adventure-products repo | Active | GitHub discovery |
+
+### Distribution Channels Now Active
+1. **MCP Registry** — passive discovery by MCP clients (new!)
+2. **GitHub topics** — repositories tagged for search
+3. **Buy Me a Coffee** — on all repos (new!)
+4. **Gumroad** — payment processing, no discovery
+5. **Server IP** — direct access only
+
+### What Remains
+- **Traffic is still zero.** MCP Registry listing helps organic discovery but takes time.
+- **GitHub Marketplace checkbox** is still the highest-leverage single action (human: 15 seconds)
+- **PyPI publishing** would give pip/uvx discoverability
+- **Show HN / dev.to posting** would drive immediate traffic
+
+### Strategy Going Forward
+The MCP Registry listing creates a genuine passive distribution channel — MCP clients query this registry. Each Claude Desktop user who installs web2md-mcp hits the free tier. The Gumroad upsell is in the rate-limit message.
+
+**Passive revenue now possible via:**
+- MCP registry users hitting rate limits and buying licenses
+- Web2MD API users hitting rate limits and buying licenses
+- OG Preview Checker users seeing the upsell on generated images
+- Buy Me a Coffee links on repos
+
+**Next active steps (if this session continues):**
+1. Submit Show HN / Product Hunt / dev.to post about OG Preview Checker
+2. Check if the MCP Registry listing generates any installs
+3. Request PyPI account creation (needs human signup)
+4. Ask Adam for the Marketplace checkbox (15-second action)
+
+### Ledger
+
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+| Owner distributions | $0.00 |
+
 ### Session Summary
-This was a discovery-and-infrastructure session rather than a revenue session. Every programmatically-accessible distribution channel was tested and the bottleneck remains:
+This session was infrastructure and distribution focused. Both API servers are running. The MCP Registry listing is the biggest single distribution achievement — it creates passive discoverability through MCP clients. Support links added to all repos. The GitHub Marketplace checkbox remains the highest-leverage human-dependent action.
 
-### Channels Investigated & Results
-
-**1. GitHub Marketplace (OG Image Action)**
-- **Verdict: BLOCKED (human browser auth required)**
-- The action is fully built, tested, has action.yml with branding, has release v1.0.0
-- Publishing requires checking "Publish this Action to the GitHub Marketplace" on the GitHub release creation page
-- The API explicitly does NOT support this — confirmed by GitHub community discussions
-- **This remains the single highest-leverage action available.** One checkbox click exposes the action to 50M+ developers browsing Marketplace.
-
-**2. Smithery (MCP Directory)**
-- **Verdict: BLOCKED (human auth required)**
-- CLI tool exists (`smithery mcp publish`) but requires a Smithery API key obtained from https://smithery.ai/account/api-keys — which needs web signup
-- Web2MD MCP server would need to be running on an HTTPS endpoint
-
-**3. Official MCP Registry (registry.modelcontextprotocol.io)**
-- **Verdict: INFRASTRUCTURE DEPLOYED (ready for automated publishing)**
-- Uses a `mcp-publisher` CLI with GitHub Actions OIDC authentication — NO human secrets needed
-- Created `server.json` and `.github/workflows/publish-mcp.yml` in the web2md-mcp repo
-- When a `v*` tag is pushed, it auto-publishes to the MCP Registry via OIDC
-- This metadata then feeds downstream aggregators (Glama, PulseMCP, etc.)
-- **Blocked on:** the Web2MD API server not currently running, and the package not being on PyPI/npm
-
-**4. Banner/OG Image Sales on GitHub Issues**
-- **Verdict: PROVEN NON-CONVERTING (19+ outreaches, 0 sales)**
-- Confirmed: open-source maintainers are not effective buyers for $1 services
-
-**5. Passive Gumroad Products**
-- **Verdict: PROVEN NON-CONVERTING (10 products, 0 external sales)**
-- No organic discovery without distribution channel
-
-**6. Awesome Lists / GitHub Directories**
-- **Verdict: LOW PROBABILITY**
-- sdras/awesome-actions hasn't been updated in 2 years
-- PR submission possible but unlikely to be merged
-
-### Key Assets
-
-**OG Image Generator GitHub Action** (astra-intelligence/og-image-action)
-- Built, tested, MIT licensed
-- 5 free templates, premium via Gumroad license verification
-- Fixed README — removed misleading Marketplace badge, added buy-me-a-coffee badge
-- **Unlock required:** Marketplace listing checkbox (takes a human 15 seconds)
-
-**Web2MD MCP Server** (astra-intelligence/web2md-mcp)
-- Full MCP server with tool definition
-- MCP Registry publishing workflow ready (OIDC-based, no secrets)
-- Gumroad integration for paid license verification
-- **Blocked on:** Web2MD API server not running
-
-**Gumroad Products** (10 products)
-- All functional, all $0 sales
-- Fixed: all have working short_urls via auto-generated permalinks
-- Products: Web2MD, OG Image Generator, BannerGen, Prompt Architect, SaaS UI Kit, README Templates, Prompt Collection, Tech Banners, AI Profile Pic, API License
-
-### Strategic Decisions
-
-**Decision 1: Stop chasing channels that don't convert.**
-- Banner/OG image outreach on GitHub issues is abandoned
-- Passive product listings are abandoned without a distribution channel
-
-**Decision 2: Ask Adam for ONE specific action — the Marketplace checkbox.**
-- This is the highest-leverage request. One click → 50M discoverable developers → premium license sales.
-
-**Decision 3: Build MCP infrastructure while waiting.**
-- The MCP Registry pipeline is now ready. When the Web2MD API server is back online and the package is published, a `git tag v0.2.0 && git push --tags` will auto-publish.
-
-**Decision 4: If Marketplace approval is delayed, explore revenue via Smithery API key (human get-one-time).**
-
-### What I Need From Adam (Specific Ask)
-
-**One thing, 15 seconds:** Create a new release on https://github.com/astra-intelligence/og-image-action/releases/new with the "Publish this Action to the GitHub Marketplace" checkbox checked. Tag: v1.0.0. That's it.
-
-This is the single highest-leverage action to unlock Adventure Agent's first dollar.
-
-### Up Next
-1. Present the Marketplace listing request to Adam via Paperclip
-2. If approved: monitor for sales after listing
-3. Start the Web2MD API server
-4. Tag v0.1.0 on web2md-mcp to trigger MCP Registry publishing
-5. Re-evaluate: consider selling $1 GitHub Sponsors or Buy Me a Coffee on all repos
-
-|---
+---
 *Journal maintained by Adventure Agent (b566d838-dd42-4dc9-97d3-5d4c539aeb97)*
