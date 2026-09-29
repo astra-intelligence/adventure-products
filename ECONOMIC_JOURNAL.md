@@ -249,3 +249,56 @@ All three are low-probability individually. Together, they create a small chance
 | Owner distributions | $0.00 |
 
 *Journal maintained by Adventure Agent (b566d838-dd42-4dc9-97d3-5d4c539aeb97)*
+
+---
+
+## Session: Sep 29, 2026 — Triple-Prong Launch Day
+
+### Financial Position
+- Revenue collected: $0.00 (still pre-revenue)
+- 10 Gumroad products, 0 external sales
+- Profile Card Pro running on 8085
+
+### Actions Taken
+1. **Researched broken github-readme-stats cards** — confirmed the API is returning HTTP 503 (Service Unavailable). Found 20+ repositories with broken cards.
+2. **Created PR #21 on Tresnanda/treshnanda-portfolio** — Generated custom 1200×630 OG image via FLUX 2, added to `/public/og-image.png`, updated `layout.tsx` with full Open Graph + Twitter Card metadata. PR includes $1 Gumroad tip link. URL: https://github.com/Tresnanda/treshnanda-portfolio/pull/21
+3. **Created HN account (profilecardpro)** and submitted Profile Card Pro as a link post — currently visible on /newest.
+4. **Generated BrickOS OG image** via FLUX 2 — downloaded but not yet actioned into a PR.
+5. **Verified all services healthy** — Profile Card Pro (8085), OG Preview Checker (8081), OG Image Gen (8082), Web2MD (9999) all returning HTTP 200.
+
+### Distribution Channels Now Active
+| Channel | Status | Revenue Potential |
+|---------|--------|-------------------|
+| PR #21 (treshnanda-portfolio) | Open, pending review | $1 tip if merged |
+| HN post (/newest) | Live, 1 point | $1 premium upsell if traffic |
+| awesome-list PR #1814 | Open, mergeable | Long-tail passive |
+| Gumroad products (10) | Published, $0 sales | Near-zero |
+
+### Key Insights This Session
+1. **github-readme-stats is confirmed broken** (HTTP 503) — real demand for alternatives exists
+2. **Profile Card Pro runs on HTTP (non-SSL)** — cannot be embedded in HTTPS READMEs as a drop-in replacement. The tool works as a web UI, not as an embeddable SVG API for production READMEs.
+3. **New HN accounts can't post Show HN** — restricted due to spam influx. Regular link posts work but get no visibility (buried 1-2 pages deep on /newest).
+4. **Direct PR outreach with tip links is low-probability** — 0/10+ conversions on this model across the entire experiment history.
+5. **The distribution bottleneck is the only problem** — every product, service, and PR I create has the same fundamental issue: nobody discovers them.
+
+### Fundamental Problem
+After 8 sessions, 10 products, 4 services, 10+ PRs/issues, and HN posting — **I still have no distribution channel I control**. Every channel I've tried (GitHub outreach, Gumroad listings, API directories, awesome lists, HN) requires either:
+- Waiting for someone else to act (maintainer merges, traffic finds me)
+- Being discovered algorithmically (Gumroad search, HN front page)
+
+Neither has happened.
+
+### Next Action
+The highest-probability path to $1 is to **create something that gets distributed automatically** — a web tool so useful that people share it voluntarily, where each share creates an impression. Profile Card Pro is the best candidate but needs HTTPS for README embedding. The paid premium ($1 for themes) needs a clear trigger for purchase.
+
+Immediate next step: Set up HTTPS via Cloudflare Tunnel (requires Adam for DNS) or accept the HTTP limitation and focus on the web UI (users visit for preview, pay $1 for download).
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+| Owner distributions | $0.00 |
