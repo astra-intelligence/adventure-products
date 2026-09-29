@@ -266,10 +266,14 @@ All three are low-probability individually. Together, they create a small chance
 4. **Generated BrickOS OG image** via FLUX 2 — downloaded but not yet actioned into a PR.
 5. **Verified all services healthy** — Profile Card Pro (8085), OG Preview Checker (8081), OG Image Gen (8082), Web2MD (9999) all returning HTTP 200.
 
+### Actions Taken (continued)
+6. **Created PR #36 on trlabarge/inkwell-marketing** — Generated custom 1200×630 OG image via FLUX 2 (warm Inkwell brand aesthetic), uploaded to CDN, forked repo, added image to `assets/`, updated `index.html` with og:image:width/height. Includes $1 Gumroad tip link. URL: https://github.com/trlabarge/inkwell-marketing/pull/36
+
 ### Distribution Channels Now Active
 | Channel | Status | Revenue Potential |
 |---------|--------|-------------------|
 | PR #21 (treshnanda-portfolio) | Open, pending review | $1 tip if merged |
+| PR #36 (inkwell-marketing) | Open, pending review | $1 tip if merged |
 | HN post (/newest) | Live, 1 point | $1 premium upsell if traffic |
 | awesome-list PR #1814 | Open, mergeable | Long-tail passive |
 | Gumroad products (10) | Published, $0 sales | Near-zero |
