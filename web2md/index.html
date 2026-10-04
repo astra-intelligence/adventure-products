@@ -3,149 +3,414 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Web2MD — Free URL to Markdown Converter API</title>
-<meta name="description" content="Free URL to Markdown converter. Convert any webpage to clean Markdown instantly. Free API, no signup required. CLI for batch processing available.">
-<meta name="keywords" content="url to markdown, webpage to markdown, html to markdown converter, free markdown converter, markdown api, web2md, url to md, webpage to md">
+<title>Web2MD — Free URL to Markdown Converter</title>
+<meta name="description" content="Convert any URL to clean Markdown instantly. Free online tool, 5/day free tier, or get unlimited access.">
+<meta name="keywords" content="url to markdown, webpage to markdown, html to markdown converter, free markdown converter, markdown api">
 <meta property="og:title" content="Web2MD — Free URL to Markdown Converter">
-<meta property="og:description" content="Convert any URL to clean Markdown. Free API, 10 conversions/day. Unlimited with $1+ license key.">
+<meta property="og:description" content="Convert any URL to clean Markdown instantly. Free tier: 5/day. Unlimited with license key.">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://astra-intelligence.github.io/adventure-products/web2md/">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: #0a0a0f; color: #e8e8f0; line-height: 1.6; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: #0a0a0f; color: #e8e8f0; line-height: 1.6;
+  min-height: 100vh; display: flex; flex-direction: column;
+}
 .container { max-width: 860px; margin: 0 auto; padding: 0 24px; width: 100%; }
 header {
   background: linear-gradient(135deg, #0f0f1a, #1a1a2e);
-  padding: 4rem 0 3rem; text-align: center;
+  padding: 3rem 0 2rem; text-align: center;
   border-bottom: 1px solid #1a1a2e;
 }
-header h1 { font-size: 2.8rem; font-weight: 700; letter-spacing: -0.03em; background: linear-gradient(90deg, #a29bfe, #6c5ce7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.5rem; }
-header p { color: #8888a8; font-size: 1.15rem; max-width: 560px; margin: 0 auto; }
-.cta-btn { display: inline-block; margin-top: 1.5rem; padding: 0.85rem 2.5rem; background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.2s; }
-.cta-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(108,92,231,0.4); }
-.cta-btn-sm { display: inline-block; padding: 0.6rem 1.5rem; background: #2a2a3e; color: #c8c8e0; text-decoration: none; border-radius: 6px; font-weight: 500; font-size: 0.9rem; border: 1px solid #3a3a4e; transition: all 0.2s; margin: 0 0.25rem; }
-.cta-btn-sm:hover { border-color: #6c5ce7; background: #3a3a4e; }
-section { padding: 3rem 0; }
-section h2 { font-size: 1.5rem; margin-bottom: 1.5rem; color: #fff; }
+header h1 {
+  font-size: 2.4rem; font-weight: 700; letter-spacing: -0.03em;
+  background: linear-gradient(90deg, #a29bfe, #6c5ce7);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; margin-bottom: 0.5rem;
+}
+header p { color: #8888a8; font-size: 1.1rem; max-width: 520px; margin: 0 auto; }
+main { flex: 1; padding: 2rem 0; }
 
-.feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-.feature-card { background: #12121a; border: 1px solid #1a1a2e; border-radius: 10px; padding: 1.5rem; }
-.feature-card h3 { color: #a29bfe; font-size: 1rem; margin-bottom: 0.5rem; }
-.feature-card p { color: #8888a8; font-size: 0.85rem; }
+/* Rate limit banner */
+.rate-banner {
+  background: #12121a; border: 1px solid #2a2a3e;
+  border-radius: 8px; padding: 0.6rem 1rem; margin-bottom: 1rem;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.85rem; color: #8888a8;
+}
+.rate-banner .count { color: #a29bfe; font-weight: 600; }
+.rate-banner .upgrade-link { color: #6c5ce7; text-decoration: none; font-weight: 500; }
+.rate-banner .upgrade-link:hover { text-decoration: underline; }
 
-.code-block { background: #0a0a0f; border: 1px solid #1a1a2e; border-radius: 8px; padding: 1rem; overflow-x: auto; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.85rem; color: #a29bfe; margin-bottom: 1rem; }
-.code-block .comment { color: #555; }
-.code-block .success { color: #00b894; }
-.code-block .key { color: #fd79a8; }
+.input-section {
+  background: #12121a; border: 1px solid #1a1a2e;
+  border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;
+}
+.input-section label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: #c8c8e0; }
+.url-input-group { display: flex; gap: 8px; }
+.url-input-group input {
+  flex: 1; padding: 12px 16px;
+  background: #0a0a0f; border: 1px solid #2a2a3e;
+  border-radius: 8px; color: #e8e8f0; font-size: 1rem;
+  outline: none; transition: border-color 0.2s;
+}
+.url-input-group input:focus { border-color: #6c5ce7; }
+.url-input-group button {
+  padding: 12px 28px; background: #6c5ce7; color: #fff;
+  border: none; border-radius: 8px; font-size: 1rem;
+  font-weight: 600; cursor: pointer; transition: all 0.2s;
+  white-space: nowrap;
+}
+.url-input-group button:hover { background: #5a4bd1; transform: translateY(-1px); }
+.url-input-group button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-.cta-section { background: linear-gradient(135deg, rgba(108,92,231,0.08), transparent); border: 1px solid #1a1a2e; border-radius: 12px; padding: 2rem; text-align: center; }
-.cta-section h2 { margin-bottom: 0.75rem; }
-.cta-section p { color: #8888a8; margin-bottom: 1.25rem; }
-.cta-section .features { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 1.25rem; }
-.cta-section .features span { color: #8888a8; font-size: 0.85rem; }
-.cta-section .features span::before { content: "✓ "; color: #00b894; }
+/* License key input */
+.license-section {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 0.75rem; padding-top: 0.75rem;
+  border-top: 1px solid #1a1a2e;
+}
+.license-section label { font-size: 0.82rem; color: #8888a8; white-space: nowrap; }
+.license-section input {
+  flex: 1; max-width: 280px; padding: 8px 12px;
+  background: #0a0a0f; border: 1px solid #2a2a3e;
+  border-radius: 6px; color: #e8e8f0; font-size: 0.85rem;
+  outline: none;
+}
+.license-section input:focus { border-color: #6c5ce7; }
+.license-section .license-status { font-size: 0.82rem; }
+.license-section .license-status.valid { color: #00b894; }
+.license-section .license-status.invalid { color: #ff7675; }
 
-.faq { margin: 2rem 0; }
-.faq details { background: #12121a; border: 1px solid #1a1a2e; border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 0.75rem; }
-.faq summary { cursor: pointer; font-weight: 600; color: #c8c8e0; }
-.faq p { color: #8888a8; font-size: 0.9rem; margin-top: 0.5rem; }
+.output-section {
+  background: #12121a; border: 1px solid #1a1a2e;
+  border-radius: 12px; overflow: hidden;
+}
+.output-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 1.5rem; border-bottom: 1px solid #1a1a2e;
+}
+.output-header h2 { font-size: 1rem; font-weight: 600; }
+.output-header .meta { color: #8888a8; font-size: 0.85rem; }
+.output-actions { display: flex; gap: 8px; }
+.output-actions button {
+  padding: 6px 14px; background: #2a2a3e; color: #c8c8e0;
+  border: 1px solid #3a3a4e; border-radius: 6px; font-size: 0.82rem;
+  cursor: pointer; transition: all 0.2s;
+}
+.output-actions button:hover { background: #3a3a4e; border-color: #6c5ce7; }
+.output-actions .copied { background: #00b894; color: #fff; border-color: #00b894; }
+pre#output {
+  padding: 1.5rem; overflow: auto; max-height: 500px;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 0.85rem; line-height: 1.5; color: #c8c8e0;
+  white-space: pre-wrap; word-break: break-word;
+}
+#output.placeholder { color: #555; }
 
-footer { text-align: center; padding: 2.5rem; color: #484f58; border-top: 1px solid #21262d; font-size: 0.85rem; }
+.error-box {
+  background: rgba(214, 48, 49, 0.1); border: 1px solid #d63031;
+  border-radius: 8px; padding: 1rem; margin-bottom: 1rem; display: none;
+  color: #ff7675;
+}
+.error-box.show { display: block; }
+
+.status { text-align: center; padding: 3rem 0; color: #8888a8; }
+.status .spinner { display: inline-block; width: 24px; height: 24px; border: 2px solid #2a2a3e; border-top-color: #6c5ce7; border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 1rem; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.upsell {
+  margin-top: 2rem;
+  background: linear-gradient(135deg, rgba(108,92,231,0.08), rgba(0,0,0,0));
+  border: 1px solid #2a2a3e; border-radius: 12px;
+  padding: 1.5rem; text-align: center;
+}
+.upsell h3 { color: #a29bfe; margin-bottom: 0.5rem; }
+.upsell p { color: #8888a8; font-size: 0.9rem; margin-bottom: 1rem; }
+.upsell .btn {
+  display: inline-block; padding: 10px 24px; background: #6c5ce7;
+  color: #fff; text-decoration: none; border-radius: 8px;
+  font-weight: 600; transition: all 0.2s;
+}
+.upsell .btn:hover { background: #5a4bd1; transform: translateY(-1px); }
+.upsell .features { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem; }
+.upsell .features span { color: #8888a8; font-size: 0.85rem; }
+.upsell .features span::before { content: "✓ "; color: #00b894; }
+
+.api-info {
+  margin-top: 2rem; background: #12121a; border: 1px solid #1a1a2e;
+  border-radius: 12px; padding: 1.5rem;
+}
+.api-info h3 { margin-bottom: 0.75rem; font-size: 1rem; }
+.api-info code {
+  background: #0a0a0f; padding: 0.75rem 1rem; border-radius: 6px;
+  display: block; color: #a29bfe; font-size: 0.85rem;
+  overflow-x: auto;
+}
+
+footer { text-align: center; padding: 2rem; color: #555; font-size: 0.85rem; border-top: 1px solid #1a1a2e; }
 footer a { color: #a29bfe; text-decoration: none; }
-@media (max-width: 600px) { header h1 { font-size: 2rem; } }
+
+@media (max-width: 600px) {
+  header h1 { font-size: 1.8rem; }
+  .url-input-group { flex-direction: column; }
+  .url-input-group button { width: 100%; }
+  .output-header { flex-direction: column; gap: 8px; }
+  .rate-banner { flex-direction: column; gap: 4px; text-align: center; }
+  .license-section { flex-direction: column; align-items: stretch; }
+  .license-section input { max-width: 100%; }
+}
 </style>
 </head>
 <body>
+
 <header>
-  <h1>Web2MD</h1>
-  <p>Convert any URL to clean Markdown. Free API, 10 conversions/day. Upgrade for unlimited.</p>
-  <a class="cta-btn" href="https://grantshatz.gumroad.com/l/mpkqyq">Get Unlimited — $1+ →</a>
-  <div style="margin-top: 1rem;">
-    <a class="cta-btn-sm" href="https://grantshatz.gumroad.com/l/mpkqyq">Buy License — $1+</a>
-    <a class="cta-btn-sm" href="#api">API Docs</a>
+  <div class="container">
+    <h1>Web2MD</h1>
+    <p>Paste any URL — get clean Markdown. Free tier: <strong>5/day</strong>.</p>
   </div>
 </header>
 
-<div class="container">
-  <section>
-    <h2>Convert any webpage to Markdown in one call</h2>
-    <div class="feature-grid">
-      <div class="feature-card"><h3>Zero Setup</h3><p>No API key, no signup. 10 free conversions/day. Just a URL and one HTTP request.</p></div>
-      <div class="feature-card"><h3>CORS Enabled</h3><p>Use from any browser or client-side app. No proxy needed.</p></div>
-      <div class="feature-card"><h3>10 Free/Day</h3><p>Free tier: 10 conversions/day per IP. <a href="https://grantshatz.gumroad.com/l/mpkqyq">Upgrade</a> for unlimited use.</p></div>
-      <div class="feature-card"><h3>Clean Output</h3><p>Uses readability extraction for article content. Falls back to html2text for other pages.</p></div>
+<main>
+  <div class="container">
+    <div class="rate-banner" id="rate-banner">
+      <span>Free conversions remaining today: <span class="count" id="remaining-count">10</span> of 10</span>
+      <a class="upgrade-link" href="https://grantshatz.gumroad.com/l/mpkqyq" target="_blank" rel="noopener">Get unlimited →</a>
     </div>
-  </section>
 
-  <section id="api">
-    <h2>API — One endpoint, no auth</h2>
-    <div class="code-block">
-      <span class="comment"># Convert any URL to Markdown</span><br>
-      curl "<span class="key">http://167.233.135.161:9999/api/convert?url=https://example.com/</span>"<br><br>
-      <span class="comment"># Response:</span><br>
-      {<br>
-      &nbsp; "<span class="key">success</span>": true,<br>
-      &nbsp; "<span class="key">title</span>": "Example Domain",<br>
-      &nbsp; "<span class="key">markdown</span>": "This domain is for use in...",<br>
-      &nbsp; "<span class="key">char_count</span>": 113,<br>
-      &nbsp; "<span class="key">url</span>": "https://example.com/"<br>
-      }
+    <div class="input-section">
+      <label for="url-input">Enter a URL to convert</label>
+      <div class="url-input-group">
+        <input type="url" id="url-input" placeholder="https://example.com/article" autofocus>
+        <button id="convert-btn">Convert ✦</button>
+      </div>
+      <div class="license-section">
+        <label for="license-input">License key:</label>
+        <input type="text" id="license-input" placeholder="Gumroad license key (unlocks unlimited)">
+        <span class="license-status" id="license-status"></span>
+      </div>
     </div>
-    <div class="code-block">
-      <span class="comment"># Python (no SDK needed)</span><br>
-      import requests<br>
-      resp = requests.get("<span class="key">http://167.233.135.161:9999/api/convert</span>", params={"url": "https://example.com/"})<br>
-      data = resp.json()<br>
-      print(data["markdown"])
-    </div>
-  </section>
 
-  <section>
-    <h2>Use Cases</h2>
-    <div class="feature-grid">
-      <div class="feature-card"><h3>LLM Ingestion</h3><p>Feed web content into your AI pipeline. Clean Markdown parses better than raw HTML.</p></div>
-      <div class="feature-card"><h3>Research</h3><p>Save articles as Markdown for offline reading, note-taking, or citation management.</p></div>
-      <div class="feature-card"><h3>Content Archival</h3><p>Convert and store web pages in a lossless, future-proof text format.</p></div>
-      <div class="feature-card"><h3>Web Scraping</h3><p>Extract content without dealing with DOM parsing, JavaScript, or CSS selectors.</p></div>
-    </div>
-  </section>
+    <div class="error-box" id="error-box"></div>
 
-  <section class="cta-section">
-    <h2>Need unlimited access?</h2>
-    <div class="features">
-      <span>Unlimited daily conversions</span>
-      <span>License key unlocks API limit</span>
-      <span>Supports server hosting costs</span>
+    <div id="status" class="status" style="display:none;">
+      <div class="spinner"></div>
+      <p>Converting...</p>
     </div>
-    <p>Get an API license key for $1+ (pay what you want).</p>
-    <a class="cta-btn" href="https://grantshatz.gumroad.com/l/mpkqyq">Get License — $1+</a>
-  </section>
 
-  <section class="faq">
-    <h2>FAQ</h2>
-    <details>
-      <summary>Is there a rate limit?</summary>
-      <p>Yes — 10 free conversions per day per IP. This limits free-tier abuse and keeps the service running. <a href="https://grantshatz.gumroad.com/l/mpkqyq">Upgrade for $1+</a> to remove the limit and get unlimited conversions.</p>
-    </details>
-    <details>
-      <summary>Can I use this in my open source project?</summary>
-      <p>Yes. The API is free for open source and personal projects. For commercial batch usage, consider purchasing the CLI.</p>
-    </details>
-    <details>
-      <summary>Does it handle JavaScript-rendered pages?</summary>
-      <p>Web2MD uses server-side HTTP fetching (trafilatura + html2text), so it works best with static and server-rendered pages. Single-page apps may not render fully.</p>
-    </details>
-    <details>
-      <summary>What about the CLI?</summary>
-      <p>The API itself is the product. The MCP server wraps it for AI agent use. Get a license key for unlimited access.</p>
-    </details>
-  </section>
-</div>
+    <div class="output-section" id="output-section" style="display:none;">
+      <div class="output-header">
+        <div>
+          <h2 id="output-title">Output</h2>
+          <span class="meta" id="output-meta"></span>
+        </div>
+        <div class="output-actions">
+          <button id="copy-btn">Copy</button>
+          <button id="clear-btn">Clear</button>
+        </div>
+      </div>
+      <pre id="output"></pre>
+    </div>
+
+    <div class="upsell" id="upsell">
+      <h3>Need more?</h3>
+      <div class="features">
+        <span>Unlimited conversions</span>
+        <span>API access</span>
+        <span>Batch processing</span>
+        <span>License key</span>
+      </div>
+      <p>Get unlimited access for <strong>$1</strong> — no daily limits, no rate caps.</p>
+      <a class="btn" href="https://grantshatz.gumroad.com/l/mpkqyq" target="_blank" rel="noopener">Get Web2MD — $1+</a>
+    </div>
+
+    <div class="api-info">
+      <h3>API</h3>
+      <p style="color:#8888a8;font-size:0.9rem;margin-bottom:0.75rem;">Use the same API in your own tools. Add <code>license_key</code> to skip rate limits.</p>
+      <code>curl "http://167.233.135.161:9999/api/convert?url=https://example.com/"</code>
+      <p style="color:#555;font-size:0.8rem;margin-top:0.5rem;">
+        Returns JSON. Free tier: 5/day/IP. 
+        <a href="https://grantshatz.gumroad.com/l/mpkqyq" style="color:#6c5ce7;">Get a license key</a> for unlimited access.
+      </p>
+    </div>
+  </div>
+</main>
 
 <footer>
   <div class="container">
-    <a href="http://167.233.135.161:9999/">Live Tool</a> · <a href="https://grantshatz.gumroad.com/l/mpkqyq">CLI</a> · <a href="https://astra-intelligence.github.io/adventure-products/">More Tools</a>
+    <p><a href="https://grantshatz.gumroad.com/l/mpkqyq">Web2MD on Gumroad</a> · <a href="https://astra-intelligence.github.io/adventure-products/">More Tools</a> · Free tier: 5/day</p>
   </div>
 </footer>
+
+<script>
+const API_BASE = 'http://167.233.135.161:9999';
+const urlInput = document.getElementById('url-input');
+const licenseInput = document.getElementById('license-input');
+const convertBtn = document.getElementById('convert-btn');
+const outputSection = document.getElementById('output-section');
+const outputPre = document.getElementById('output');
+const outputTitle = document.getElementById('output-title');
+const outputMeta = document.getElementById('output-meta');
+const errorBox = document.getElementById('error-box');
+const statusDiv = document.getElementById('status');
+const copyBtn = document.getElementById('copy-btn');
+const clearBtn = document.getElementById('clear-btn');
+const remainingCount = document.getElementById('remaining-count');
+const licenseStatus = document.getElementById('license-status');
+
+urlInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') convert(); });
+convertBtn.addEventListener('click', convert);
+copyBtn.addEventListener('click', copyOutput);
+clearBtn.addEventListener('click', clearOutput);
+
+// Verify license key on input
+let licenseCheckTimer = null;
+licenseInput.addEventListener('input', () => {
+  clearTimeout(licenseCheckTimer);
+  const key = licenseInput.value.trim();
+  if (key.length < 5) { licenseStatus.textContent = ''; return; }
+  licenseStatus.textContent = 'Verifying...';
+  licenseStatus.className = 'license-status';
+  licenseCheckTimer = setTimeout(() => verifyLicense(key), 600);
+});
+
+async function verifyLicense(key) {
+  try {
+    const resp = await fetch(`${API_BASE}/api/verify-license`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ license_key: key, product_permalink: 'mpkqyq' })
+    });
+    const data = await resp.json();
+    if (data.valid) {
+      licenseStatus.textContent = '✓ License active (unlimited)';
+      licenseStatus.className = 'license-status valid';
+      // Show unlimited in the rate banner
+      remainingCount.textContent = '∞';
+    } else {
+      licenseStatus.textContent = '✗ Invalid key';
+      licenseStatus.className = 'license-status invalid';
+    }
+  } catch {
+    licenseStatus.textContent = 'Could not verify';
+    licenseStatus.className = 'license-status invalid';
+  }
+}
+
+function showError(msg) {
+  errorBox.textContent = msg;
+  errorBox.classList.add('show');
+  outputSection.style.display = 'none';
+  statusDiv.style.display = 'none';
+}
+
+function clearError() {
+  errorBox.classList.remove('show');
+  errorBox.textContent = '';
+}
+
+async function convert() {
+  const url = urlInput.value.trim();
+  if (!url) { showError('Please enter a URL.'); return; }
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    showError('URL must start with http:// or https://');
+    return;
+  }
+
+  clearError();
+  outputSection.style.display = 'none';
+  statusDiv.style.display = 'block';
+  convertBtn.disabled = true;
+
+  // Build query with optional license key
+  let apiUrl = `${API_BASE}/api/convert?url=${encodeURIComponent(url)}`;
+  const licenseKey = licenseInput.value.trim();
+  if (licenseKey) {
+    apiUrl += `&license_key=${encodeURIComponent(licenseKey)}`;
+  }
+
+  try {
+    const resp = await fetch(apiUrl);
+    const data = await resp.json();
+
+    statusDiv.style.display = 'none';
+
+    if (!data.success) {
+      if (data.limit_reached) {
+        showError('Daily limit reached (10/10). Get a license key for unlimited access: https://grantshatz.gumroad.com/l/mpkqyq');
+      } else {
+        showError(data.message || 'Conversion failed. The URL may not be accessible.');
+      }
+      convertBtn.disabled = false;
+      return;
+    }
+
+    // Update remaining count
+    if (data.remaining_free >= 0) {
+      remainingCount.textContent = data.remaining_free;
+    }
+
+    outputTitle.textContent = data.title || '(no title)';
+    outputMeta.textContent = `${data.char_count.toLocaleString()} characters`;
+    outputPre.textContent = data.markdown;
+    outputPre.classList.remove('placeholder');
+    outputSection.style.display = 'block';
+  } catch (err) {
+    statusDiv.style.display = 'none';
+    showError('Network error: could not reach the conversion service. The server may be temporarily unavailable.');
+  }
+
+  convertBtn.disabled = false;
+}
+
+function copyOutput() {
+  const text = outputPre.textContent;
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    copyBtn.textContent = 'Copied!';
+    copyBtn.classList.add('copied');
+    setTimeout(() => {
+      copyBtn.textContent = 'Copy';
+      copyBtn.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    copyBtn.textContent = 'Copied!';
+    copyBtn.classList.add('copied');
+    setTimeout(() => {
+      copyBtn.textContent = 'Copy';
+      copyBtn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+function clearOutput() {
+  outputPre.textContent = '';
+  outputPre.classList.add('placeholder');
+  outputSection.style.display = 'none';
+  outputTitle.textContent = 'Output';
+  outputMeta.textContent = '';
+  urlInput.value = '';
+  urlInput.focus();
+}
+
+// Load initial rate limit status
+(async function init() {
+  try {
+    const resp = await fetch(`${API_BASE}/api/status`);
+    const data = await resp.json();
+    if (data.used_today !== undefined) {
+      remainingCount.textContent = Math.max(0, data.free_daily_limit - data.used_today);
+    }
+  } catch {}
+})();
+</script>
+
 </body>
 </html>
