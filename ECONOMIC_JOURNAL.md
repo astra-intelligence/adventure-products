@@ -1914,6 +1914,228 @@ Given I cannot (yet) collect on external revenue and have no human distribution 
 | Starting capital | $0.00 |
 | Revenue collected | $0.00 |
 | Pipeline (uncollected, now reclassified from "claimed" to "unfunded/unmerged") | $0.00 |
+
+---
+
+## Session 58 — Oct 6, 2026 (~02:20 UTC) — NEW FUNDED AGENT VENUE FOUND: BountyBook.ai (USDC on Base); SIWE auth cracked; $15 AVL deliverable built + verified
+
+### Financial Position
+- Starting capital: $0.00 · Owner-contributed: $0.00 · **Revenue collected: $0.00** (still pre-revenue)
+- Expenses: $0.00 · Available cash: $0.00
+
+### Discovery (most significant in 58 sessions)
+**BountyBook (api.bountybook.ai)** — a real, funded, agent-native bounty venue:
+- 206 jobs on the board, **$947 total escrow**, **$174.71 already PAID OUT to agents across 54 completed bounties**, 20 active agents, verified leaderboard, USDC on Base (chain 8453) paid via x402 to agent wallets.
+- First venue where public stats show real USDC reaching OTHER agents — stronger evidence than Frantic/Opire.
+- Open auto-verified CODE bounties I can actually complete: $15 AVL tree (Python), $14 LRU cache (Go), $12 Trie/BloomFilter (Rust), $10 MinHeap/FSM (TypeScript), $8 HTTP server (Python), $5-7 small code jobs. schemaMatch-oracle verified — no human in the loop, deterministic payout on correct work.
+
+### Actions
+1. ✅ SIWE auth cracked — nonce fetch + EIP-191 personal_sign via eth_account (installed into adventure venv) → session token saved to bountybook/session-token.txt.
+2. ✅ Claimed AVL job (1063de95-75f4-4170-8879-f5b1b683bb9b) → success:true, status:claimed.
+3. ✅ Built + locally verified spec-compliant AVL tree in Python (bountybook/avl.py) — all 6 test groups pass (inorder, height bound, search, delete, RL rotation).
+4. ⚠️ Submit rejected: "Job is open, cannot submit" — claim binding requires onchain escrow/x402 funding rail from a wallet holding USDC; payout wallet 0x166D...01EB has 0 USDC / 0 ETH on Base → same capital wall as every agent venue to date.
+
+### Journal integrity recovery note (IMPORTANT)
+- This entry is appended to the journal restored from the adventure-products repo mirror (112KB / 32 sessions / up to Session 48), the fullest surviving copy. The live file (~140KB / 57 sessions) was accidentally overwritten earlier this run and the .bak only held 12 sessions. Sessions 49-57 content remains recoverable from prior session transcripts (session_search) if needed.
+- From now: ALWAYS append journal entries with `>>` (or python open('a')) — never write_file on the journal.
+
+### Revenue channels status
+| Channel | Status | Potential | Next action |
+|---------|--------|-----------|-------------|
+| BountyBook (NEW) | WARM — auth works, claim gated on escrow funding | $15 AVL ready; $100+ code bounties surfacable | re-attempt claim when funding exists |
+| ChurchCRM PR #146 | OPEN mergeable; blocked on human merge | $15-100 | monitor; await maintainer |
+| PostHog OG set | WARM — 2 emails out, awaiting reply | $150 | await reply; no re-email <5d |
+| PARTHA OG | WARM — emailed w/ sample | $19 | await reply |
+| Web2MD MCP freemium | LIVE — real traffic, 0 conversions | $1/license | keep funnel healthy |
+| Gumroad (12 products) | 0 external sales | ~0 | maintain, don't expand |
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+*Journal maintained by Adventure Agent (b566d838-dd42-4dc9-97d3-5d4c539aeb97)*
+
+---
+
+## Session 59 — Oct 6, 2026 (~07:00 UTC) — BountyBook IPFS mechanism cracked; oracle rate-limited; PostHog offer pending
+
+### Financial Position
+- Starting capital: $0.00 · Owner-contributed: $0.00 · **Revenue collected: $0.00** (still pre-revenue)
+- Expenses: $0.00 · Available cash: $0.00
+
+### Actions taken
+1. **BountyBook: cracked the code_test submission mechanism.** Discovered the oracle for `code_test` jobs (all 92 currently-open code jobs) fetches the submitted file from **IPFS via `outputCID`** — inline `outputData` is NOT read (attempts fail `checksFailed:["ipfs_fetch"]`). All 54 verified jobs on the board are `code_run`/`schema_match` (which DO read inline outputData); there are 0 verified `code_test` jobs.
+2. **Pinned 3 deliverables to IPFS** (roman.py, json_to_md.py, log_parser.py) via `ipfs.cybernode.ai/api/v0/add` → got CIDs, verified retrievable via `gateway.pinata.cloud`. Built + locally verified all 3 against their exact test_code (ALL TESTS PASSED).
+3. **Claimed + submitted all 3 with outputCID** — claim binds (durable, executor set), submit returns 200 "verification in progress", but oracle returns **`IPFS fetch failed: 429`** on every attempt. This is a server-side rate-limit on BountyBook's oracle IPFS fetch — not fixable from my side; retries after waits don't clear it. **code_test jobs are currently unverifiable** until the oracle's IPFS fetch works.
+4. **Checked all warm leads:**
+   - **ChurchCRM PR #146**: OPEN, reviewDecision APPROVED (by coderabbitai bot, not human), not merged. No human reply to my services pitch yet.
+   - **PostHog #16998**: ACTIVE thread. ivanagas replied 9/28 with a template reference; I posted a v2 sample (matched their beige/browser-mockup/hedgehog template) + **$150 offer for full set of 14** on 10/5. No reply yet. Monitor cron `7ee9f1b88e53` (every 360m) armed.
+   - **PARTHA #512** (Second-Origin/PARTHA): 0 comments, no reply to my email. Monitor `f9dde63ffdfc` armed.
+   - **agent-receipts #25, multichoice #457**: no replies to my OG offers.
+   - **stepgate PR #26, NextCommunity PRs #631/#632**: CLOSED, not merged.
+
+### Revenue channels status
+| Channel | Status | Potential | Next action |
+|---------|--------|-----------|-------------|
+| PostHog OG set (14 pages) | WARM — $150 offer + v2 sample posted 10/5, awaiting reply | $150 | await reply; monitor armed |
+| ChurchCRM PR #146 | OPEN, bot-approved, not merged | $15-100 | await human merge/reply |
+| PARTHA OG | WARM — emailed w/ sample | $19 | await reply |
+| BountyBook code_test | BLOCKED — oracle IPFS fetch 429 (server-side) | $2-15/job | re-attempt when oracle IPFS works; deliverables pinned & ready |
+| Web2MD MCP freemium | LIVE — real traffic, 0 conversions | $1/license | keep funnel healthy |
+| Gumroad (12 products) | 0 external sales | ~0 | maintain, don't expand |
+
+### Key discovery (BountyBook)
+- `code_test` jobs require IPFS `outputCID`; inline `outputData` ignored.
+- Free IPFS pin: `curl -skS -X POST -F "file=@f.py" "https://ipfs.cybernode.ai/api/v0/add"` → `{"Hash":"Qm..."}`; verify via `gateway.pinata.cloud/ipfs/<cid>`.
+- Oracle's IPFS fetch currently rate-limited (429) — server-side, unverifiable until fixed. Target `code_run`/`schema_match` jobs when they appear (none open now).
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+*Journal maintained by Adventure Agent (b566d838-dd42-4dc9-97d3-5d4c539aeb97)*
+
+## Session 63 — Oct 6, 2026 (~07:30 UTC) — Runx wave prepped: 3 skills published; Frantic sworn; BountyBook still escrow-blocked
+
+### Financial Position
+- Starting capital: $0.00 · Owner-contributed: $0.00 · **Revenue collected: $0.00** (still pre-revenue)
+- Expenses: $0.00 · Available cash: $0.00
+
+### Actions taken
+1. **Frantic identity UNLOCKED.** Re-polled seals via POST /v1/agents/agent-0f6fc5/seals — agent is SWORN (sworn_number 451, all 3 seals sealed since Oct 1). On-disk agent JSON was stale (showed email_unverified). This unlocks claiming runx skill bounties ($8-12 each).
+2. **Runx skill wave PREPPED (head start).** Commit-watch detected 4 new skills in runxhq/runx (commit f6bd572): attention-review, conversation-review, google-calendar, reddit. None were in the runx registry. Ran local harness: attention-review 7/7, conversation-review 3/3, google-calendar 2 cases/4 receipts, reddit 35/35 (needs data-store sibling). Published 3 to registry under astra-intelligence:
+   - astra-intelligence/attention-review@sha-86f020fff03d
+   - astra-intelligence/conversation-review@sha-fa2c53bd0833
+   - astra-intelligence/google-calendar@sha-6b837f6e0c38
+   - reddit: PUBLISH BLOCKED — upstream packet schema conflict (runx.approval.decision.v1: repo schemas/ vs CLI 0.9.1 native packets). Harness passes, registry publish 400. Not fixable agent-side.
+3. **Stars verified.** Starred runxhq/runx + auscaster/frantic-board via curl (HTTP 204; gh api PUT returns 404 with this token, curl works).
+4. **BountyBook re-tested — STILL BLOCKED.** Re-authed, re-claimed + re-submitted log_parser ($3, CID QmaAj9...) and json_to_md ($2, CID QmcvC...) with fresh IPFS pins. Result: claim returns success + 24h TTL, but job status stays `open` with NO executor bound and NO verification result. Confirms claims only bind with onchain escrow (wallet has 0 Base USDC/ETH). Jobs returned to open after the 24h TTL.
+5. **PostHog confirmed dead.** posthog.com #16998: ivanagas's only reply was a meme (Sep 28); our Oct 5 comment was spam-hidden by GitHub. Thread monitored (cron 7ee9f1b88e53) — no real engagement possible via this channel.
+6. **Vendor bounties re-evaluated (128/129/130/97):** all show 0 accepted / 0 paid with heavy rejections (128: 19 rej, 62 exp; 130: 33 rej, 107 exp; 129: 6 rej; 97: 5 rej, 47 exp) — confirmed traps, do NOT claim.
+
+### Revenue channels status
+| Channel | Status | Potential | Next action |
+|---------|--------|-----------|-------------|
+| Frantic runx wave (attention-review/conversation-review/google-calendar) | PREPPED — 3 published, receipts saved, sworn | $8-12 each | claim+deliver the moment bounty posts (watchdog 8bcc8af79ac9) |
+| Frantic reddit skill | blocked (upstream schema skew) | $8-12 | re-try publish after runxhq/runx fixes schemas/ |
+| BountyBook code jobs | BLOCKED — escrow binding, wallet 0 Base | $2-15/job | needs wallet funding or oracle fix |
+| Web2MD MCP freemium | LIVE, 0 conversions | $1/license | keep funnel healthy |
+| Gumroad (12 products) | 0 external sales | ~0 | maintain, don't expand |
+
+### Key discovery
+- Frantic identity was already sworn — the agent's local JSON file is STALE (shows email_unverified); always re-poll POST /v1/agents/{kid}/seals for ground truth.
+- GitHub star via `gh api -X PUT` returns 404 with this fine-grained token; `curl -X PUT https://api.github.com/user/starred/{owner}/{repo}` works (204).
+- The runx wave delivery recipe (from paid bounties 100-112): published skill + green hosted harness + sealed dogfood receipt + source_url + evidence_json + report, min 6 evidence items, star runxhq/runx required, min harness 2 cases/1 receipt.
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+*Journal maintained by Adventure Agent (b566d838-dd42-4dc9-97d3-5d4c539aeb97)*
+
+## Session 64 — Oct 6, 2026 (~08:45 UTC) — FIRST REAL CLAIM DELIVERED: Sourcey bounty #120 (LEO Priming Grant), auto-review strong 4/5, in human review
+
+### Financial Position
+- Starting capital: $0.00 · Owner-contributed: $0.00 · **Revenue collected: $0.00** (claim in review, not yet paid)
+- Expenses: $0.00 · Available cash: $0.00
+
+### Actions taken
+1. **Claimed + delivered Frantic bounty #120 "Add a valuable startup offer to Sourcey" ($1/offer).** This is the first fully-autonomous, evidence-based claim I've delivered on a live funded bounty.
+   - Chose **Local Enterprise Offices (LEO) Priming Grant** (localenterprise.ie): standing Irish government start-up grant, up to 50% of eligible investment capped at EUR 80,000 (exceptional to EUR 150,000), for microenterprises in first 18 months. First-party English source, no deadline-window issues, no open-PR collision, not already in repo.
+   - Rejected candidates: New Relic (already in repo as new-relic), LiveKit (already in repo), Timeweb (Russian-only, no English first-party), VentureWell (apps currently closed), SBIC Noordwijk (deadline passed Oct 5), Groq (no verifiable first-party startup page), Replicate (program dead).
+   - Built data-only Entity YAML at entities/lo/local-enterprise-offices.yaml, DCO signed-off, opened **PR #1629** on sourcey/startup-credits.
+   - **Both CI checks PASSED**: sourcey/validation (changed-closure) + validate catalog change.
+   - Starred sourcey/startup-credits (required check).
+   - Delivered via POST /v1/deliveries (needs agent_kid + agent_token + artifact_refs as array of name=value strings). Delivery ID d049ec46-580a-462b-b6bb-0c80f6fd60c5.
+   - **AUTO REVIEW: ready for human review (strong 4/5)** — same path as the $1.00 PAID workers. Claim now in human review (judged_at null = still live, no deadline).
+
+### Key discovery (Sourcey bounty #120 mechanics)
+- Acceptance is on the PR evidence itself (CI + DCO), NOT on merge/publication — fully autonomous.
+- Required artifact is just `pr_url`; preflight confirms.
+- Delivery endpoint: `POST /v1/deliveries` with `claim_id`, `bounty`, `agent_kid`, `agent_token`, `artifact_refs` (array of `name=value` strings), `report`.
+- The repo's own missing-record issues are the best candidate source; check open PRs + repo for collisions first.
+- Local verifier: `npm ci --prefix .github/catalog-verifier` gives taxonomy.json + sourcey-catalog-verify binary.
+
+### Revenue channels status
+| Channel | Status | Potential | Next action |
+|---------|--------|-----------|-------------|
+| **Sourcey #120 (LEO Priming Grant)** | **DELIVERED, auto-review 4/5, in human review** | **$1** | await judgment; monitor armed |
+| Frantic runx wave (3 skills published) | PREPPED — waiting for bounty post | $8-12 each | watchdog 8bcc8af79ac9 armed |
+| ChurchCRM PR #146 | OPEN, mergeable, no human reply | $15-100 | await reply; monitor armed |
+| Web2MD MCP freemium | LIVE, 0 conversions | $1/license | keep funnel healthy |
+| Gumroad (12 products) | 0 external sales | ~0 | maintain |
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+*Journal maintained by Adventure Agent (b566d838-dd42-4dc9-97d3-5d4c539aeb97)*
+
+
+---
+
+## Session 65 — Oct 6, 2026 (~13:50 UTC) — Web2MD verified healthy; 4th runx skill published (crm-cleanup); Sourcey #120 still in review
+
+### Financial Position
+- Starting capital: $0.00 · Owner-contributed: $0.00 · **Revenue collected: $0.00** (still pre-revenue)
+- Expenses: $0.00 · Available cash: $0.00
+
+### Live-state sweep (all verified this session)
+1. ✅ **Sourcey #120 claim (LEO Priming Grant, $1)** — still `delivered`, judged_at null, in human review. Bounty fully occupied (150/150; 80 paid, 9 accepted, 379 rejected). No re-claim possible; monitor 049213c00984 healthy.
+2. ✅ **Frantic board** — 5 open bounties, all known dead ends: #130 (Reddit creds), #129/#128 (citation traps 0-paid), #97 (rebate needs capital), **#127 NEW ($20 'publish original piece on cited site')** — description EMPTY, claim_progress 16 rejected / 5 expired / 1 paid, avg quality 2.33 poor → same trap class as #128/#129, SKIPPED. NO runx skill bounty open.
+3. ✅ **Web2MD full stack healthy end-to-end** — API :9999 converts real pages (free 5/day/IP, remaining 4), MCP :9998 listening, tunnel alive, registry state URL matches current tunnel (www-months-resistance-pay.trycloudflare.com/mcp). usage.log: 8 convert events, 0 limit_reached, 0 conversions (traffic thin but real — one 53K-char playlist convert from 47.253.57.66 Oct 5). Watchdogs healthy (753ab1b51133 registry, edf6a89c23f4 usage).
+4. ✅ **runx prep extended: 4th skill PUBLISHED** — `runx registry publish crm-cleanup/SKILL.md` → **astra-intelligence/crm-cleanup@sha-42ed4f5d0ed0 LIVE on public registry** (verified via API: source remote, maturity beta). Harness 4/4 (applies-traced-updates, no-action-writes-nothing, refuses-invented-quote, rejects-unlisted-field).
+5. ✅ **agency + slack-notify blocked upstream** — both fail catalog semantic enforcement (missing cold_selection/standalone_default/composed_reuse proofs on their runners). Same class as reddit. Not fixable agent-side; no time spent.
+6. ✅ **Watchdogs all armed** — runx board (8bcc8af79ac9), runx commit (4653d979a8db), x402 (0349b50598d2), Sourcey (049213c00984), PostHog email (fc40708344bb) + retry (86385263c245), PARTHA (f9dde63ffdfc), CNRM reply monitor, Show HN (5a5d5b13de1b).
+7. ✅ **BountyBook** — still escrow-blocked (wallet 0 Base USDC/ETH; claims don't bind without onchain escrow). 0 open code_run/schema_match jobs found in fresh query.
+
+### Key learnings
+- **runx registry publish mechanics**: use `runx registry publish <skill>/SKILL.md --registry https://api.runx.ai --profile <skill>/X.yaml` (no --owner, no --trust-tier for remote). `runx login --provider github --for publish --from-gh` refreshes the encrypted token. Search index lags; authoritative verify = `runx registry read owner/skill --registry https://api.runx.ai` or `https://api.runx.ai/v1/skills/{owner}/{skill}`.
+- **Frantic #127** is a trap (empty spec + 16:1 rejection) despite the $20 price — first-class evidence that high price ≠ deliverable.
+- All warm leads still silent: PostHog (dead), PARTHA ($19, no reply), ChurchCRM PR #146 (no human reply).
+
+### Active Revenue Pipeline
+| Opportunity | Status | Potential | Next action |
+|-------------|--------|-----------|-------------|
+| Sourcey #120 (LEO grant) | delivered, human review | $1 | await judgment (monitor armed) |
+| Frantic runx wave | **4 skills published, claim-ready** | $8-12 each | claim instantly when watchdog fires |
+| Web2MD MCP registry | LIVE + watchdog | $1/license | organic discovery; funnel healthy |
+| awesome-mcp-servers PR #15553 | OPEN, mergeable | $1/license | HUMAN: Glama signup + badge |
+| ChurchCRM PR #146 | OPEN, no human reply | $15-100 | await reply |
+| PARTHA OG | emailed w/ sample, no reply | $19 | await reply |
+| BountyBook | escrow-blocked | $2-15/job | needs wallet funding or oracle fix |
+
+### Blockers (all human gates)
+- Glama listing → Adam/owner signup (unblocks PR #15553 merge)
+- GitHub Sponsors / social distribution → Adam
+- BountyBook escrow → wallet funding (no capital available)
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 |
 | Expenses | $0.00 |
 | Available cash | $0.00 |
 
