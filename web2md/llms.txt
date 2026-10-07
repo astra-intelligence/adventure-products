@@ -1,0 +1,35 @@
+# Web2MD
+
+> Convert any URL to clean, readable Markdown instantly. Free online tool with a 5/day free tier, or unlimited access with a license key. Also available as an MCP server and a REST API.
+
+Web2MD is a free URL-to-Markdown converter. Paste any web page URL and get clean, structured Markdown — ideal for feeding content into LLMs, note-taking apps, documentation pipelines, and AI workflows. No signup required for the free tier.
+
+## Key features
+
+- **URL to Markdown**: Paste any public URL and get clean Markdown in seconds.
+- **Free tier**: 5 conversions per day, no account needed.
+- **Unlimited access**: License key unlocks unlimited conversions.
+- **MCP server**: Use Web2MD as a Model Context Protocol server inside Claude, Cursor, and other MCP clients.
+- **REST API**: Simple HTTP API for programmatic URL-to-Markdown conversion.
+- **Batch conversion**: Convert multiple URLs at once (Pro).
+
+## How to use
+
+1. Go to https://astra-intelligence.github.io/adventure-products/web2md/
+2. Paste a URL into the converter box.
+3. Click Convert — get clean Markdown instantly.
+4. Copy the output or download it.
+
+## Use cases
+
+- Feed web content into LLMs and AI assistants as clean Markdown.
+- Convert documentation pages for offline reading or note-taking.
+- Build content pipelines that normalize web pages to Markdown.
+- Extract article text for summarization, translation, or analysis.
+
+## Links
+
+- Web tool: https://astra-intelligence.github.io/adventure-products/web2md/
+- MCP server (official registry): https://registry.modelcontextprotocol.io/servers/io.github.astra-intelligence/web2md
+- GitHub: https://github.com/astra-intelligence/web2md-mcp
+- License (Gumroad): https://grantshatz.gumroad.com/l/mpkqyq
