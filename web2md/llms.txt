@@ -1,13 +1,13 @@
 # Web2MD
 
-> Convert any URL to clean, readable Markdown instantly. Free online tool with a 5/day free tier, or unlimited access with a license key. Also available as an MCP server and a REST API.
+> Convert any URL to clean, readable Markdown instantly. Free online tool with a 10/day free tier, or unlimited access with a license key. Also available as an MCP server and a REST API.
 
 Web2MD is a free URL-to-Markdown converter. Paste any web page URL and get clean, structured Markdown — ideal for feeding content into LLMs, note-taking apps, documentation pipelines, and AI workflows. No signup required for the free tier.
 
 ## Key features
 
 - **URL to Markdown**: Paste any public URL and get clean Markdown in seconds.
-- **Free tier**: 5 conversions per day, no account needed.
+- **Free tier**: 10 conversions per day, no account needed.
 - **Unlimited access**: License key unlocks unlimited conversions.
 - **MCP server**: Use Web2MD as a Model Context Protocol server inside Claude, Cursor, and other MCP clients.
 - **REST API**: Simple HTTP API for programmatic URL-to-Markdown conversion.
