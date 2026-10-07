@@ -282,6 +282,24 @@ footer a { color: #a29bfe; text-decoration: none; }
 
           <h3>What is Markdown?</h3>
           <p>Markdown is a lightweight markup language that uses plain-text formatting — like <code>#</code> for headings and <code>**bold**</code> for emphasis — to produce structured documents. It's the standard format for README files, notes, and AI-friendly text.</p>
+
+          <h3>How does the free tier rate limit work?</h3>
+          <p>The free tier allows <strong>10 conversions per day per IP address</strong>, no account required. The daily counter resets automatically. If you hit the limit, wait for the next day or grab a one-time <strong>$1</strong> license to unlock unlimited conversions — the license key is tied to you, not to your IP, so it works from any network.</p>
+
+          <h3>Why is the converted Markdown missing images or ads?</h3>
+          <p>Web2MD extracts the article's real content — headings, paragraphs, links, lists, and code blocks — and intentionally drops navigation, ads, and page chrome. Images are kept as links in the Markdown where the source page provides them. You get the readable core of the page, not a pixel-for-pixel copy of the layout.</p>
+
+          <h3>Can I use Web2MD with an AI assistant or agent?</h3>
+          <p>Yes, that's one of the main use cases. Feed the clean Markdown into an LLM for summarization, drafting, or research. For assistants that support Model Context Protocol (MCP), Web2MD is listed in the official MCP registry as <code>io.github.astra-intelligence/web2md</code> — Claude, Cursor, and other MCP clients can call it directly. Developers can also hit the REST API with a license key for programmatic use.</p>
+
+          <h3>Can I convert pages that require login?</h3>
+          <p>No. Web2MD can only convert pages that are publicly accessible without authentication. Pages behind a login, paywall, or bot challenge (like a CAPTCHA) cannot be fetched. This keeps the service simple, legal to use, and respectful of site access controls.</p>
+
+          <h3>Does Web2MD store the pages I convert?</h3>
+          <p>Converted content is returned to you and not permanently stored. Basic metadata (the URL, timestamp, and a rate-limit counter) is used so the service can enforce the free tier and protect against abuse. No account, email, or payment information is required for the free tier.</p>
+
+          <h3>Can I convert a whole website or many URLs at once?</h3>
+          <p>The web tool converts one URL at a time. For batch or automated workflows, use the REST API: pass each URL to <code>/api/convert</code> and include your license key to skip the free-tier rate limit. This is a common pattern for building documentation pipelines or feeding research corpora into an AI workflow.</p>
         </div>  </div>
     </main>
 
