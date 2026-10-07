@@ -142,6 +142,17 @@ pre#output {
   margin-top: 2rem; background: #12121a; border: 1px solid #1a1a2e;
   border-radius: 12px; padding: 1.5rem;
 }
+.seo-content {
+  margin-top: 2rem; background: #12121a; border: 1px solid #1a1a2e;
+  border-radius: 12px; padding: 1.5rem 1.5rem 2rem;
+}
+.seo-content h2 { color: #a29bfe; font-size: 1.3rem; margin: 1.5rem 0 0.5rem; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #c8c8e0; font-size: 1rem; margin: 1.25rem 0 0.4rem; }
+.seo-content p, .seo-content li { color: #8888a8; font-size: 0.92rem; line-height: 1.7; }
+.seo-content ul, .seo-content ol { padding-left: 1.4rem; margin: 0.5rem 0; }
+.seo-content li { margin-bottom: 0.3rem; }
+.seo-content code { background: #0a0a0f; padding: 0.1rem 0.35rem; border-radius: 4px; color: #a29bfe; font-size: 0.85em; }
 .api-info h3 { margin-bottom: 0.75rem; font-size: 1rem; }
 .api-info code {
   background: #0a0a0f; padding: 0.75rem 1rem; border-radius: 6px;
@@ -226,16 +237,53 @@ footer a { color: #a29bfe; text-decoration: none; }
     </div>
 
     <div class="api-info">
-      <h3>API</h3>
-      <p style="color:#8888a8;font-size:0.9rem;margin-bottom:0.75rem;">Use the same API in your own tools. Add <code>license_key</code> to skip rate limits.</p>
-      <code>curl "http://167.233.135.161:9999/api/convert?url=https://example.com/"</code>
-      <p style="color:#555;font-size:0.8rem;margin-top:0.5rem;">
-        Returns JSON. Free tier: 5/day/IP. 
-        <a href="https://grantshatz.gumroad.com/l/mpkqyq" style="color:#6c5ce7;">Get a license key</a> for unlimited access.
-      </p>
-    </div>
-  </div>
-</main>
+          <h3>API</h3>
+          <p style="color:#8888a8;font-size:0.9rem;margin-bottom:0.75rem;">Use the same API in your own tools. Add <code>license_key</code> to skip rate limits.</p>
+          <code>curl "http://167.233.135.161:9999/api/convert?url=https://example.com/"</code>
+          <p style="color:#555;font-size:0.8rem;margin-top:0.5rem;">
+            Returns JSON. Free tier: 5/day/IP. 
+            <a href="https://grantshatz.gumroad.com/l/mpkqyq" style="color:#6c5ce7;">Get a license key</a> for unlimited access.
+          </p>
+        </div>
+
+        <div class="seo-content">
+          <h2>What is Web2MD?</h2>
+          <p>Web2MD is a free online tool that converts any public web page into clean, readable Markdown. Paste a URL, get structured Markdown you can drop straight into a note, a README, a blog draft, or an AI prompt. No signup required for the free tier.</p>
+
+          <h2>How to convert a URL to Markdown</h2>
+          <ol>
+            <li>Copy the URL of the page you want to convert.</li>
+            <li>Paste it into the box above and click <strong>Convert</strong>.</li>
+            <li>Copy the Markdown output, or add a license key to unlock unlimited conversions.</li>
+          </ol>
+          <p>That's it. The converter strips navigation, ads, and boilerplate, and returns the article's real content as clean Markdown — headings, links, lists, and code blocks preserved.</p>
+
+          <h2>Why convert web pages to Markdown?</h2>
+          <p>Markdown is the universal format for notes, docs, and AI tools. Converting a web page to Markdown lets you:</p>
+          <ul>
+            <li>Save an article for offline reading in your notes app.</li>
+            <li>Feed clean, structured content into an LLM or AI agent.</li>
+            <li>Turn a web page into a blog draft or documentation you can edit.</li>
+            <li>Archive research without the clutter of the original layout.</li>
+          </ul>
+
+          <h2>Frequently asked questions</h2>
+          <h3>Is Web2MD free?</h3>
+          <p>Yes. The free tier gives you 5 conversions per day per IP address, with no account required. A one-time <strong>$1</strong> license unlocks unlimited conversions, API access, and batch processing.</p>
+
+          <h3>What pages can I convert?</h3>
+          <p>Any publicly accessible web page. If the page is reachable and returns HTML, Web2MD can convert it to Markdown.</p>
+
+          <h3>Does Web2MD work as an API?</h3>
+          <p>Yes. The same engine behind the web tool is available as a simple HTTP API. Add your license key to the request to skip rate limits. See the API section above.</p>
+
+          <h3>Is there an MCP server?</h3>
+          <p>Yes — Web2MD is available as a Model Context Protocol (MCP) server, so AI assistants like Claude, Cursor, and other MCP clients can convert URLs to Markdown directly. It's listed in the official MCP registry as <code>io.github.astra-intelligence/web2md</code>.</p>
+
+          <h3>What is Markdown?</h3>
+          <p>Markdown is a lightweight markup language that uses plain-text formatting — like <code>#</code> for headings and <code>**bold**</code> for emphasis — to produce structured documents. It's the standard format for README files, notes, and AI-friendly text.</p>
+        </div>  </div>
+    </main>
 
 <footer>
   <div class="container">
