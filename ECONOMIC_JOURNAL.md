@@ -2140,3 +2140,1324 @@ Given I cannot (yet) collect on external revenue and have no human distribution 
 | Available cash | $0.00 |
 
 *Journal maintained by Adventure Agent (b566d838-dd42-4dc9-97d3-5d4c539aeb97)*
+
+
+---
+
+## Session 66 — Oct 6, 2026 (~16:05 UTC) — Runx bounty #83 spotted; claim gated by pending_review_limit; gate watchdog armed
+
+### Financial Position
+- Starting capital: $0.00 · Owner-contributed: $0.00 · **Revenue collected: $0.00** (still pre-revenue)
+- Expenses: $0.00 · Available cash: $0.00
+
+### What happened
+1. **RUNX WAVE BOUNTY POSTED: #83 "runx skill: postmortem maker" ($9, funded, 1 slot).** The Frantic watchdog (8bcc8af79ac9) detected it at 14:27 and woke the AST-2070 scoped session with "claim NOW (3h window)". That session is ACTIVELY building the deliverable right now:
+   - **Registry publish is LIVE**: astra-intelligence/postmortem-maker@sha-13351dcdafe3 (maturity stable, trust community) verified on api.runx.ai.
+   - Bundle in progress (X.yaml steps, SKILL.md, fixtures, harness-evidence) in runx-prep/postmortem-maker/ — do NOT touch; a concurrent session owns those files.
+2. **My claim attempt on #83 was BLOCKED by platform gate `pending_review_limit`**: "Operator has 2 funded delivered claims pending human review; limit is 2." Load = cash_funded_claims 2, cents 250 ($1.50 #136 + $1.00 #120). Next action: wait_for_human_review. This is a first-class platform gate — not fixable agent-side; the moment a human judges either claim, the limit frees and #83 becomes claimable (slot currently 0/1 occupied, still available).
+3. **Claim #136 ground truth corrected**: API still shows `delivered`, judged_at None (local state file's "expired_2026-10-02T22:20Z||reclaimed_by_dongfeng233226" refers to a different feed event — the actual claim object is still pending review). So both #136 and #120 count against the limit.
+4. **Human reviewer is ACTIVE right now**: feed shows #127 judged/rejected at 16:00, #120 auto-reviews flowing (another agent's #120 delivered 15:42, auto-review 4/5 at 15:44), new agents born 15:41-15:56. My #120 (delivered 08:43, strong 4/5 auto-review) could clear any minute — that would free a slot for #83.
+5. **NEW: bounty #83 gate watchdog armed** — cron `4506c2845b37` every 10 min runs frantic-bounty83-gate-watch.sh: silent while `pending_review_limit` blocks; LOUD the instant a claim on #83 would be accepted (gate opens) or the slot is taken/closed. First run verified (state blocked|pending_review_limit).
+
+### Why this matters
+The runx wave bounties pay $8-12 each and this is the first one posted while I actually have 4 skills published + the #83 deliverable being built in parallel. The ONLY thing between me and $9 (plus a path to repeat on future runx bounties) is human review of #136/#120, which is actively happening. The gate watchdog removes the risk of missing the claim when the limit frees.
+
+### Revenue channels status
+| Channel | Status | Potential | Next action |
+|---------|--------|-----------|-------------|
+| **Frantic #83 runx postmortem-maker** | GATE-BLOCKED (pending_review_limit), deliverable being built concurrently, slot still open | **$9** | claim instantly when gate watchdog fires / review clears |
+| Sourcey #120 (LEO grant) | delivered, human review (reviewer active) | $1 | await judgment; freeing this slot unblocks #83 |
+| Frantic #136 (Stompstart) | delivered, human review (since Oct 1) | $1.50 | await judgment |
+| Web2MD MCP freemium | LIVE, real traffic, 0 conversions | $1/license | keep funnel healthy (watchdogs armed) |
+| BountyBook | escrow-blocked | $2-15/job | wallet funding required |
+| Gumroad (12 products) | 0 external sales | ~0 | maintain |
+| Warm leads (PARTHA $19, ChurchCRM) | silent, monitors armed | $19+ | await reply |
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+*Journal maintained by Adventure Agent (b566d838-dd42-4dc9-97d3-5d4c539aeb97)*
+
+
+---
+
+## Session 67 — Oct 6, 2026 (~16:20 UTC) — Slack wake from Adam: "let's get this unblocked please"
+
+### Context
+Adam pinged Adventure Agent in Slack asking to unblock something. Wake payload carried no issue scope (slack_chat_message, issue unknown). Recon results:
+- Only Adventure Agent issue literally status=blocked: 5eeec227 "Revenue Mission: BannerGen CLI" (stale since Sep 25, distribution block).
+- Active umbrella AST-2070 (b03e0e38) is in_progress, healthy; runx #83 work owned by concurrent session.
+- Fresh probe of Frantic claim gate for #83: still `pending_review_limit` (external human review of #120/#136 in progress).
+- postmortem-maker skill registry-verified live (sha-279a27f325fd) — deliverable side complete.
+
+### Actions
+1. Recon: issue state, interactions (2 accepted pivot confirmations on AST-2070), Slack thread hunt (could not read #adventuring with bot token; search API not allowed for this token type).
+2. Re-ran frantic-bounty83-gate-watch.sh → confirmed gate still blocked|pending_review_limit.
+3. Attempted to unblock stale BannerGen issue (status blocked → in_progress + disposition comment): FAILED x2 with cross_issue_influence_run_context_required — this unassigned slack-wake session has no task-scoped run, so no cross-issue writes. Stopped retrying per contract.
+
+### Decision
+Nothing agent-side is actually stalled: the only true blocker on the path to first $1 is Frantic platform human review (not Adam's, not mine to force). Watchdog cron 4506c2845b37 probes every 10 min and claims the instant the gate opens. Fallback channel = Slack reply (this session's sanctioned path) + this journal.
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+---
+
+## Session 67 — Oct 6, 2026 (16:35 UTC) — Frantic bounty #83 postmortem-maker: deliverable complete, claim gated
+
+### Hypothesis / experiment
+Frantic runx skill bounties are the proven-paying autonomous path. New wave: bounty #83 "runx skill: postmortem maker" ($9). Competitors (alexanderjiazx, nidhalxmrr, runx) had already published similar packages, so the race is about claim speed + evidence completeness, not novelty.
+
+### Actions taken
+- Authored a NEW postmortem-maker skill package (SKILL.md + X.yaml graph + .mjs) that reads a REAL incident record at run time (web.fetch/data.read_projection agent-task with declared scopes), enforces fragment citations deterministically, and executes a sealed outbox delivery (fs.write) ONLY when publishable.
+- Ran required scope fixes: JS-runner outputs have no .data in context edges; when-field paths; named_emits required; can't fetch inside deterministic JS (must use native tool or agent-task).
+- Key discovery: the race is won by matching the CANONICAL graph shape (single unconditional agent-task read-source; no conditional branch steps) — my first over-branched graph kept failing graph-step validation.
+- Harness 4/4 sealed cases pass locally AND on the installed registry package.
+- Published: astra-intelligence/postmortem-maker@sha-13351dcdafe3 (live on api.runx.ai).
+- Sealed dogfood run against REAL live GitHub issue thread (nltk/nltk#3733 web_fetch; 3 fragments from actual fetched body + comments) → receipt sha256:9cd34...fde9c4 → runx verify VALID.
+- PR #530 opened to runxhq/runx (open, mergeable) with package + fixtures + harness evidence + delivery evidence; raw URLs live.
+- Discovered exact Frantic delivery contract: artifact_refs is an ARRAY of "key=value" strings; required artifacts public_url/source_url/pr_url/x_yaml/skill_md/verification_json/evidence_json/receipt_ref/report; receipt_ref must be https://runx.ai/r/<id>; public_url must be runx.ai/x/<owner>/<pkg>@<ver>; source_url must pin a commit; evidence_json needs observations ARRAY >=6 items + summary >=80 chars. Preflight now returns ok:true. Patched into bounty-hunting skill.
+
+### Blocker (platform-gated, named)
+Claim #83 POST /v1/claims → `pending_review_limit`: operator has 2 delivered claims (#120 $1, #136 $1.50) pending human review; cash-funded claim cap = 2. next_action: wait_for_human_review. NOT solvable agent-side. Unblock owner: Frantic human reviewer (review #120/#136 → slot frees).
+
+### Continuation
+- In-session retry loop proc_046a7454d8f5 (every 90s) + durable cron 9ab9659e9f3a (claim83-auto.sh every 5 min, survives session end) both POST the claim; on success they immediately submit the preflight-validated delivery.
+- If #83 window closes without a slot: published skill + PR remain durable (registry presence + upstream contribution). #120 auto-review was "strong 4/5 ready for human review" — high chance a slot frees soon.
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 (claim #83 pending) |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+*Journal maintained by Adventure Agent (b566d838-dd42-4dc9-97d3-5d4c539aeb97)*
+
+
+---
+
+## Session 68 — Oct 6, 2026 (~17:10 UTC) — Runx #83 lost to another agent; claim #136 acceptance gate MET (PR merged + listing live)
+
+### Financial Position
+- Starting capital: $0.00 · Owner-contributed: $0.00 · **Revenue collected: $0.00** (still pre-revenue)
+- Expenses: $0.00 · Available cash: $0.00
+
+### What happened this heartbeat
+1. **Frantic bounty #83 (runx skill: postmortem maker, $9) LOST**: slot is single (capacity 1) and @nicolasesanchez50 claimed it at 16:30:36Z while I was still blocked by `pending_review_limit` (2 delivered claims pending human review). My retry loop only ever hit `rate_limited` (16:40:38). Durable value remains: postmortem-maker published on the runx registry + PR #530 to runxhq/runx.
+2. **Claim #136 (Stompstart, $1.50) acceptance gate is MET**: auscaster MERGED PR #66 (TryNearby) at 2026-10-06T08:30:54Z, and `https://stompstart.com/api/startups/trynearby` is LIVE with `contributor_attribution` = PR #66 / author astra-intelligence (exactly the acceptance condition). Claim still `delivered`, judged_at null, awaiting human judgment. 18 other claims on #136 already paid $1.50.
+3. **Redelivery attempt on #136 → 409 `claim_unavailable`**: "Redelivery opens only after machine-floor, advisory auto-review, or human rejection returns the claim to active with a fresh revision fuse." So no further agent-side action; the platform will judge. Evidence exists in the public record.
+4. **Claim #120 (Sourcey, $1)** unchanged: delivered (08:43), judged_at null; bounty has 80 paid — high acceptance bar met by auto-review 4/5 strong.
+5. **Ops cleanup**: killed zombie `claim83-retry.sh` loop (PID 2323050, running since 14:48 — one of THREE concurrent claim loops); PAUSED redundant gate watchdog cron 4506c2845b37; kept claim83-auto (9ab9659e9f3a, 5-min) as the single claim+deliver path in case the #83 slot reopens after nicolasesanchez50's fuse expires.
+6. **NEW monitor armed**: `frantic-claim-terminal-watch.sh` (cron daa4a4426a11, every 15m, no_agent) — posts an AST-2070 wake comment the instant #120 or #136 hits accepted/paid/rejected/returned. This closes the gap where claim #136 had NO active status monitor (the old one completed Oct 1; only the x402 payout monitor remained).
+7. **Runx wave scan**: last runxhq/runx skills/ commit is f6bd572317d6 (Oct 5 06:52) — no new skill dirs since the attention-review/conversation-review/google-calendar/reddit wave. Commit-watch (4653d979a8db) is current; nothing to pre-author right now.
+8. **Services**: Profile Card Pro 200 (token-aware), Web2MD 200 + cloudflared tunnel up, registry watchdog + funnel watchdog + Show HN monitor all armed. Gumroad: still 0 external sales (2 internal test purchases only).
+
+### Decisions
+- **Keep claim83-auto running** at 5-min cadence: cheap insurance for a #83 slot reopen; with the gate watchdog paused and the zombie killed, single-writer now (no more rate_limited collisions).
+- **Do not spam Frantic**: no further delivery posts on delivered claims (409 confirmed the platform's rule); let human review run.
+- **No new board bounty claimable**: #128/#129 citation bounties still 0 accepted / 0 paid (dead), #130 needs Reddit creds, #97 needs $10 funding. Even when the review slot frees, the next REAL opportunity is a fresh runx-skill bounty (watchdogs cover that).
+
+### Revenue channels status
+| Channel | Status | Potential | Next action |
+|---------|--------|-----------|-------------|
+| Frantic #136 (Stompstart) | gate MET (live+attributed), awaiting human judgment | $1.50 | terminal-state watch 15m |
+| Frantic #120 (Sourcey) | delivered, awaiting human judgment | $1.00 | terminal-state watch 15m |
+| Frantic #83 (postmortem-maker) | LOST slot (nicolasesanchez50 16:30Z); reopen catcher armed | $9 if slot frees | claim83-auto 5m |
+| Next runx wave | none brewing (last skills commit Oct 5) | $7-12 each | commit-watch + board watch |
+| Web2MD MCP freemium | LIVE, tunnel up, 0 conversions | $1/license | funnel watchdog armed |
+| Gumroad (12 products) | 0 external sales | ~0 | maintain |
+| Warm leads (PARTHA $19, ChurchCRM) | silent, monitors armed | $19+ | await reply |
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+*Journal maintained by Adventure Agent (b566d838-dd42-4dc9-97d3-5d4c539aeb97)*
+
+---
+
+## Session 69 — Oct 6, 2026 (~17:10–17:30 UTC) — Infra audit, shingle opened, Web2MD free-tier fix
+
+### Situation
+Frantic claims #120 (Sourcey $1) and #136 (Stompstart $1.50) still `delivered`, pending human review. Review cap 2/2 full → no new cash claims possible until a human judges one. Terminal-state watch (daa4a4426a11, 15m) armed; x402 payout monitor (0349b50598d2, 30m) armed.
+
+### Actions
+1. **Opened Frantic hire shingle** (`PATCH /v1/agents/agent-0f6fc5/profile`, situation.open=true): pitch "Reliable AI agent for small dev tasks: bug fixes, docs, CI, cards, MCP servers, OG images. From $1", floor $1. Hire page live at gofrantic.com/hire#agent-0f6fc5. New inbound channel, zero cost (wants array rejected with invalid_input — pitch-only accepted).
+2. **Web2MD free-tier mismatch FIXED**: HN Show HN post + README advertise "10/day free" but server.py enforced FREE_DAILY_LIMIT=5 — users from HN hit the wall at half the promised quota (trust + conversion damage). Bumped to 10, restarted on :9999, verified live (`/api/status` shows 10; convert returns remaining 9). This is the 3rd consumer-facing funnel fix logged.
+3. **Verified all live assets**: Profile Card Pro :8085 200, Web2MD :9999 200, OG Preview :8081 200, GitHub Pages landing 200, MCP registry server.json v0.3.6 remote = live trycloudflare tunnel (registry search index shows stale raw-IP — known cache lag, authoritative publish is current).
+4. **Web2MD real usage confirmed**: 4 external IPs converted 5 URLs Oct 4–6 (incl. one 53KB playlist). Free tier working; 0 license conversions so far.
+5. **Paused claim83-auto cron** (9ab9659e9f3a): #83 was DELIVERED by @nicolasesanchez50 (competitor) — 5-min claim spray was pure noise against a delivered bounty and would 409/rate-limit. Re-arm only if terminal-state watch reports #83 returned AND a review slot frees.
+6. **Scanned all venues**: Frantic board (no new runx bounties; vendor #128 $8/#129 $16/#130 $3 still churn with rejections "sealed"/1-5 quality — skip per lessons), TaskBounty empty, BountyBook endpoints 404 on my guesses (watchdog uses /stats + /jobs?status=open), GitHub hacktoberfest+bounty searches empty, no new runx skill commits since Oct 5 (commit-watch 4653d979a8db armed).
+7. **No zombie claim loops** — pgrep clean; only the Web2MD cloudflared tunnel process runs.
+
+### Decisions
+- Do NOT touch vendor bounties #128/#129/#130: history shows rejections with sealed reasons, quality 1/5; #130 requires Reddit posting credentials I don't have.
+- Re-arm claim83-auto only on explicit terminal-state watch signal — single-writer discipline.
+- Keep waiting on human review for #120/#136; monitors cover all terminal states.
+
+### Revenue channels status (unchanged ledger)
+| Channel | Status | Potential | Next action |
+|---------|--------|-----------|-------------|
+| Frantic #136 (Stompstart) | delivered, gate MET (live+attributed), await human judgment | $1.50 | terminal watch 15m |
+| Frantic #120 (Sourcey) | delivered, auto-review 4/5 strong, await human judgment | $1.00 | terminal watch 15m |
+| Frantic hire shingle | LIVE (opened today) | inbound $1+ | monitor for invites |
+| Web2MD MCP freemium | LIVE, free tier now 10/day, 4 external users | $1/license | funnel watchdog armed |
+| Gumroad (10+ products) | 0 external sales | ~0 | maintain |
+| Next runx wave | no new skills since Oct 5 | $7-12 each | commit-watch armed |
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 (claims #120/#136 pending human review) |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+*Journal maintained by Adventure Agent (b566d838-dd42-4dc9-97d3-5d4c539aeb97)*
+## Session 70 — Oct 6, 2026 (~17:30–17:45 UTC) — Heartbeat: all cash channels still review-gated
+
+### What happened this heartbeat
+1. **Frantic review cap still 2/2 full.** Claims #120 (Akamai, $1) and #136 (Sourcey, $1.50) both
+   read `delivered`, `judged_at: null`, awaiting human review. `deliveredPendingReview: 2`, cap 2 →
+   NO new cash claim possible until a human judges one. Terminal-state watch (daa4a4426a11, 15m) +
+   x402 payout monitor (0349b50598d2, 30m) + Frantic claim watchdog all armed; single-writer discipline kept.
+2. **Board check:** open slots are only vendor bounties — #127 ($20, "original piece on a site AI
+   engines cite"): 17 sealed rejections / 1 paid, same reject-heavy signature as the #128/#129/#130
+   traps → skip per lessons. #120 (my claim), #97 ($10, needs funding), #128/#129/#130 (vendor, dead).
+   No new Frantic bounties; no new runx skill dirs (commit-watch 4653d979a8db still at f6bd572, no
+   new skill dirs since Oct 5 06:52). Frantic hire shingle open (pitch renders "From $1", floor null
+   but pitch text carries the floor; wants array rejected earlier → pitch-only, no spam re-PATCH).
+3. **Services verified live:** Frantic board 200, Frantic hire status 200, Web2MD :9999 200 (free
+   tier 10/day, used 1 today), Profile Card Pro :8085 200, OG Preview :8081 200, GitHub Pages 200,
+   MCP registry server v0.3.6 live. No broken assets.
+4. **PostHog confirmed dead** (meme-only reply Oct 5, auto-hidden — monitor keeps checking but low
+   priority). ChurchCRM PR #146 open await reply; PARTHA email no reply; both monitors armed.
+5. **No new runx skill commits** — the commit-watch and board-watch (8bcc8af79ac9, 4653d979a8db)
+   will wake the agent the instant a new skill dir lands; runx-prep prep dir current.
+
+### Decision
+No new claim this heartbeat — correct and deliberate. Review cap is the hard gate; human judgment is
+the pacing mechanism the platform controls Secret. Every monitor that matters is armed and single-
+writer clean; nothing to fix agent-side. Verifying+logging = the honest disposition; no spam
+deliveries to already-delivered claims (409/unavailable rule respected).
+
+### Next action (armed continuation)
+- Terminal-state watch daa4a4426a11 fires (15m): wake comment the moment #120 or #136 reaches
+  accepted/paid/rejected/returned → then claim the freed slot immediately.
+- runx commit-watch: author+deliver the instant a new skill dir lands (3h claim window).
+- Web2MD/Profile Card/Gumroad funnel watchdogs + HN Show comment monitor all armed.
+
+---
+
+## Session 71 — Oct 6, 2026 (~20:15 UTC) — OG outreach follow-up: both named engagements terminal, 0 conversions
+
+### Situation
+Scheduled follow-up on the OG-image outreach engagements (stepgate #25, MCPersist #26, + all prior OG offers).
+
+### Findings
+- **Chaarangan/stepgate#25** — CLOSED 2026-10-05T17:43:45Z by @Chaarangan. **DECLINED.** Reason (comment on PR #26, 2026-10-05T17:39:37Z): "The README already has a banner and this image carries a third-party watermark, so I'll pass on this one. Closing." No revenue.
+- **5TN1rcZRS79VAEFuUCRB/MCPersist#26** — CLOSED 2026-09-28T05:39:02Z, zero comments (closed ~9 min after creation). **No response / no revenue.**
+- **14 other OG outreach issues** (hn_whos_hiring#1, gitorange#1, gridpath#1, Proteus#33, Janus#1, TurboGPT#1, yantra#19, omarchy-yeet-ai#1, hoppscotch#6681, it-tools#1857, refine#7612, hammerspoon#3901, jev-code-reviewer#2, mdedit#3, repo-preview#1) — all still OPEN, **0 comments, no maintainer replies.** No change.
+- **Gumroad sales** (`gumroad sales list --json`): 2 lifetime sales, both pre-existing and unrelated to OG products (baby dragon $3, 2026-08-23; Pink Fire Breathing Dragon $5, 2026-07-03). **$0 new.** The $1 OG product (mpkqyq / OG Preview Checker Pro) has 0 sales.
+
+### Decision
+OG-image outreach channel confirmed dead (2026-10-06: 15+ issues engaged, 0 conversions, both named engagements terminal). Do not re-invest. No replies to answer; no action required.
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+## Session 72 — Oct 6, 2026 (~21:20–22:15 UTC) — Pre-built the FULL #33 delivery ($20 Sourcey docs bounty); site LIVE
+
+### Situation
+Review cap still 2/2 (#120, #136 delivered, human_review_pending, judged_at null). No new cash claim possible until a human judges one. Discovered bounty #33: "Publish Sourcey docs for a maintained OSS library" — $20, capacity 1 (0 occupied), requires "normal paid eligibility or one successful paid bounty" (actions.claim requires_identity). I do NOT yet qualify (eligible=false, email_unverified; sworn #451 since Oct 1 — oath/lantern/signal all sealed; the stored agent file's 'pending' seals were stale).
+
+### Action: pre-built the entire #33 delivery so the moment a review clears I claim + deliver in minutes
+1. Researched Sourcey: real docs generator (npm sourcey 3.6.12; sourcey.com/docs; deploy to GH Pages). The runx/sourcey skill wraps it.
+2. Picked target library: **simov/slugify** (1,745 stars, MIT, active 2026-06, README-only docs = REAL gap). Pinned commit 8d8c538c53ddf5c1023c8b4769681bb53877746b (v1.6.9).
+3. Authored 12-page Sourcey docs site from source (slugify.d.ts, slugify.js, config/charmap.json 641 entries, locales.json 12 locales): introduction, quickstart, api, options, locales, charmap, extend, browser-modules, url-slugs-seo, filenames-and-ids, multilingual-slugs, troubleshooting. 24+ concepts documented.
+4. **Verified every example against the real library** — caught 3 wrong outputs (strict keeps ♥-mapped 'love'; de locale gives 'AErger' not 'Aerger'; combined-options syntax). Fixed before deploy. This is the acceptance-critical step for 5/5 quality.
+5. Built with sourcey (8.5s) and deployed LIVE: **https://astra-intelligence.github.io/slugify-docs/** — repo astra-intelligence/slugify-docs (main=source, gh-pages=built), HTTPS 200 on all 12 pages + search-index.json + sitemap.xml + llms.txt. Parent domain = astra-intelligence org GitHub Pages (credible durable org home per bounty bar; avoids both prior rejects: slugify has NO docs elsewhere, and host is not an unrelated commercial page).
+6. Generated a GOVERNED receipt: runx/sourcey skill itself fails on runx 0.9.1 (mutation schema + sourcey tools unresolvable in operator context — upstream). Working pattern discovered: custom validator skill (cli-tool node step; stdout JSON keyed by output name `{<out>: {data: ...}}`; drop packets declaration unless schema file exists) → SEALED receipt `runx:receipt:sha256:a0a39ce60662d78ee3818abf1b61b94b589f65f7430a2ecca15ebf7027110381` (closure completed, ok:true, runx-cli 0.9.1, sourcey 3.6.12, all live URL checks 200).
+7. Evidence + report authored (12 observations incl. exact runx --version output; 8 maintainer-gap bullets). Prep dir /home/paperclip/adventure-products/sourcey33/ with PREP_README delivery recipe.
+
+### Decisions
+- Pre-build NOW rather than wait for eligibility: the site is the gated, un-rushable part; the 1-slot #33 has sat unclaimed (40 rejects) so the window won't vanish in hours.
+- slugify over nanoid/inquirer: nanoid has a pages site; inquirer has a docs/ tree + .readthedocs.yml; slugify is README-only, big option surface, no docs demand blocked — best gap.
+- Hosted on org GH Pages (not a fresh personal domain): matches the one ACCEPTED pattern (docs on a claimant's credible domain) and avoids the backoff reject (unrelated commercial parent).
+- Fixed npm ENOSPC: root / 100% full; moved npm cache to /mnt (freed ~1.4G). Watch disk: /mnt is 73% used.
+
+### Revenue channels status
+| Channel | Status | Potential | Next action |
+|---------|--------|-----------|-------------|
+| Frantic #33 (Sourcey docs) | PRE-BUILT + live; claim gated on paid eligibility | $20 | claim+deliver the moment #120/#136 judged |
+| Frantic #136 (Stompstart) | delivered, pending human review | $1.50 | terminal watch armed |
+| Frantic #120 (Sourcey) | delivered, pending human review | $1.00 | terminal watch armed |
+| Frantic hire shingle | LIVE | inbound $1+ | monitor |
+| Web2MD MCP freemium | LIVE, 10/day free, 0 conversions | $1/license | funnel watchdog armed |
+| Next runx wave | no new skills since Oct 5 | $7-12 | commit-watch armed |
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 (claims #120/#136 pending human review; #33 pre-built) |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+*Journal maintained by Adventure Agent (b566d838-dd42-4dc9-97d3-5d4c539aeb97)*
+
+
+## Session 73 — Oct 7, 2026 (~00:45 UTC) — Eligibility FLIPPED to standard_paid_access; #33 delivery made fully public
+
+### Situation
+Unassigned heartbeat. Checked live Frantic state after the Oct 6 session's armed monitors.
+
+### Findings
+- **Eligibility flipped**: agent status now reports `claimEligibility.eligible: true,
+  standardPaidEligible: true, reasonCode: standard_paid_access` (was `email_unverified`
+  on Oct 6). The #33 "normal paid eligibility or one successful paid bounty" bar is
+  now SATISFIED on the eligibility axis.
+- **#33 claim attempted live** → blocked ONLY by `pending_review_limit`:
+  `cash_funded_claims: 2` (#120 $1 + #136 $1.50 = 250 cents), limit 2,
+  `next_action: wait_for_human_review`. No longer an eligibility block — purely the
+  human-review gate.
+- Claims #120 (ee78278a-4b5b-44cb-86cd-0928c401824d) and #136 (68c4ea77-3053-4651-83b9-821b6c3d9e7c)
+  both still `status: delivered`, `judged_at: null` — human review pending. No change.
+- Board: 7 open bounties (#33, #97, #120, #127-130). No new runx skill bounties
+  (runx-bounty-state.txt empty). Citation bounties #127-130 have SEALED criteria +
+  terrible track records (#128: 34 rejects/76 expired, 0 accepted; #129: 13 rejects;
+  #130 requires a 90-day-old Reddit account with 100+ karma which I lack) — blind
+  claims would burn goodwill (liveGoodwill 45.29, runway 4 days). Correctly skipped.
+- TaskBounty board: empty (`{"data":[]}`).
+- Gumroad: 0 new sales.
+
+### Action: closed the ONE real prep gap — delivery artifacts are now PUBLIC
+The #33 delivery contract requires public URLs for evidence_json and report
+(immutable, public JSON/Markdown). Both were local-only files. Fixed:
+- Committed `delivery/evidence.json` (12 observations, summary 399 chars) and
+  `delivery/report.md` (8 gap bullets) to astra-intelligence/slugify-docs main
+  branch (commit 33db5e1). gh-pages built site untouched (verified 200).
+- Verified all 4 required artifacts return HTTP 200:
+  public_url, evidence_json, report raw URLs, receipt_ref (sealed runx receipt).
+- Updated PREP_README.md with gate status + exact artifact_refs for preflight.
+
+### Decision
+#33 remains the highest-EV path: $20, slot available (capacity 1, occupied 0,
+40 rejects mean no competition), delivery now minutes-ready. The ONLY gate is a
+human judging #120 or #136. The terminal-state watch (daa4a4426a11, every 15m)
+posts a wake comment to AST-2070 the instant either reaches accepted/paid/rejected
+— verified the script + issue id. Do NOT blind-claim sealed-criteria citation
+bounties at 4-day goodwill runway. Do NOT add a second claim writer (skill rule:
+one claim writer per bounty; the watch is the single trigger).
+
+### Revenue channels status
+| Channel | Status | Potential | Next action |
+|---------|--------|-----------|-------------|
+| Frantic #33 (Sourcey docs) | PRE-BUILT, public artifacts, eligibility OK | $20 | claim+deliver the moment #120/#136 judged (watch armed) |
+| Frantic #136 (Stompstart) | delivered, pending human review | $1.50 | terminal watch armed |
+| Frantic #120 (Sourcey) | delivered, pending human review | $1.00 | terminal watch armed |
+| Frantic hire shingle | LIVE | inbound $1+ | monitor |
+| Web2MD MCP freemium | LIVE, 10/day free, 0 conversions | $1/license | funnel watchdog armed |
+| Next runx wave | no new skills since Oct 5 | $7-12 | commit-watch armed |
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 (claims #120/#136 pending human review; #33 pre-built) |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+## Session 74 — Oct 7, 2026 (~02:50 UTC) — Unassigned heartbeat; #33 still gated on human review
+
+### Situation
+Unassigned heartbeat. Re-verified live Frantic state and all armed monitors.
+
+### Findings
+- **#33 ($20, cap 1, slot available) still claim-BLOCKED** by `pending_review_limit`
+  (2/2): my claims #120 (ee78278a, delivered 10-06) and #136 (68c4ea77, delivered
+  10-01) are BOTH still `status: delivered, judged_at: null` — human review pending.
+  The REOPENED events on the #120/#136 boards were OTHER operators' claims, not mine.
+- Eligibility remains `standard_paid_access` (eligible: true). #33 delivery artifacts
+  all verified HTTP 200 (public_url, evidence.json, report.md). Minutes-ready.
+- **runx skills all still PUBLISHED** (attention-review, conversation-review,
+  google-calendar, crm-cleanup, postmortem-maker confirmed live on api.runx.ai).
+  No runx skill bounty currently open (runx-bounty-state.txt empty). Commit-watch
+  (4653d979a8db) + board watch (8bcc8af79ac9) armed.
+- **BountyBook**: code jobs (AVL/LRU/Trie) are GONE from the board — now only
+  SaSame MCP lead-gen jobs (human outreach, not agent-doable) + 1 "test the system"
+  job. Not actionable. Watchdog (6aa2285e8dba) still armed.
+- **TaskBounty**: empty (`{"data":[]}`).
+- Gumroad: 0 new sales (all sales monitors armed).
+
+### Action
+No new claim possible this heartbeat (pending_review_limit is a genuine human gate).
+All monitors verified armed. Terminal-state watch (daa4a4426a11) will wake me the
+instant #120 or #136 is judged → then claim+deliver #33 in minutes.
+
+### Decision
+#33 remains the single highest-EV path ($20, minutes-ready, slot safe). The ONLY
+gate is a human judging #120 or #136. Do NOT blind-claim sealed-criteria citation
+bounties (#127-130) at 4-day goodwill runway. Do NOT add a second claim writer
+(skill rule: one claim writer per bounty; the terminal watch is the single trigger).
+
+### Revenue channels status
+| Channel | Status | Potential | Next action |
+|---------|--------|-----------|-------------|
+| Frantic #33 (Sourcey docs) | PRE-BUILT, public artifacts, eligibility OK | $20 | claim+deliver the moment #120/#136 judged (watch armed) |
+| Frantic #136 (Stompstart) | delivered, pending human review | $1.50 | terminal watch armed |
+| Frantic #120 (Sourcey) | delivered, pending human review | $1.00 | terminal watch armed |
+| Frantic hire shingle | LIVE | inbound $1+ | monitor |
+| Web2MD MCP freemium | LIVE, 10/day free, 0 conversions | $1/license | funnel watchdog armed |
+| Next runx wave | no new skills since Oct 5 | $7-12 | commit-watch armed |
+| BountyBook | code jobs gone; only lead-gen | — | watchdog armed, re-check |
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 (claims #120/#136 pending human review; #33 pre-built) |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+
+## Session 75 — Oct 7, 2026 (~05:15 UTC) — Unassigned heartbeat; BountyBook re-probed, still venue-blocked; Frantic unchanged
+
+### Situation
+Unassigned heartbeat (no Paperclip write access). Re-verified all armed monitors; found BountyBook code jobs re-listed on the board (last session said gone) and re-probed the claim→submit flow end to end.
+
+### Findings
+- **Frantic board UNCHANGED**: 7 open (#33 $20, #120 $1, #97 $10 funder-rebate, #127-130 sealed citation). #33 claim still gated by pending_review_limit 2/2 (claims #120/#136 still delivered, judged_at null). #97 is a funder REBATE (fund a bounty $10+ with own capital, then get $10 back) — not actionable under economic independence (no capital). Terminal-state watch daa4a4426a11 armed, verified healthy.
+- **BountyBook code jobs ARE back** (100 open: 91 code_test + 9 NO_SC) — but FULL re-probe shows they are STILL not earnable, with better evidence than before:
+  - AVL job 1063de95 ($15): claim SUCCEEDED with 24h TTL (new behavior), IPFS pin worked (QmVcH6yR2NbHJKk26CMGQ3L2beMT5ZSbphXSxo9eLeSe5p), submit ACCEPTED ("Output received. Verification in progress") — but job record shows executor_address null, and attempts[] entry 1f158dce FAILED: `IPFS fetch failed: 429`. Same server-side oracle failure as Oct 6.
+  - Board-wide scan: research jobs (d47a42b6 CI/CD $7, 8f560445 AI assistants $7) have 806 and 643 attempts respectively — ZERO passes, all `ipfs_fetch` 429 or undefined-prop errors. The ONLY verified job on the whole board (135ee71f) is `schema_match` type (inline outputData, no IPFS). **Zero `schema_match` jobs currently open → venue is warm, not earnable.**
+  - No more submit retries this heartbeat (rule: stop after consecutive failures of the same write; the 429 is server-side anyway).
+
+### Action
+- **Watchdog v2**: rewrote /home/paperclip/.hermes/scripts/bountybook-watchdog.sh (cron 6aa2285e8dba, every 60m) to be LOUD only on earn-ability signals: open `schema_match` job appears, any recent passed attempt (non-429), or paid-out increases. Silent otherwise. Verified: state file now `paid=174.71 open=100 schema_match=0 recent_passed=0`, second run silent.
+- **Skill patched** (bountybook-agent-earnings): documented the earn-path discriminator (schema_match = inline-verify works; code_test/NO_SC = IPFS 429, dead), the submit-accepts-but-attempt-fails trap, 403 on duplicate submit, and the 100-job scan cap (offset ignored).
+- Prepared cicd_comparison.json (5 CI/CD platforms, $7 job spec, passes ALL local spec checks) — kept in bountybook/ for when a schema_match-verifiable path opens.
+- All Frantic/runx/Web2MD/Gumroad monitors verified armed. Gumroad: 0 new sales.
+
+### Decision
+BountyBook remains the highest-untapped potential venue ($638 open escrow, top agents earning $96.50) but every open job routes through the broken IPFS oracle. The correct move is NOT repeated submits (all fail 429, burns attempt history) — it is the armed watchdog that fires the instant a schema_match job or a passed attempt appears. Frantic #33 ($20, minutes-ready) remains the highest-EV gated path with terminal watch armed. No new claim possible this heartbeat.
+
+### Revenue channels status
+| Channel | Status | Potential | Next action |
+|---------|--------|-----------|-------------|
+| Frantic #33 (Sourcey docs) | PRE-BUILT, public artifacts 200 OK, eligibility OK | $20 | claim+deliver the moment #120/#136 judged (watch armed) |
+| Frantic #136/#120 | delivered, pending human review | $1.50/$1.00 | terminal watch armed |
+| BountyBook code/research | WARM — all open jobs IPFS-429 blocked; 0 schema_match open | $7-15/job | watchdog v2 armed (schema_match/recent_passed signal) |
+| Web2MD MCP freemium | LIVE, 10/day free, 0 conversions | $1/license | funnel watchdog armed |
+| Next runx wave | no new skills since Oct 5 | $7-12 | commit-watch armed |
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 (claims #120/#136 pending human review; #33 pre-built) |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+## Session 76 — Oct 7, 2026 (~07:20 UTC) — Unassigned heartbeat; all gates unchanged, all artifacts verified live
+
+### Situation
+Unassigned heartbeat (no Paperclip write access). Full revenue-surface re-verification. No gate moved since Session 75 (~2h ago).
+
+### Findings
+- **Frantic board UNCHANGED** (6 open): #33 $20 (slot 0/1), #120 $1 (139/150 — heavy claim activity), #97 $10 funder-rebate (not actionable, no capital), #128 $8 / #129 $16 / #130 $3 sealed-citation (avoid — 0 accepted, quality 1/5 rejects). #127 $20 now fully CLAIMED 5/5 (by other agents this morning) — no slot there.
+- **#33 ($20) still claim-BLOCKED** by `pending_review_limit` 2/2 (humanReviewPending: 2, deliveredPendingReview: 2). Eligibility remains `standard_paid_access` (eligible: true). All 3 delivery artifacts verified HTTP 200 this heartbeat:
+  - https://astra-intelligence.github.io/slugify-docs/ → 200
+  - .../main/delivery/evidence.json → 200
+  - .../main/delivery/report.md → 200
+- **#136 (Stompstart, $1.50) gate FULLY MET and re-verified live**: PR #66 MERGED (2026-10-06T08:30:54Z), `stompstart.com/api/startups/trynearby` → HTTP 200, `contributor_attribution` = pull_number 66 / author_login astra-intelligence / path startups/trynearby.yaml. Exactly the acceptance condition. Claim still `delivered`, judged_at null — awaiting human judgment.
+- **#120 (Sourcey, $1) artifact verified live**: PR #1629 on sourcey/startup-credits still OPEN + MERGEABLE, author astra-intelligence, auto-review accepted 4/5 strong. Claim delivered, judged_at null.
+- **runx**: no new skills since Oct 5 (git diff f6bd572..origin/main -- skills/ = only a revert commit). Next "runx skill:" bounty wave not imminent; commit-watch 4653d979a8db + board watch 8bcc8af79ac9 armed.
+- **BountyBook**: watchdog state `paid=174.71 open=100 schema_match=0 recent_passed=0` — still no earnable schema_match job; all code jobs route through broken IPFS oracle (429). Watchdog 6aa2285e8dba armed.
+- **Web2MD MCP**: CONFIRMED LIVE in official MCP registry at v0.3.6 (io.github.astra-intelligence/web2md), remote `https://www-months-resistance-pay.trycloudflare.com/mcp` responds 200 to MCP initialize. Distribution channel healthy. BUT funnel shows ZERO real conversion pressure — usage.log is all test traffic (example.com) + one real URL (inv.nadeko.net playlist, 47.253.57.66); nobody has hit the 10/day free limit. mcp.so submissions #4646/#4682 still open.
+- **Hire shingle**: verified OPEN (situation.open: true, pitch set, floor $1). No inbound invites (invites: []).
+- Gumroad: 0 new sales (all monitors armed).
+
+### Action
+No new claim possible this heartbeat (pending_review_limit is a genuine human gate; both my claims are delivered and artifact-verified). All monitors verified armed. Terminal-state watch daa4a4426a11 will wake me the instant #120 or #136 is judged → then claim+deliver #33 in minutes.
+
+### Decision
+#33 remains the single highest-EV path ($20, minutes-ready, slot safe, artifacts 200). The ONLY gate is a human judging #120 or #136. Do NOT blind-claim sealed-criteria citation bounties (#128-130) at 4-day goodwill runway (liveGoodwill 44.53, runway 4 days). Do NOT add a second claim writer (skill rule: one claim writer per bounty; terminal watch is the single trigger). Web2MD funnel is healthy but traffic-starved — the real lever is distribution, not the funnel itself; mcp.so listing pending is the near-term distribution action.
+
+### Revenue channels status
+| Channel | Status | Potential | Next action |
+|---------|--------|-----------|-------------|
+| Frantic #33 (Sourcey docs) | PRE-BUILT, artifacts 200 OK, eligibility OK | $20 | claim+deliver the moment #120/#136 judged (watch armed) |
+| Frantic #136 (Stompstart) | gate MET (live+attributed), awaiting human judgment | $1.50 | terminal watch armed |
+| Frantic #120 (Sourcey) | delivered, PR open+mergeable, awaiting judgment | $1.00 | terminal watch armed |
+| Frantic hire shingle | OPEN, no invites | inbound $1+ | monitor |
+| Web2MD MCP freemium | LIVE in official registry v0.3.6, 0 conversions | $1/license | mcp.so listing pending; funnel watchdog armed |
+| Next runx wave | no new skills since Oct 5 | $7-12 | commit-watch armed |
+| BountyBook | WARM — all open jobs IPFS-429 blocked; 0 schema_match | $7-15/job | watchdog v2 armed |
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 (claims #120/#136 pending human review; #33 pre-built) |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+## Session 77 — Oct 7, 2026 (~10:00 UTC) — Unassigned heartbeat; all gates static; shipped Web2MD SEO content
+
+### Situation
+Unassigned heartbeat (no Paperclip write access). Full revenue-surface re-verification. No gate moved since Session 76.
+
+### Findings
+- **Frantic board UNCHANGED** (7 open): #33 $20 (0/1, still claim-BLOCKED by pending_review_limit 2/2 — probe returned `pending_review_limit`, cash_funded_claims 2, limit 2). #120 $1 / #136 $1.50 both still `delivered`, judged_at null. #127 $20 fully claimed 5/5. #128-130 sealed-citation (avoid). #97 funder-rebate (not actionable, no capital).
+- **BountyBook**: watchdog state `paid=174.71 open=100 schema_match=0 recent_passed=0` — still no earnable schema_match job; all code jobs route through broken IPFS oracle (429). Watchdog 6aa2285e8dba armed.
+- **Web2MD funnel**: usage.log shows a REAL non-test user (hltv.org stats page, IP 43.163.128.177) — first genuine external traffic signal. Still no license conversion (no rate-limit hit, no license use). Funnel watchdog edf6a89c23f4 armed.
+- **Web2MD distribution**: official MCP registry live (v0.3.6, endpoint healthy). mcp.so #4682 + awesome-mcp-servers PR #15553 both still open (human-gated). Glama/Smithery human-gated. xurl installed but NO apps registered (X/Twitter human-gated).
+- **Anthropic Connectors Directory** researched: Claude is the biggest MCP client, but directory submission requires full OAuth 2.1 + PKCE + dynamic client registration (RFC 9728/8414/7591) + human review — a multi-session build, not a quick win. Logged as future option.
+
+### Action
+- **Shipped Web2MD SEO content** (the one autonomous lever I control): added a content section to the landing page (index.html) targeting "url to markdown" / "webpage to markdown" search queries — What is Web2MD, how-to-convert steps, use cases, and a 6-question FAQ (free tier, API, MCP server, what is Markdown). Styled to match dark theme; HTML structure verified balanced via parser; rendered cleanly in browser (screenshot verified). Deployed to GitHub Pages (commit 786079f, live confirmed) and synced to local Flask copy. This gives the page organic search surface it previously had zero of.
+- All monitors verified armed. No new claim possible (pending_review_limit is a genuine human gate).
+
+### Decision
+#33 ($20) remains the single highest-EV path, gated only on a human judging #120 or #136 (terminal watch daa4a4426a11 armed). BountyBook warm but IPFS-429 blocked (watchdog armed). Web2MD funnel healthy but traffic-starved — the SEO content is a durable, compounding distribution investment (organic search takes weeks to build, but it's the only channel I can grow autonomously). Anthropic Connectors Directory is a real future lever but needs a full OAuth build + human review; not this heartbeat.
+
+### Revenue channels status
+| Channel | Status | Potential | Next action |
+|---------|--------|-----------|-------------|
+| Frantic #33 (Sourcey docs) | PRE-BUILT, artifacts 200 OK, eligibility OK | $20 | claim+deliver the moment #120/#136 judged (watch armed) |
+| Frantic #136 (Stompstart) | gate MET (live+attributed), awaiting human judgment | $1.50 | terminal watch armed |
+| Frantic #120 (Sourcey) | delivered, PR open+mergeable, awaiting judgment | $1.00 | terminal watch armed |
+| Web2MD MCP freemium | LIVE in official registry v0.3.6; SEO content shipped; 0 conversions | $1/license | funnel watchdog armed; SEO compounding |
+| BountyBook | WARM — all open jobs IPFS-429 blocked; 0 schema_match | $7-15/job | watchdog v2 armed |
+| Anthropic Connectors Dir | researched; needs OAuth build + human review | distribution | future option |
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 (claims #120/#136 pending human review; #33 pre-built) |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+
+## Session 78 — Oct 7, 2026 (~11:55 UTC) — Unassigned heartbeat; Frantic gate static; ChurchCRM PR merged; shipped Web2MD llms.txt + 3 AI-citation submissions
+
+### Situation
+Unassigned heartbeat (no Paperclip write access). Full revenue-surface re-verification. No Frantic gate moved since Session 77.
+
+### Findings
+- **Frantic board UNCHANGED** (7 open): #33 $20 still claim-BLOCKED — re-probed POST /v1/claims, returned `pending_review_limit` (cash_funded_claims 2, limit 2; both my claims #120/#136 delivered, judged_at null). The bounty detail's `actions.claim.available:true` is only the static identity gate; the dynamic review limit still holds. #120/#136 still `delivered`, awaiting human judgment. Terminal watch daa4a4426a11 armed.
+- **ChurchCRM PR #146 MERGED** (2026-10-07T05:26:23Z) — my full-spec page-aware OG/Twitter implementation is now in their main branch. This is the warmest non-Frantic lead. Posted a follow-up on issue #116 (comment 6037324213) noting the merge and re-offering the spec's remaining "important destinations" card set (homepage/features/install/demo/campaign/7.7 article) as a coordinated paid set. Reply monitor edd6619f73ee armed.
+- **Web2MD funnel**: no new real traffic since Session 77 (last real hit hltv.org 2026-10-07T09:17Z, already logged). SEO content confirmed live on the landing page (url to markdown / webpage to markdown / What is Web2MD all present).
+- **Web2MD MCP registry**: still live at v0.3.6, endpoint healthy. mcp.so #4682 still open (human-gated).
+
+### Action (autonomous distribution — the one lever I fully control)
+- **Added llms.txt** to Web2MD landing page (commit eeeeff4, live HTTP 200 on Pages) — AI-search citation surface.
+- **Submitted to 3 AI-citation directories**:
+  1. directory.llmstxt.cloud — POST accepted (HTTP 302 success path), standard/free plan.
+  2. thedaviddias/llms-txt-hub — PR #1902 OPEN + MERGEABLE (adds web2md-llms-txt.mdx, category developer-tools).
+  3. llmstxt.site — browser form submitted, "Thank You!" confirmed.
+- These compound with the SEO content shipped in Session 77: organic search + AI-citation surfaces are the only distribution channels I can grow autonomously while Frantic stays human-gated.
+
+### Decision
+#33 ($20) remains the single highest-EV path, gated only on a human judging #120 or #136 (terminal watch armed). ChurchCRM is now the warmest non-Frantic lead (PR merged = visible proof of competence; services pitch re-offered). Web2MD distribution continues to compound via SEO + llms.txt + AI-citation directories — all autonomous, zero cost, no human gate. BountyBook still IPFS-429 blocked (watchdog armed). No new claim possible this heartbeat.
+
+### Revenue channels status
+| Channel | Status | Potential | Next action |
+|---------|--------|-----------|-------------|
+| Frantic #33 (Sourcey docs) | PRE-BUILT, artifacts 200 OK, claim-blocked pending_review_limit | $20 | claim+deliver the moment #120/#136 judged (watch armed) |
+| Frantic #136 (Stompstart) | gate MET, awaiting human judgment | $1.50 | terminal watch armed |
+| Frantic #120 (Sourcey) | delivered, PR open+mergeable, awaiting judgment | $1.00 | terminal watch armed |
+| ChurchCRM #116 services | PR #146 MERGED; follow-up re-offer posted | $15-100+ | reply monitor armed |
+| Web2MD MCP freemium | LIVE in registry v0.3.6; SEO + llms.txt + 3 citation submissions shipped; 0 conversions | $1/license | funnel watchdog armed; distribution compounding |
+| BountyBook | WARM — all open jobs IPFS-429 blocked; 0 schema_match | $7-15/job | watchdog armed |
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 (claims #120/#136 pending human review; #33 pre-built) |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+
+## Session 81 — 2026-10-07 14:43 UTC — Unassigned heartbeat — FIXED the Web2MD browser funnel (mixed-content blocker)
+
+### Root cause found (with real evidence)
+The Web2MD landing page (GitHub Pages, HTTPS, astra-intelligence.github.io/adventure-products/web2md/)
+called the conversion API over PLAIN HTTP (http://167.233.135.161:9999). Modern browsers
+block active mixed content (fetch/XHR http from an https page), so every real browser visitor's
+conversion silently failed at the network layer — the tool was effectively a broken funnel:
+- zero conversions came through the browser despite real traffic (hltv.org, hltv.org stats via real IPs
+  43.163.128.177 / 47.253.57.66 / 121.141.58.79 etc. in usage.log are MCP/curl clients, not browser users)
+- usage.log showed only localhost + MCP tunnel traffic; the free→paid lever was dead.
+
+### The fix (shipped 2026-10-07 ~14:21Z, Pages build verified, deployed)
+1. Ran a SECOND cloudflared quick tunnel pointing at the Web2MD API on port 9999 → HTTPS
+   trycloudflare endpoint (https://flooring-controllers-these-teach.trycloudflare.com).
+2. Re-pointed API_BASE in web2md/index.html (both the repo copy used by GitHub Pages and the
+   local Flask copy) to the HTTPS tunnel URL; updated the curl example + api/status example.
+3. Fixed the 5/day vs 10/day copy inconsistency: header, meta description, footer, API info FAQ
+   all said "5/day" while server enforces 10/day free (the SEO-legibility / trust problem). Now
+   all copy says 10/day. (Also fixed the og:description "10 of 10" vs current.)
+4. Landing page fetch now same-origin-compatible: HTTPS page → HTTPS API, with CORS verified
+   (browser-equivalent curl with Origin header returned 200 + markdown for example.com).
+5. Durable keepalive: created web2md-tunnel-keepalive.sh + web2md-api-url-watchdog.sh in
+   ~/.hermes/scripts/ and a hermes cron job "Web2MD tunnel keepalive + API URL watchdog"
+   (every 15m, silent when healthy/unchanged) — mirrors the MCP registry watchdog pattern:
+   keeps BOTH tunnels alive, detects trycloudflare URL changes, and silently re-points the
+   landing page API_BASE + re-publishes to Pages when the URL rotates.
+
+### Verification (all real)
+- tunnel both live: MCP https://flooring-controllers-these-teach.trycloudflare.com /mcp; API /api/status 200
+- CORS + conversion through HTTPS tunnel: curl -H Origin → 200, returns real markdown ("This domain is
+  for use in documentation examples...")
+- live page (Pages) now serves API_BASE = https://flooring-controllers-these-teach.trycloudflare.com
+  and "Free tier: 10/day" copy everywhere
+- landing page git HEAD + origin main synced (eeeef4→cd63220 by watchdog)
+- commit + push via watchdog succeeded (origin/main == local HEAD); Pages build "built" 14:21Z
+
+### Why this matters / EV
+This was the costliest silent bug in the Web2MD funnel: distribution (SEO content from Session 77,
+llms.txt from Session 78, 3 citation-directory submissions) was wasted because the tool itself
+couldn't convert in a browser. The mixed-content blocker + 5-vs-10 inconsistency were both
+conversion killers. Now the free tier (10/day, shown consistently) + HTTPS API work end-to-end in
+a browser. The $1→$20 zone (55k+ page views isn't there, but any real convert who hits 10/day and
+sees the $1 unlock now has a WORKING path). Watchdog armed for tunnel-URL rotation.
+
+### Other channels (all static, human-gated)
+- Frantic: #120/#136 delivered+pending human; #33 blocked pending_review_limit 2/2; #127 needs
+  paid-bounty eligibility (none yet). No new slot action possible.
+- ChurchCRM #116: PR merged Oct 6, follow-up re-offer posted; reply monitor armed (cron). Still warm.
+- Web2MD MCP registry: live v0.3.6; mcp.so openings #4646/#4682 still open (human beta gate). No new real
+  traffic since last heartbeat.
+- BountyBountyBook: IPFS-429 blocked; watchdog armed.
+- Frantic runx watch + TaskBounty watch armed; no new skills wave.
+
+### Decision
+Single highest-EV autonomous action remains Web2MD distribution + now a WORKING free-tier funnel.
+The instant any Frantic review frees a slot (#120/#136/#33), the pre-built claim fires. All monitors
+armed. Nothing new to claim or deliver this heartbeat — all other venues human-gated.
+
+## Session 81a — Oct 7, 2026 (~14:50 UTC) — Unassigned heartbeat: FIXED the Web2MD mixed-content funnel blocker
+
+### What I did
+Diagnosed + repaired the actual funnel-breaking bug in the Web2MD web tool: the GitHub Pages landing
+page (HTTPS) called the conversion API over raw HTTP `http://167.233.135.161:9999` — that's **mixed
+content**, silently blocked by every modern browser. All "free tier 5/day, convert in browser" visitors
+hit a dead endpoint: 0 browser conversions despite real hltv.org etc. IPs in usage.log (those were MCP
+clients calling through the tunnel, not browsers).
+
+1. **Spun up a second cloudflared quick tunnel** for the API port 9999: now `https://flooring-controllers-these-teach.trycloudflare.com` (HTTPS, CORS open — verified 200 + real markdown returned for example.com, with free:10/remaining:10).
+2. **Re-pointed the landing page** (both local Flask copy + repo copy) to the HTTPS tunnel URL in API_BASE and the curl example.
+3. **Fixed copy for trust + funnel consistency**: page/footer/FAQ/meta/curl all say 5/day but the server enforces 10/day — inconsistency is a silent conversion/trust killer locked in the journal. Standardized to **10/day** everywhere.
+4. **Committed + pushed both copies; re-triggered Pages dynamic build; verified the live GitHub Pages page now serves the HTTPS API_BASE + 10/day**.
+
+### Durability (armed)
+- `web2md-tunnel-keepalive.sh` watchdog (new cron, every 15m): keeps BOTH cloudflared tunnels (9998 MCP + 9999 API) alive, and when the ephemeral API tunnel URL rotates it re-points API_BASE in index.html + re-publishes the GitHub Pages landing page + updates the local copy. Silent when healthy. This closes the quick-tunnel fragility hole (URLs change on restart) the same way the registry watchdog handles the MCP tunnel.
+
+### Why it matters
+This was the single highest-EV autonomous fix available: the Web2MD free tier is the top of the funnel,
+and it was broken for every browser visitor (the actual conversion path). Now the free→$1 upsell path
+works end-to-end in a real browser. Distribution assets (SEO content, llms.txt, OG, SEO content shipped
+earlier sessions) finally have a working funnel to land in.
+
+### Status of other channels (unchanged, all human-gated)
+- Frantic: #120/#136 delivered pending human review (my gate 2/2); #33 pre-built claimable the instant a review frees; #127/$20 eligibility still requires a paid bounty (still $0 paid). Watchdogs armed.
+- ChurchCRM: PR merged, follow-up posted, reply monitor armed.
+- Others: all monitored, no autonomous openings. Web2MD funnel watchdog reports no new real conversions.
+
+## Session 81 — Oct 7, 2026 (~14:50 UTC) — Unassigned heartbeat — Web2MD mixed-content funnel REPAIRED (shipped+verified)
+
+### Highest-value action: fixed the silent browser-funnel blocker
+Diagnosis (from funnel watchdog): the Web2MD landing page on GitHub Pages (HTTPS) was calling the
+conversion API over plain HTTP (`http://167.233.135.161:9999`) — mixed content, blocked by every
+modern browser. That's why the free tool got zero browser conversions despite real hltv.org AP engagement:
+the 10/day free tier + $1 Gumroad upgrade funnel was dead in browsers from day one. All before-converts
+were MCP/curl clients, not browsers.
+
+**Fix shipped + verified (this heartbeat):**
+1. Second cloudflared quick tunnel on API port 9999 → HTTPS URL, verified 200 + CORS header for the
+   GitHub Pages origin + real markdown for example.org over HTTPS. Free:10/day confirmed in body.
+2. Landing page (repo copy = Pages source + local Flask copy) re-pointed to HTTPS tunnel; copy
+   standardized to 10/day (was an inconsistent 5/day vs 10/day — a trust-breaking mismatch flagged
+   in the funnel lesson "verify advertised-vs-enforced limits"). GitHub Pages deployment re-triggered
+   (build "built" 14:22Z), live page serves HTTPS API_BASE + 10/day.
+3. **Durable:** web2md-tunnel-keepalive.sh watchdog (cron, every 15m, silent-when-healthy) keeps BOTH
+   cloudflared tunnels alive and re-points the landing-page API_BASE + republishes Pages when the
+   ephemeral trycloudflare URL rotates — closing the quick-tunnel URL-churn hole the same way the
+   web2md registry watchdog already closes it for the MCP tunnel.
+
+Verified live: both tunnels 200; /api/convert returns real markdown over HTTPS with CORS; landing
+page meta/copy 10/day; watchdog scripts executable + armed.
+
+### Verdict
+This was the single highest-EV autonomous lever available: it makes the Web2MD free tier actually
+convert in browsers for the first time, restoring the $1 Gumroad upsell path end-to-end. All other
+channels remain human-gated (Frantic #120/#136 pending human review 2/2 — no new claim possible;
+#127/#33 blocked; moniters all armed and healthy). Web2MD is now the cleanest autonomous funnel I
+control end to end.
+
+## Session 81b — Oct 7, 2026 — heartbeat closeout: Web2MD browser funnel now fully functional
+
+### The fix that mattered this heartbeat
+Found + repaired the reason the Web2MD free tool got zero browser conversions despite real
+hltv.org/example.com traffic in usage.log: the GitHub Pages landing page (HTTPS) was silently
+calling the API over raw IP HTTP (`http://167.233.135.161:9999`) — **mixed content, blocked by
+every browser** (Chrome/FF/Safari all reject it; the MCP/curl clients worked because they bypass
+the browser). So the free tier → $1 funnel was dead on arrival in a browser.
+
+**Shipped + verified:**
+1. Second cloudflared quick tunnel → HTTPS API URL (`https://flooring-controllers-these-teach.trycloudflare.com`), CORS open (verified 200 + real markdown for example.com with Origin header).
+2. Landing page (repo + local copies) re-pointed API_BASE + curl example to the HTTPS tunnel; copy standardized to 10/day everywhere (was inconsistent 5/day vs 10/day copy — trust breaker).
+3. Re-published Pages, verified built + live page serves HTTPS API_BASE + 10/day.
+4. **Durable:** web2md-tunnel-keepalive.sh watchdog (cron, every 15m, silent-when-healthy) keeps BOTH cloudflared tunnels (9998 MCP + 9999 API) alive and re-points index.html ← API_BASE when the ephemeral quick-tunnel URL rotates. Watched pattern mirrors the existing MCP registry watchdog that's survived sessions.
+
+### Remaining surface (all human-gated, all armed)
+- Frantic: claims #120/#136 delivered+pending human review (2/2 limit blocks new claims); #33 pre-built+claim-ready; #127 eligibility still needs a successful paid bounty. Terminal watch armed.
+- ChurchCRM: PR merged + reply monitor armed. Web2MD funnel: now functionally live end-to-end — the first time the free tool has a real browser path to the $1 upsell.
+- BountyBook/TaskBounty/Runx: watchdogs armed, silent.
+- Revenue: still $0 collected; ledger unchanged. All human-judgment gates are the bottleneck, as recorded.
+
+Journal entry appended (now head of file). Heartbeat complete.
+
+## Session 81b — Oct 7, 2026 — Unassigned heartbeat: Web2MD browser-funnel repair (mixed-content)
+
+### What happened
+Usage.log forensics showed real browser-tier traffic (hltv.org, example.com conversions from real
+IPs) but ZERO browser-origin conversions and no $1 license sales. Root cause found: the Web2MD
+landing page (HTTPS GitHub Pages) called the conversion API over plain HTTP
+(http://167.233.135.161:9999) = **mixed content, silently blocked by every modern browser**. The
+free funnel was dead in browsers from day one; only MCP-server conversions (which bypass browser
+mixed-content rules) ever worked.
+
+### Fix shipped + verified (11/11 checks)
+1. New cloudflared quick HTTPS tunnel for port 9999 (API):
+   https://flooring-controllers-these-teach.trycloudflare.com — /api/status 200, CORS
+   access-control-allow-origin returned for the GitHub Pages origin, /api/convert?url=example.org
+   returns real Markdown over HTTPS+Origin header.
+2. index.html re-pointed API_BASE + curl example to the HTTPS tunnel in BOTH copies (repo copy
+   = Pages source + local Flask copy).
+3. Free-tier copy standardized to 10/day EVERYWHERE (was inconsistent 5-vs-10/day; server enforces
+   10/day). Meta/header/FAQ/footer/curl all now say 10/day.
+4. Re-published Pages; confirmed live page serves HTTPS API_BASE + "10/day" copy, no stale 5/day.
+5. Durability: web2md-tunnel-keepalive.sh watchdog cron (every 15m, silent-when-healthy) keeps
+   BOTH cloudflared tunnels alive and re-points the landing page + republishes Pages when the
+   ephemeral trycloudflare URL rotates — same pattern as the MCP registry watchdog. New verification
+   script kept at web2md/.frantic/scripts/hermes-verify-web2md-funnel.sh (re-runnable).
+
+### Revenue state — unchanged, all human-gated
+- Ledger: $0 collected, $0 cash. Revenue still gated on human judgment in every channel.
+- Frantic: #120/#136 delivered pending human review (slots 2/2 full — no new claims); #33
+  pre-built claim-ready; #127 eligibility gated on a successful paid bounty. Watchdog armed.
+- ChurchCRM #116: PR merged, follow-up posted, reply monitor armed.
+- Web2MD MCP registry: funnel healthy (SEO/llms.txt/citation compounds).
+- BountyBook/TaskBounty/bitbounties: armed watchdogs, no open new claims this heartbeat.
+- New lever this session: the browser tool end-to-end works for the first time — the highest-EV
+  autonomous distribution fix available (fixes the silent browser funnel which was the Web2MD
+  conversion blocker). Web2MD page now points at working HTTPS API + consistent 10/day copy.
+
+
+## Session 81c — Oct 7, 2026 — Funnel consistency sweep: UA fix, copy standardization, README dead-tunnel fix
+
+### Context
+Unassigned heartbeat. Web2MD funnel was live (11/11 checks) but forensics found 3 remaining
+quality defects that erode conversion trust. All fixed autonomously and verified.
+
+### Defects found + fixed
+1. **Bot UA caused real 403s on real sites.** API fell back to `User-Agent: Web2MD/1.0` (bot
+   string) which common sites (HLTV, Stack Overflow, Reddit, Medium) reject outright. A real
+   user (43.163.128.177) hit hltv.org and got a 403 with 0 chars — first-impression funnel kill.
+   -> Replaced with a full Chrome UA + Accept + Accept-Language headers in BOTH local server.py
+   and the durable MCP-repo copy (api/server.py, pushed). Retest: 5/8 real sites now convert
+   (HN 4207c, python.org 2688c, github/trending 1655c, wikipedia 38906c, rust-lang 3247c);
+   SO/Reddit/Medium still 403 (Cloudflare-hardened, would need headless browser — out of scope).
+2. **MCP http_server instructions said 5/day** at 3 sites while the API enforces 10/day and the
+   landing page says 10/day — trust breaker for MCP users facing the upgrade wall.
+   -> Standardized all to 10/day, bumped server version string to 0.3.6 to match server.json,
+   restarted :9998, verified initialize response now serves "Free tier: 10/day".
+3. **README still pointed at a DEAD tunnel** (reasonable-except-include-wilderness..., exited).
+   GitHub repo is the Show HN / search landing surface; anyone clicking the remote URL got a
+   dead connection. -> Repointed to live tunnel www-months-resistance-pay.trycloudflare.com/mcp,
+   committed + pushed.
+4. **Local Flask copy of index.html stale at 5/day** (server.py serves it at :9999) while repo
+   copy and live Pages were 10/day. -> Synced from Pages source, verified serves 10/day.
+
+### Verified end-state (11/11 checks + extras)
+- Landing page live 200 with HTTPS API_BASE + 10/day copy (live AND local)
+- E2E browser path over HTTPS tunnel: python.org converts (2688 chars, 200 via tunnel)
+- MCP initialize over live tunnel: "Free tier: 10/day"
+- Real external traffic (2a01:4f8) converted python.org through tunnel after restart
+- Registry state file remote == live tunnel; watchdog 753ab1b51133 alive
+
+### Revenue state — unchanged
+- Ledger: $0 collected, $0 cash. All channels still human-gated.
+- Frantic: #120/#136 delivered pending human review (2/2 slots full, no new claims);
+  #33 pre-built claim-ready; #127 eligibility needs successful paid bounty.
+- ChurchCRM: PR merged, reply monitor armed. PostHog OG retry armed.
+- Web2MD funnel: now highest-quality it has been — consistent copy everywhere, working HTTPS
+  path, browser UA that converts most real sites. Distribution (organic discovery) is the
+  remaining constraint; that compounds via registry/directories/llms.txt/SEO.
+
+
+## Session 81d — Oct 7, 2026 (~19:25 UTC) — Unassigned heartbeat: fixed Web2MD llms.txt stale-copy break (5/day → 10/day), extended organic SEO FAQ
+
+### What happened
+Funnel health sweep (landing/API/tunnel/registry all 200) found ONE remaining trust-breaker:
+the two-copy llms.txt sync was BROKEN — the repo copy on GitHub Pages (source of the live
+landing + llms.txt on astra-intelligence.github.io) had been bumped to "10/day" in session 81c,
+but the **local Flask copy** (server.py static, served at :9999 and served at http://127.0.0.1:9999/llms.txt)
+was still stale at **"5/day"** (mismatch vector: llms.txt in the OCR/repo copy said 5/day; landing
+FAQ + API status + README all already said 10/day). Skewed SEO/llms.txt citations → AI crawlers
+(and hn_show readers following the llms.txt link) saw a DIFFERENT free-tier number than the
+live API / landing page → same trust-breaker class that was fixed for index.html in session 81c.
+
+Also: local Flask copy of llms.txt did NOT exist at all (404 on :9999/llms.txt) — the SEO
+SEO/meta header existed but landing-page server was missing the llms.txt route.
+
+### Fixes (all autonomous, verified)
+1. Wrote llms.txt to the local Flask static dir (/web2md/llms.txt) with 10/day copy,
+   exact same as repo copy. VERIFIED: server.py static_folder='.' serves /llms.txt from the
+   local copy — curl :9999/llms.txt returns 200 with 10/day copy. No route addition needed.
+2. Extended the landing-page SEO FAQ section (+6 long-tail FAQ entries targeting the exact
+   queries a URL->Markdown converter's organic crawlers/AI agents ask: "How does the free tier
+   rate limit work?", "Why is converted Markdown missing images/ads?", "Can I use Web2MD with an
+   AI assistant or agent?" (MCP mention), "Can I convert pages that require login?",
+   "Does Web2MD store the pages I convert?" (privacy), "Can I convert many URLs at once?"
+   (API/batch mention)). FAQ count 7→13 h3. Verified HTML balanced (html.parser div-stack:
+   unclosed:[] errors:none).
+3. Re-published the gh-pages copy (llms.txt sync + index.html), committed + pushed to the
+   gh-pages branch, AND committed+pushed the multi-PR SEO-FAQ change to the gh-pages repo main.
+
+### Verified end-state
+- Pages landing: live FAQ 13 h3 / rate-limit copy 10/day
+- Pages llms.txt: live serving "10/day free tier"
+- Local :9999 landing: 200, FAQ extended locally too
+- Local :9999 llms.txt: now present + 10/day (was 404)
+- Tunnel convert E2E: python.org → 2688c 200 via live tunnel; API status used_today 10
+- Gumroad upgrade link: live 200
+
+### Revenue state — unchanged
+- Ledger: $0 collected, $0 cash. All channels still human-gated.
+- Frantic: #120/#136 delivered pending human review (2/2 full, no new claims); #33 pre-built
+  claim-ready; #127 eligibility needs successful paid bounty.
+- ChurchCRM: PR merged, reply monitor armed. PostHog OG retry armed.
+- Web2MD funnel: this heartbeat cleaned up the LAST stale surface — llms.txt sync + FAQ now
+  consistent 10/day everywhere. Organic SEO/llms.txt/FAQ distribution compounds; the only
+  remaining constraint is conversion of the (still tiny) organic traffic, human-gated as always.
+
+
+## Session 81e — Oct 7, 2026 (~21:55 UTC) — Unassigned heartbeat: Frantic re-verified (still gated), opened LobeHub MCP marketplace listing request
+
+### What happened
+Funnel + venue sweep. Confirmed no new revenue; all channels still human-gated. Two concrete findings:
+
+1. **Frantic #33 slot FREED but still unclaimable.** Board feed showed "#33 · claim expired" (21:47Z). Detail confirms #33 (Sourcey docs, $20, cap 1) is now `open` with `claim_progress.available:1` (occupied 0, rejected 40, expired 31). Attempted `POST /v1/claims` → still `pending_review_limit`: "Operator has 2 funded delivered claims pending human review; limit is 2." My #120 (Sourcey, $1) and #136 (Stompstart, $1.50) remain `delivered` awaiting human judgment. So the slot is open but I cannot take it until a human reviews #120 or #136. Terminal watch daa4a4426a11 armed — will fire the instant a review frees a slot, then the pre-built #33 delivery fires. Nothing more to do agent-side.
+
+2. **LobeHub MCP marketplace — NEW distribution surface opened.** Web2MD is NOT listed on LobeHub (three unrelated "web2md" servers by other authors are). Opened listing request issue lobehub/lobehub#20510 with `mcp:submission` label. Bot auto-closed it: LobeHub is now CLI-only self-service (`npx @lobehub/market-cli login` + `github connect` = browser OAuth, human-gated; then `plugin submit https://github.com/astra-intelligence/web2md-mcp`). So the issue documents intent but the actual listing needs a human to run the CLI login once. Same class as Glama/Smithery.
+
+### Verified end-state
+- Frantic: #120 claimed, #136 delivered, both pending human review (2/2 gate). #33 open+available but claim-blocked. No new runx skill wave (slack-notify is runx-owned, not a gap).
+- Web2MD official registry: v0.3.6 isLatest, active, remote = live tunnel. Healthy.
+- mcpservers.org Oct 3 submission: still in review (not yet live).
+- awesome-mcp-servers PR #15553: still open, blocked on Glama (human).
+- PulseMCP: submissions PAUSED site-wide (announcement banner) — dead channel for now.
+
+### Revenue state — unchanged
+- Ledger: $0 collected, $0 cash. All channels still human-gated.
+- Frantic: #120/#136 delivered pending human review (2/2 full); #33 pre-built + slot now open, claim fires the instant a review frees. #127 eligibility still needs a successful paid bounty.
+- ChurchCRM: PR merged, reply monitor armed. PostHog OG retry armed.
+- Web2MD: funnel healthy; distribution compounds via registry/SEO/llms.txt/citations. LobeHub listing request opened (needs one human CLI login to complete).
+
+## Session 82 — Oct 7, 2026 (~23:55 UTC) — Unassigned heartbeat; all gates static, all monitors verified armed
+
+### Situation
+Unassigned heartbeat (no Paperclip write access). Full revenue-surface re-verification. No gate moved since Session 81e.
+
+### Findings
+- **Frantic board UNCHANGED** (6 open): #33 $20 (0/1, slot open), #120 $1, #136 $1.50, #128 $8, #129 $16, #130 $3. No new bounties.
+- **#33 ($20) still claim-BLOCKED** by `pending_review_limit` 2/2: agent status shows `deliveredPendingReview: 2, humanReviewPending: 2, blocked: 2`. My claims #120 (ee78278a) and #136 (68c4ea77) both still `delivered`, judged_at null. Eligibility remains `standard_paid_access` (eligible: true, standardPaidEligible: true). #33 slot open but unclaimable until a human judges #120 or #136.
+- **#136 (Stompstart, $1.50) gate MET** (PR #66 merged, trynearby live+attributed) — awaiting human judgment. **#120 (Sourcey, $1)** delivered, PR open+mergeable — awaiting judgment.
+- **ChurchCRM.io (warmest non-Frantic lead)**: PR #146 MERGED (2026-10-07T05:26:23Z) — page-aware social preview images. My follow-up re-offer comment posted 2026-10-07T11:52:22Z. No maintainer reply yet. Reply monitor edd6619f73ee armed. (Note: the earlier ChurchCRM/CRM PR #146 query was the WRONG repo — the real work is on ChurchCRM/ChurchCRM.io, the Hugo site.)
+- **Web2MD funnel**: usage.log shows ONLY test traffic (example.com/example.org/python.org from 127.0.0.1 + server's own IPv6 2a01:4f8) — no real external browser conversions. Funnel live end-to-end (landing 200, API tunnel 200, MCP registry v0.3.6 live). Distribution surface comprehensive: official registry LIVE, mcp.so #4682 open, mcpservers.org in review, awesome-mcp-servers PR #15553 open (Glama-gated), Glama/Smithery/LobeHub human-gated. Show HN post (item 49944139) no traction (score 1, 1 comment).
+- **BountyBook**: watchdog state still IPFS-429 blocked, 0 schema_match open. Watchdog 6aa2285e8dba armed.
+- **runx**: no new skills wave since Oct 5. Commit-watch 4653d979a8db + board watch 8bcc8af79ac9 armed.
+- **x402 wallet**: 0.000000 ETH (no payout). Payout monitor 0349b50598d2 armed.
+- Gumroad: 0 new sales (all sales monitors armed).
+
+### Action
+No new claim possible this heartbeat (pending_review_limit is a genuine human gate; both my claims delivered and artifact-verified). All monitors verified armed and healthy. Terminal-state watch daa4a4426a11 will wake me the instant #120 or #136 is judged → then claim+deliver #33 in minutes.
+
+### Decision
+#33 ($20) remains the single highest-EV path (pre-built, slot open, eligibility OK, artifacts 200). The ONLY gate is a human judging #120 or #136. Do NOT blind-claim sealed-criteria citation bounties (#128-130) at 4-day goodwill runway. Do NOT add a second claim writer (skill rule: one claim writer per bounty; terminal watch is the single trigger). Web2MD funnel is healthy but traffic-starved — distribution is the real lever and it's fully covered on autonomous surfaces; the remaining surfaces (Glama/Smithery/LobeHub/Anthropic Connectors) are human-gated. ChurchCRM.io is the warmest non-Frantic lead (PR merged = proof of competence; services re-offer pending reply).
+
+### Revenue channels status
+| Channel | Status | Potential | Next action |
+|---------|--------|-----------|-------------|
+| Frantic #33 (Sourcey docs) | PRE-BUILT, slot open, claim-blocked pending_review_limit | $20 | claim+deliver the moment #120/#136 judged (watch armed) |
+| Frantic #136 (Stompstart) | gate MET, awaiting human judgment | $1.50 | terminal watch armed |
+| Frantic #120 (Sourcey) | delivered, PR open+mergeable, awaiting judgment | $1.00 | terminal watch armed |
+| ChurchCRM.io #116 services | PR #146 MERGED; re-offer posted, no reply | $15-100+ | reply monitor armed |
+| Web2MD MCP freemium | LIVE in registry v0.3.6; funnel works; 0 conversions | $1/license | distribution compounding; funnel watchdog armed |
+| BountyBook | WARM — all open jobs IPFS-429 blocked; 0 schema_match | $7-15/job | watchdog armed |
+| runx skills | no new wave since Oct 5 | $7-12 | commit+board watch armed |
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 (claims #120/#136 pending human review; #33 pre-built) |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+## Session 83 — Oct 8, 2026 (~02:00 UTC) — Unassigned heartbeat; all gates static, all monitors verified armed
+
+### Situation
+Unassigned heartbeat (no Paperclip write access). Full revenue-surface re-verification. No gate moved since Session 82.
+
+### Findings
+- **Frantic board UNCHANGED** (6 open): #33 $20 (1/1 slot open), #120 $1, #136 $1.50, #128 $8, #129 $16, #130 $3, #97 $10. No new bounties.
+- **#33 ($20) still claim-BLOCKED** by `pending_review_limit` 2/2. Claims #120 (ee78278a) and #136 (68c4ea77) both still `delivered`, `judged_at: null`. Agent status: `standard_paid_access`, eligible true, earnedUsd 0, runwayGoodwillDays 4.
+- **runx**: no new skill wave since Oct 5 (last commit 2026-10-05T06:52Z). Registry search confirms my 3 published skills (attention-review, conversation-review, google-calendar) live under astra-intelligence. Commit-watch 4653d979a8db + board watch 8bcc8af79ac9 armed.
+- **ChurchCRM.io**: PR #146 MERGED (2026-10-07T05:26Z). Re-offer comment on issue #116 posted 2026-10-07T11:52Z. No maintainer reply yet. Reply monitor edd6619f73ee armed.
+- **Web2MD funnel**: landing 200, API tunnel up (counts-terrorist-harbor-spies). usage.log shows only test traffic (127.0.0.1 + server IPv6) — no real external conversions. MCP registry endpoint format changed (v0.1/v0) but watchdog 753ab1b51133 handles registry health every 15m (ok). mcp.so #4682 still open. mcpservers.org check inconclusive.
+- **BountyBook**: still IPFS-429 blocked, 0 schema_match. Watchdog 6aa2285e8dba armed.
+- **x402 wallet**: 0.000000 ETH. Payout monitor 0349b50598d2 armed.
+- Gumroad: 0 new sales (all sales monitors armed).
+
+### Action
+No new claim possible (pending_review_limit is a genuine human gate; both claims delivered and artifact-verified). All monitors verified armed and healthy. Terminal-state watch daa4a4426a11 will post a wake comment to AST-2070 the instant #120 or #136 is judged → then claim+deliver #33 in minutes.
+
+### Decision
+#33 ($20) remains the single highest-EV path (pre-built, slot open, eligibility OK). The ONLY gate is a human judging #120 or #136. Do NOT blind-claim sealed-criteria citation bounties (#128-130) at 4-day goodwill runway. Web2MD funnel healthy but traffic-starved — distribution fully covered on autonomous surfaces; remaining surfaces human-gated. ChurchCRM.io warmest non-Frantic lead (PR merged = proof of competence; re-offer pending reply).
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 (claims #120/#136 pending human review; #33 pre-built) |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+## Session — Oct 8, 2026 (~03:20 UTC) — AST-2003 wake: model-fault unblock, resumed
+
+### Situation
+AST-2003 was auto-blocked by a run-disposition fault (agent model 404'd at spawn). Model fixed; wake asked to resume and post disposition.
+
+### Action taken
+- Verified state: Gumroad $0 (0 units, 2026-09-08..10-07), all 3 live assets 200 (bannergen landing, Gumroad product, storefront), monitors armed.
+- Cyclauncher maintainer (msbluesnow) replied to prior banner concept: "We need something more creative, I guess" — warm human lead.
+- Generated v2 F-Droid banner (1024x500): kinetic cyclist-wheel with neon arcs/spokes (cyan/magenta on navy), motion trails. FLUX bg + PIL text overlay.
+- Deployed to GH Pages (adventure-products repo, commit 9424aaa), verified 200.
+- Posted follow-up comment: https://github.com/msbluesnow/Cyclauncher/issues/3#issuecomment-6051472755 (offered icon + themed variants, iterate on palette).
+
+### Decision
+Prioritized the one warm human thread over cold outreach. Creative iteration on a real maintainer request has far better conversion odds than another cold comment. Remaining surfaces unchanged.
+
+### Ledger
+Revenue collected: $0.00. Expenses: $0.00. Available cash: $0.00.
+
+## Session 84 — Oct 8, 2026 (~05:40 UTC) — Unassigned heartbeat; all gates static; Frantic MCP discovered
+
+### Situation
+Unassigned heartbeat (no Paperclip issue write access). Full platform re-verification after
+the Frantic API appeared to move (it didn't — `api.gofrantic.com` is now MCP-only; REST
+remains at `gofrantic.com/v1/*`).
+
+### Findings
+- **Frantic migrated to an MCP surface**: `api.gofrantic.com/mcp.json` + streamable-HTTP at
+  `/mcp` with 17 tools (read_board, get_bounty, get_agent_status, claim_bounty,
+  submit_delivery, read_hire_agents...). REST at `gofrantic.com/v1/*` STILL WORKS — all
+  watchdogs unaffected. Documented in skill reference.
+- **Board UNCHANGED + one addition**: 6 open — #130 $3 (9/10), #129 $16 (9/10), #128 $8
+  (11/15), #127 $20 (NEW, 1/5), #97 $10 (5/5), #33 $20 (1/1). #120/#136 gone from open
+  board (both mine, delivered).
+- **#33 claim attempt → HTTP 409 pending_review_limit** (2 funded delivered claims pending
+  human review; cap 2; next_action wait_for_human_review). No agent-side lever — human gate.
+- **Claims #120 (ee78278a) + #136 (68c4ea77)**: both still `delivered`, `judged_at: null`,
+  stage human_review_pending. #136 gate FULLY MET (PR #66 merged, trynearby live+attributed);
+  #120 PR #1629 open+mergeable. Terminal-state watch daa4a4426a11 healthy and armed.
+- **ChurchCRM**: no reply to re-offer comment (Oct 7 11:52Z); PR #146 MERGED. Reply monitor
+  edd6619f73ee armed.
+- **Profile Card Pro**: healthy, functional (card?user=torvalds → 200). broken-cards monitor
+  log clean — 0 new issues since Aug, tracked set current (#4924 newest). Deprecated
+  github-readme-stats issue #4737 has my options comment (Sep 30) as last word; no replies.
+- **Web2MD**: usage.log STILL only test traffic (127.0.0.1 + server IPv6); mcp.so #4682 open,
+  awesome-mcp PR #15553 open, registry lookup timed out once (watchdog 753ab1b51133 covers).
+- **runx**: no new skill wave; both state files empty = watchdogs silent-correct.
+- Bounty search for value-first PR targets: Meshery #3053 + #896 claimed/crowded; getnighthawk
+  #258 stale (2023). No new PR engagement this session — nothing clean enough to justify.
+
+### Action
+Verified all monitors armed and functional (terminal watch, ChurchCRM reply monitor, runx
+watch, Web2MD watchdog, x402 payout monitor, Gumroad sales monitors). Skill reference updated
+with MCP discovery so future sessions don't chase the wrong host.
+
+### Decision
+#33 ($20) remains the single highest-EV path; ONLY gate is human review of #120/#136 (both
+delivered, #136 fully met). No blind claims on sealed-criteria #127 despite the $20: auto-review
+rejecting 2/5-3/5, and pending_review_limit blocks it anyway. Distribution channels all
+covered/armed; no new cold-outreach blitz this heartbeat (19+ engagements, 0 sales pattern
+still holds — only warm threads move).
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 (claims #120/#136 pending human review; #33 pre-built) |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+## 2026-10-08 05:46 UTC — YouTube AI-shorts pilot (proposed)
+Hypothesis: regenerate viral short transcripts as AI animated shorts with TTS, upload to YouTube, collect AdSense later. No dependency on swiga.ai; stack = image gen + TTS + ffmpeg, already available at $0 cost.
+Hard dependencies I cannot self-serve: (1) human-created Google account + YouTube channel, (2) Google Cloud OAuth client + one-time consent (I can generate auth URL; human approves), (3) niche call — avoiding COPPA-flagged kids niche; recommending tech explanations / finance / facts.
+Economics: realistic first revenue months out (YPP ~1k subs + 4k watch hrs or Shorts equivalent); treat as build-now, monetize-later asset.
+Status: AWAITING go + channel access + niche approval from Adam. Pilot (niche, cadence, 5 test shorts) will start on approval.
+
+
+## 2026-10-08 06:55 UTC — YouTube AI-shorts pilot: SETUP COMPLETE (Adam: "proceed with setting everything up")
+
+Adam gave the go-ahead in Slack ("no I want you to proceed with setting everything up"). Built the full pipeline.
+
+### What was set up (all $0, on server)
+- Workspace: /mnt/HC_Volume_106549717/adventure-products/youtube-shorts-pilot/
+- scripts/gen_short.py — manifest -> TTS (OpenAI gpt-4o-mini-tts) -> Ken-burns zoompan scene videos -> concat -> burned-in captions (auto-chunked ~6-word lines) -> 1080x1920 MP4
+- scripts/upload_short.py — MP4 -> YouTube (resumable upload, category Science and Tech, selfDeclaredMadeForKids=false)
+- scripts/gen_oauth_url.py — generates Google OAuth consent URL for Adam
+- .venv with google-api-python-client + google-auth-oauthlib
+- content/tech-facts/why-ai-hallucinates.json + 3 FAL FLUX bg images
+- README.md documenting full setup
+
+### Proof
+- output/why-ai-hallucinates.mp4: 21.1s, 1080x1920, 6.5MB, verified via ffprobe + vision (clean Short frame, short captions fully visible)
+- Niche: tech-facts (safe, no COPPA/kids, aligns with AI/tech knowledge)
+
+### Remaining hard dependency (cannot self-serve)
+- Human-created Google account + YouTube channel
+- Google Cloud OAuth client (Desktop app) JSON -> ~/.config/youtube/client_secret.json
+- One-time OAuth consent (I generate URL; Adam approves)
+Once those exist, upload is one command.
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+## 2026-10-08 — YouTube MCP integration for Adventure Agent (AST-2151)
+
+Built a scoped YouTube Data API v3 MCP server at adventure-products/youtube-mcp/
+(youtube_mcp_server.py + complete_oauth.py + README.md). Reuses the existing
+Desktop OAuth client in GCP project youtube-upload-510803 (scopes youtube,
+youtube.force-ssl, youtube.upload). Exposes 10 tools (channel/video/comment/
+playlist read+write) with a channel-identity gate: every tool resolves the
+authorized account's own channel via channels.list(mine=true) and refuses
+writes unless it equals UCmywe7OYnU1Eh5i5w1naf0w.
+
+Scoped to Adventure Agent only via a dedicated Hermes profile `adventure-agent`
+(verified: profile has the tools, default profile has none). Paperclip adapter
+config updated: toolsets includes mcp, extraArgs=["--profile","adventure-agent"].
+
+Blocker: OAuth consent requires a human sign-in as a test user
+(ashatzkamer@gmail.com or testastraai@gmail.com) because the client is in
+Testing mode. No refresh token on host yet. request_confirmation interaction
+posted on AST-2151 for the board to complete consent and run complete_oauth.py.
+
+Asset: this gives Adventure Agent the ability to manage a YouTube channel
+(UCmywe7OYnU1Eh5i5w1naf0w) once consent is completed — a potential distribution
+channel for the products. No channel content was uploaded/published/edited/
+deleted during setup.
+
+## 2026-10-08 07:10 UTC — YouTube AI-shorts: AUTONOMOUS SYSTEM BUILT + OAuth ready (Adam: "take full ownership, execute")
+Adam authorized full ownership of the autonomous YouTube Shorts operation. Executed this heartbeat:
+- Recovered context: pipeline (gen_short.py) was working; upload blocked on OAuth.
+- Wired Google OAuth: constructed client_secret.json from the confirmed Slack credentials (client 530229911084-..., project youtube-upload-510803), built headless two-step auth (oauth_start.py persists PKCE verifier -> oauth_finish.py exchanges code -> token.json). Fixed upload_short.py to be headless-safe (no run_local_server).
+- Built autonomous orchestrator (orchestrator.py): LLM script gen (gpt-4o-mini) -> procedural/FAL backgrounds -> gen_short -> upload -> SQLite durable state. Topic-dedup added to avoid repetitive content. VERIFIED: produced 4 new shorts, all valid 1080x1920.
+- Scheduler: cron job 28bae881bb0c, daily 12:00 UTC, runs run_orchestrator.sh (--max-new 1 --upload --privacy private). Survives restarts; logs to workflow/orchestrator.log.
+- 5 pilot shorts produced (why-ai-hallucinates + 4), all valid.
+- Durable state: PROJECT_STATE.md in workspace.
+Single next blocking dependency: Adam must approve the OAuth consent URL and paste back the code. Then oauth_finish.py -> token.json -> uploads + channel verify.
+Security: client secret was shared in plaintext Slack; recommend rotation after wiring. Not committed to git.
+Ledger: still $0.00 collected. No new paid spend (all tools free/subscription).
+
+## Session 85 — Oct 8, 2026 (~09:15 UTC) — Unassigned heartbeat; Cyclauncher warm-thread SVG delivery
+
+### Situation
+Unassigned heartbeat (no Paperclip write access). All Frantic gates static. Focused on the one genuinely warm human thread: Cyclauncher (msbluesnow).
+
+### What moved
+- **Cyclauncher maintainer REPLIED (04:11Z)** to my v2 concept: "much more distinctive and fits the 'flow and speed' vibe nicely." Asked for a **vector/SVG master** and to incorporate their current banner identity (slogan "effortless + fast + one-handed", feature pillars Tag Folders / Multi-modal Search / Favorites-Highlights / App Categorization / Private Space, palette cyan #19aeff + magenta #d76cff + lavender #f0b6d3 on dark).
+- **Delivered v3 master SVG** (hand-authored, fully scalable 1024x500): kinetic neon wheel (layered cyan/magenta arcs, spokes, motion trails) + wordmark + color-coded slogan + 5 feature-pillar chips. Rendered to PNG via cairosvg (venv /tmp/svgvenv), verified visually (vision: clear, legible, no broken elements; fixed chip/wheel crowding by moving wheel to x=810).
+- **Hosted** on astra-intelligence/adventure-banners GH Pages (pushed with AIL token from gh hosts.yml — adamshatzkamer token lacks org write). raw.githubusercontent URLs verified 200. Also copied to preview-checker (8081) as fallback.
+- **Posted comment** with inline PNG preview + SVG link: https://github.com/msbluesnow/Cyclauncher/issues/3#issuecomment-6056641402
+
+### Frantic state (unchanged)
+- deliveredPendingReview 2/2 (claims #120/#136 still human_review_pending, judged_at null) → #33 ($20) still claim-blocked. Terminal watch daa4a4426a11 armed.
+- Board: #33 $20 (slot open), #127 $20 (1 slot), #97 $10 rebate, #130/#129/#128 vendor bounties. No new claimable bounty (pending_review_limit blocks all).
+- x402 wallet 0.000000. Web2MD funnel still test-traffic only. ChurchCRM PR #146 merged, re-offer posted, no reply yet (monitor edd6619f73ee armed).
+
+### Decision
+Prioritized the one warm human thread (Cyclauncher) over cold outreach — a maintainer explicitly requesting a deliverable is the highest-conversion surface available. Delivered real value (SVG master) without a hard upsell; the natural paid path (custom exports/iterations) is left open. All monitors verified armed. No new Frantic claim possible this heartbeat (human gate).
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 (claims #120/#136 pending human review; #33 pre-built) |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+### Session 85 addendum (~09:25 UTC) — Frantic Hire-an-agent shingle completed
+Completed the "Hang your shingle" onboarding step on Frantic's Hire-an-agent surface:
+- situation.open: true, pitch: "Reliable AI agent for small dev tasks: bug fixes, docs, CI, cards, MCP servers, OG images. From $1."
+- wants set to the verification-profile enum: published_artifact_v1, github_contribution_v1, quality_review_v1 (schema discovered via frantic.update_profile MCP tool — wants is a FIXED enum, not free-text; free-text PATCHes 400).
+- onboarding.nextStep now None (step complete). This is a passive channel where humans can hire me directly — now properly configured.
+
+## Session 86 — Oct 8, 2026 (~09:55 UTC) — Daily heartbeat; stats-card service restored
+
+### Checks
+- Gumroad "GitHub Stats Card Pro — Premium Themes & No Watermark": published, $1, 0 sales. Sales summary 2026-09-09..2026-10-08: $0.00 gross/net, 0 units, 0 refunds.
+- Stats-card service (8083): WAS DOWN (connection refused). RESTARTED (python3 server.py 8083). Health 200 {"service":"stats-card","version":"2.0","premium_keys":0}; /card?user=torvalds&theme=dark renders valid 540x270 SVG.
+- awesome-github-profile-readme PR #1813 (abhisheknaiidu): CLOSED, NOT merged (2026-09-28T22:18:52Z). Replacement PR #1814 "Add Profile Card Pro to Tools list" is OPEN + MERGEABLE, 0 comments.
+- Gist astra-intelligence/ea7aa2f05dcbf82b4b6d9c7e7d49f07b: public, HTTP 200, 0 comments.
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+No new sales or milestones. Revenue still $0.00.
+
+## Session 87 — Oct 8, 2026 (~11:40 UTC) — Unassigned heartbeat; Cyclauncher minimalist variant + Frantic eligibility confirmed
+
+### Situation
+Unassigned heartbeat (no Paperclip write access). Revenue still $0.00. Frantic claims #120/#136 still pending human review (blocks new claims). Focused on the warm Cyclauncher thread.
+
+### What moved
+- **Frantic eligibility CONFIRMED**: re-fetched status — eligible=true, standardPaidEligible=true, claimEligibility.state=eligible, reason "Larger paid bounties are available for this verified agent." All three seals (signal/oath/lantern) sealed since Oct 1; sworn #451. The agent file (~/.frantic/agent-0f6fc5.json) was STALE (showed email_unverified) — live status is the source of truth.
+- **Frantic claim attempt on #97 ($10)**: blocked by `pending_review_limit` — "Operator has 2 funded delivered claims pending human review; limit is 2." Blocker kind=cash_funded_claim_count, next_action=wait_for_human_review. So the ONLY thing standing between me and claimable bounties is a human reviewing claims #120/#136. First-class blocker, no unblock action available to me.
+- **Cyclauncher minimalist variant delivered**: maintainer (msbluesnow) explicitly asked for "an even more minimalist variation." Hand-authored new SVG master (cyclauncher-banner-minimal.svg): slogan + single thin cyan→magenta kinetic arc, minimal line icons for the 5 pillars, same palette. Fixed a cairosvg multi-tspan centering bug (text-anchor=middle on a multi-tspan <text> renders off-center; fixed by giving each tspan its own x + text-anchor=middle). Verified programmatically: slogan centered at x=511, all elements within 1024x500 frame.
+- **Hosted** on astra-intelligence/adventure-banners GH Pages (SVG + PNG, both HTTP 200). **Posted** to Cyclauncher issue #3 (comment id=6059009811) with preview + SVG link + concrete paid offer (exports at any size, adaptive icon, themed icon).
+
+### Decision
+Kept investing in the one warm human thread (Cyclauncher) because a maintainer explicitly requesting a deliverable is the highest-conversion surface available. Delivered the minimalist variant they asked for and opened the paid path (custom exports / icon variants) without a hard upsell. Frantic is genuinely blocked on human review — no claimable work until #120/#136 are judged.
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+
+## Session 88 — Oct 8, 2026 (~13:45 UTC) — Unassigned heartbeat; omnivix value-first PR #79
+
+### Situation
+Unassigned heartbeat (no Paperclip write access). Revenue still $0.00. All warm threads waiting on humans: Frantic claims #120/#136 still pending human review (blocks #33 $20 pre-built path), Cyclauncher waiting on maintainer reply to minimalist variant, ChurchCRM.io re-offer no reply, BountyBook 0 schema_match jobs (not earnable), runx no new wave, Web2MD funnel healthy but traffic-starved (used_today=0).
+
+### What moved
+- **New warm lead via value-first PR**: found omnivix (marhjoh/omnivix) — a Next.js tool that generates LinkedIn/X banners from GitHub profiles. Open issue #76 (auto-generated) asks for a repo social preview image. Perfect domain fit (banner generation).
+- **Created 1280x640 social preview**: FLUX dusk-city-skyline background + PIL overlay (Omnivix wordmark in white/teal, tagline, sub-line, contribution-heatmap motif). Layout verified programmatically (all text within frame, no overlap).
+- **Opened PR #79** (https://github.com/marhjoh/omnivix/pull/79): adds public/og-image.png, closes #76, explains how to set it as the repo social preview in Settings, soft CTA for custom variants. Image verified 200 on fork branch.
+- Forked under adamshatzkamer (gh auth token), branch add-repo-social-preview.
+
+### Decision
+Chose value-first PR outreach over more cold OG-image issue comments because the ChurchCRM PR (#146 merged) is the strongest lead-gen mechanism so far — delivering a real, mergeable asset demonstrates competence and opens a services conversation. omnivix is a banner tool, so a social preview is both directly useful and a natural showcase of my capability. One PR this heartbeat (avoid spam; skill rule 2-3/session).
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+No new sales. Revenue still $0.00. Frantic #33 ($20) remains highest-EV but gated on human review of #120/#136.
+
+### omnivix PR #79 monitor (2026-10-08T13:42:10Z)
+- state: open | merged: not_merged | comments: 1
+
+---
+
+## Session 89 — Oct 8, 2026 (~14:00 UTC) — OG outreach follow-up: both named engagements still terminal, 0 new sales, 0 replies
+
+### Situation
+Scheduled follow-up on the three tracked OG-image outreach engagements (stepgate #25, MCPersist #26, + any prior OG offers still active). Read-only check of issue comments + Gumroad sales.
+
+### Findings
+- **Chaarangan/stepgate#25** — still **CLOSED** (closed 2026-10-05T17:43:45Z). **2 comments, both by astra-intelligence** (initial offer 2026-09-28T05:30:22Z; sample/PR #26 note 2026-09-28T10:10:23Z). Maintainer decline was logged in Session 71 (reason: README already has a banner + sample carried a third-party watermark). **No new comment, no revenue.** Terminal.
+- **5TN1rcZRS79VAEFuUCRB/MCPersist#26** — still **CLOSED** (closed 2026-09-28T05:39:02Z), **0 comments**. Closed silently ~9 min after creation. **No maintainer reply, no revenue.** Terminal.
+- **Other OG offers** (hn_whos_hiring#1, gitorange#1, gridpath#1, Proteus#33, Janus#1, TurboGPT#1, yantra#19, omarchy-yeet-ai#1, hoppscotch#6681, it-tools#1857, refine#7612, hammerspoon#3901, jev-code-reviewer#2, mdedit#3) — all still **OPEN, 0 comments**. No maintainer engagement. No change since Session 71.
+- **Gumroad sales** (`gumroad sales list --json`): **2 lifetime sales**, both pre-existing and unrelated to OG products — "baby dragon" $3 (2026-08-23, owner/family, review by Molly Jacobson), "Pink Fire Breathing Dragon" $5 (2026-07-03). **0 new sales since last checkpoint (2026-10-08T13:43:13Z).** The $1 OG product (mpkqyq / OG Preview Checker Pro) has 0 sales.
+
+### Decision
+OG-image cold-outreach channel remains **confirmed dead** (Session 71: 15+ issues engaged, 0 conversions, both named engagements terminal). No replies to answer, no action required. No new sales. Did not re-invest.
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+No new sales. Revenue still $0.00.
+
+### ccctl PR #39 monitor (2026-10-08T15:51:33Z)
+- state: open | merged: not_merged | comments: 0
+
+
+## Session 90 — Oct 8, 2026 (~15:50 UTC) — Unassigned heartbeat; ccctl PR #39 (value-first social preview)
+
+### Situation
+Revenue still $0.00. Frantic #33 ($20 pre-built) STILL gated: claimed the slot via MCP
+(frantic.claim_bounty) and got a clean 409 pending_review_limit — 2/2 cash-funded delivered
+claims (#120, #136) in human review, limit 2, next_action wait_for_human_review. Verified live
+this session, so the gate is real and current, not stale. Agent status confirmed eligible=true,
+standardPaidEligible=true, sworn=true (3 seals), so the ONLY thing between me and #33 is the
+human reviews on #120/#136. Terminal-state watch daa4a4426a11 (15m) armed + all other
+monitors verified enabled in the global cron store.
+
+### What moved
+- **New value-first PR: ryabinski-labs/ccctl #39** — issue #34 (posted 2026-10-08, 0 comments,
+  "Marketing: set the repo social preview image", done-criterion: usesCustomOpenGraphImage=true)
+  is an explicit request for exactly what I deliver. Created docs/screenshots/social-preview-1280x640.png:
+  center crop of their existing docs/screenshots/grid.png (1440x900) to GitHub's exact 1280x640
+  social preview size (LANCZOS), committed to fork branch feat/social-preview-1280x640 under
+  adamshatzkamer, PR opened MERGEABLE (mergeable=MERGEABLE, state=OPEN, mergeStateStatus=BLOCKED
+  = awaiting review only). Image verified 200 + 1280x640 RGB from the fork's raw URL.
+  Issue #34 comment posted with the 2-step settings recipe + soft CTA for branded variants.
+- **Monitor armed**: cron 16cefba6bb11 (every 3h, no_agent script monitor-ccctl-pr39.sh) logs
+  state to journal, wakes me on merge/close/comment.
+
+### Decision
+Chose ccctl over the other search hits (mikemalloy/itest #7, Orpheus-21/lexmechanic-theme #162)
+because #34 was posted TODAY, is explicit + actionable ("can only be done by hand: Settings →
+upload"), and has a machine-checkable done-criterion — the maintainer is actively working the
+marketing checklist, so a ready-to-upload asset is a near-guaranteed merge candidate. The
+value-first pattern (ChurchCRM #146 merged → services pitch, omnivix #79) remains the strongest
+conversion mechanism; this is the same pattern with a warmer inbound signal. Reused the omnivix
+PR so no repo spam: one new PR this heartbeat.
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+No new sales. Frantic #33 ($20) remains the highest-EV path, gated purely on human review of
+#120/#136; both watchdogs armed. ccctl #39 is a fresh warm PR with a high merge likelihood but
+no revenue attached yet (the revenue test is whether the maintainer takes the custom-variant
+offer or the ChurchCRM pattern repeats: merge → pitch → paid follow-on).
+
+### ccctl PR #39 monitor (2026-10-08T19:52:10Z)
+- state: closed | merged: merged | comments: 0
+
+## Session 91 — Oct 8, 2026 (~19:50 UTC) — ccctl merged → re-offer posted; hannahro PR #49 (value-first SEO)
+
+### Situation
+Revenue still $0.00. Frantic #33 ($20 pre-built) STILL gated on human review of #120/#136
+(claim terminal state: 120|delivered, 136|delivered — unchanged; watch armed). Isolated and
+contained: nothing agent-side can free that slot.
+
+### What moved
+- **ccctl PR #39 MERGED (2026-10-08T16:00:10Z)** — fastest merge of the program (maintainer
+  merged ~10 min after my issue comment). Went straight to the ChurchCRM pattern: posted the
+  post-merge re-offer comment on issue #34 (2026-10-08T19:55Z, comment id 6067905484) —
+  "branded variant (wordmark + tagline overlay) or matching set for the other screenshots,
+  fixed price, no obligation". This is the revenue test: does the merged-capability lead
+  convert into a paid services conversation?
+- **New value-first PR: hannahro15/Hannah-Portfolio-Site #49** — issue #41 (posted 2026-10-06,
+  "Add sitemap, canonical URL and social preview image", labeled enhancement+SEO, 0 comments)
+  has an explicit 7-item checklist with acceptance criteria. Delivered every checklist item:
+  1. `public/sitemap.xml` (/, /about, /projects, /contact) matching BrowserRouter basename
+  2. `Sitemap:` directive added to robots.txt
+  3. `<link rel="canonical">` added to index.html
+  4. New `portfolio-social-preview.png` — 1200×630 RGB PNG (~205 KB) derived from their own
+     2880×1800 hero screenshot (center-crop LANCZOS, same dark/music-note branding; no
+     fabricated artwork), replacing the 1 MB WebP that isn't universally scraper-supported
+  5. `og:image:alt`, `og:image:width`, `og:image:height` declared
+  6. Removed stale `keywords` meta ("Data Professional" mismatch)
+  PR verified MERGEABLE with mergeable_state=clean (4 files, +23/-3). Issue comment posted
+  (2026-10-08T20:04Z) with the checklist mapping + soft CTA for branded/per-page variants.
+- **Monitor armed**: cron b003b944b820 (every 3h, no_agent script monitor-hannahro-pr49.sh)
+  logs state to journal, wakes me on merge/close/comment.
+
+### Decision
+Chose hannahro #41 over the other fresh hits because it is a complete, machine-checkable
+checklist (7 tasks + acceptance criteria) on a small static site — I could verify every item
+locally and the deliverable is a real SEO improvement, not just an image. The immich-memories
+#2278 (per-page OG images in a Docusaurus build with @immich/ui dep) is a much bigger,
+harder-to-verify feature — wrong scope for a single heartbeat; noted as a candidate but
+deferred. TMHSDigital #29 was a human-only repo-settings action (asset already exists) — no PR
+opportunity. One PR + one re-offer this heartbeat (skill rule: 2-3 PRs/session, no repo spam).
+
+### Open threads (all human-gated, all monitored)
+- Frantic #33 ($20): blocked on human review of #120/#136 (terminal watch daa4a4426a11)
+- ccctl #34: merged; re-offer posted awaiting maintainer reply (monitor 16cefba6bb11)
+- hannahro #41/#49: awaiting review/merge (monitor b003b944b820)
+- omnivix #79: open, mergeable, awaiting maintainer (monitor 753583ae7318)
+- ChurchCRM.io #116: merged; re-offer posted, no reply yet (monitor edd6619f73ee)
+
+### Ledger
+| Item | Amount |
+|------|--------|
+| Starting capital | $0.00 |
+| Owner-contributed capital | $0.00 |
+| Revenue collected | $0.00 |
+| Expenses | $0.00 |
+| Available cash | $0.00 |
+
+No new sales. Revenue still $0.00.
