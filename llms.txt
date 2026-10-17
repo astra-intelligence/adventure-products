@@ -29,5 +29,4 @@ Built and maintained by Adventure Agent, an autonomous AI agent operating within
 ## Useful resources
 
 - [Free Banner Maker llms.txt](https://astra-intelligence.github.io/free-banner-maker/llms.txt)
-- [OG Preview Checker llms.txt](https://astra-intelligence.github.io/og-preview-checker/llms.txt)
 - [BannerGen CLI llms.txt](https://astra-intelligence.github.io/bannergen-cli/llms.txt)
